@@ -1,0 +1,83 @@
+@import "tailwindcss";
+.goog-te-banner-frame,
+.goog-te-gadget,
+.goog-logo-link,
+.skiptranslate {
+  display: none !important;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-y: auto;
+}
+
+iframe.goog-te-banner-frame {
+  display: none !important;
+}
+
+#google_translate_element {
+  display: none;
+}
+
+@theme {
+  --color-bg: #050012;
+  --color-card: #040121;
+  --color-primary: #c89bff;
+  --color-secondary: #1d123b;
+  --color-accent: #684f7b;
+  --color-bgAccent: #65417c;
+  --color-primaryText: #050012;
+  --color-secondaryText: #f0e6ff;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 22s linear infinite;
+}
+
+@keyframes clients-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.clients-scroll {
+  animation: clients-scroll 28s linear infinite;
+}
+
+.clients-scroll:hover {
+  animation-play-state: paused;
+}
+
+.input {
+  @apply
+  h-12
+  rounded-lg
+  border
+  border-white/10
+  bg-black/20
+  px-4
+  text-sm
+  text-white
+  outline-none
+  focus:border-primary;
+}

@@ -159,8 +159,6 @@ Dito por si:
         padding: 160px 40px 96px;
         max-width: 1200px;
         margin: 0 auto;
-        display: grid;
-        grid-template-columns: 1.2fr 0.8fr;
         gap: 56px;
         align-items: center;
       }
@@ -228,20 +226,27 @@ Dito por si:
         box-shadow: 0 20px 45px rgba(147, 51, 234, 0.45);
       }
 
-      /* CARDS */
-      .card-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 28px;
+      .cards-section {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: stretch;
+        gap: 24px;
+        width: 100%;
       }
+
+      .cards-section .card {
+        flex: 1 1 320px;
+      }
+
       .card {
         background: var(--surface);
         border: 1px solid var(--border);
         border-radius: 22px;
         padding: 24px;
-        display: grid;
-        grid-template-rows: 160px auto auto 1fr auto;
         gap: 12px;
+        max-width: 380px;
+        min-width: 280px;
         min-height: 420px;
         transition: all 0.35s ease;
       }
@@ -319,7 +324,6 @@ Dito por si:
       /* MOBILE */
       @media (max-width: 900px) {
         header {
-          grid-template-columns: 1fr;
           text-align: center;
         }
       }
@@ -352,6 +356,18 @@ Dito por si:
         }
         header {
           padding: 140px 20px 80px;
+        }
+
+        .cards-section {
+          flex-direction: column;
+          align-items: center;
+          gap: 20px;
+        }
+
+        .cards-section .card {
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
         }
       }
     </style>
@@ -446,7 +462,7 @@ Dito por si:
         </p>
       </div>
 
-      <div class="card-grid">
+      <div class="cards-section">
         <div class="card">
           <img src="./imgs/banner-nuapp.gif" />
           <h3>Nubank UI</h3>
@@ -623,13 +639,11 @@ Dito por si:
         </div>
 
         <div class="card">
-          <img
-            src="./imgs/banner-store.png"
-          />
+          <img src="./imgs/banner-store.png" />
           <h3>Loja Online</h3>
           <p>
-            API backend para gerenciamento de produtos de uma loja, com site desenvolvida
-            em React com PostgreSQL + Nodejs
+            API backend para gerenciamento de produtos de uma loja, com site
+            desenvolvida em React com PostgreSQL + Nodejs
           </p>
           <div class="stack">
             <span class="badge">#React</span>
@@ -649,9 +663,7 @@ Dito por si:
         </div>
 
         <div class="card">
-          <img
-            src="./imgs/banner-tabnews.png"
-          />
+          <img src="./imgs/banner-tabnews.png" />
           <h3>TabNews</h3>
           <p>
             Plataforma de compartilhamento de conteúdo técnico baseada em
@@ -690,7 +702,12 @@ Dito por si:
             <span class="badge">#Git</span>
             <span class="badge">#SEO</span>
           </div>
-          <a href="#" target="_blank" class="btn">Ver Projeto</a>
+          <a
+            href="https://github.com/Guilhermefonseca2021/salsait-restaurant"
+            target="_blank"
+            class="btn"
+            >GitHub</a
+          >
         </div>
 
         <div class="card">

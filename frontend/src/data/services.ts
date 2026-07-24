@@ -1,4 +1,4 @@
-export const services: Service[] = [
+const servicesItems: Service[] = [
   {
     id: 1,
     title: "Desenvolvimento Web",
@@ -42,3 +42,6 @@ export const services: Service[] = [
     icon: "💡",
   },
 ];
+
+
+export default servicesItems

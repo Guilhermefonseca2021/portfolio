@@ -11,6 +11,38 @@ body,
 #root {
   width: 100%;
   overflow-x: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #c89bff #050012;
+}
+
+/* Chrome / Edge / Safari */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+
+::-webkit-scrollbar-track {
+  background: #050012;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    #c89bff,
+    #684f7b
+  );
+
+  border-radius: 999px;
+
+  border: 2px solid #050012;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c89bff;
 }
 
 body {

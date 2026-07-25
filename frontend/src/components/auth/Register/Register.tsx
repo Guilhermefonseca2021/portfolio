@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
-import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
 import { useState } from "react";
+import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 const registerSchema = z
   .object({
@@ -48,13 +48,12 @@ export default function Register() {
   }
 
   return (
-    <section className="w-full flex items-center justify-center p-4 mt-70">
+    <section className="w-full flex items-center justify-center p-4">
       <div className="w-full max-w-md rounded-3xl border border-white/10 bg-card/80 backdrop-blur-xl shadow-2xl overflow-hidden">
         <div className="border-b border-white/10 p-6 sm:p-8">
           <h1 className="text-3xl font-bold text-center text-white">
-            Criar Conta
+            Cadastre-se
           </h1>
-
           <p className="text-center text-secondaryText mt-2">
             Cadastre-se gratuitamente
           </p>
@@ -185,13 +184,32 @@ export default function Register() {
           </div>
 
           <div>
-            <label className="flex items-center gap-2 text-sm text-secondaryText cursor-pointer">
+            <label className="flex items-start gap-2 text-sm text-secondaryText cursor-pointer">
               <input
                 type="checkbox"
                 {...register("terms")}
-                className="accent-primary w-4 h-4 rounded"
+                className="mt-1 h-4 w-4 rounded accent-primary"
               />
-              Aceito os termos de uso e política de privacidade
+
+              <span>
+                Aceito os{" "}
+                <Link
+                  to="/terms"
+                  target="_blank"
+                  className="font-semibold text-primary hover:underline"
+                >
+                  Termos de Uso
+                </Link>{" "}
+                e a{" "}
+                <Link
+                  to="/terms"
+                  target="_blank"
+                  className="font-semibold text-primary hover:underline"
+                >
+                  Política de Privacidade
+                </Link>
+                .
+              </span>
             </label>
 
             {errors.terms && (

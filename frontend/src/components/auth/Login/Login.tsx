@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
-import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
 import { useState } from "react";
+import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 const loginSchema = z.object({
   email: z.string().min(1, "Informe seu e-mail").email("E-mail inválido"),
@@ -36,7 +36,7 @@ export default function Login() {
   }
 
   return (
-    <section className="w-full flex items-center justify-center p-4 mt-20">
+    <section className="w-full flex items-center justify-center p-4">
       <div className="w-full max-w-md rounded-3xl border border-white/10 bg-card/80 backdrop-blur-xl shadow-2xl overflow-hidden">
         <div className="border-b border-white/10 p-6 sm:p-8">
           <h1 className="text-3xl font-bold text-center text-white">

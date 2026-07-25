@@ -9,8 +9,8 @@ export default function AuthLayout() {
   return (
     <main className="h-dvh bg-bg">
       {/* MOBILE */}
-      <section className="h-full w-full overflow-y-auto lg:hidden">
-        <div className="min-h-full w-full px-4 py-4">
+      <section className="h-full w-full overflow-y-auto lg:hidden bg-background">
+        <div className="min-h-full w-full h-full">
           <Outlet />
         </div>
       </section>
@@ -35,7 +35,7 @@ export default function AuthLayout() {
                 <p className="mt-5 max-w-md text-base leading-7 text-secondaryText/75">
                   Mantemos os serviços da sua empresa, gerencie contratos,
                   automatize cobranças recorrentes e acompanhe os resultados em
-                  tempo real com seus clientes.
+                  tempo real.
                 </p>
 
                 <div className="mt-10 space-y-5">
@@ -119,7 +119,7 @@ export default function AuthLayout() {
             </section>
 
             {/* Formulário Desktop */}
-            <section className="flex h-full items-center justify-center bg-bg p-8 overflow-y-auto">
+            <section className="flex flex-1 justify-center overflow-y-auto bg-bg p-8">
               <div className="w-full max-w-lg">
                 <Outlet />
               </div>

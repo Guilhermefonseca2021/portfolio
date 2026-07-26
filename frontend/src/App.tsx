@@ -1,16 +1,22 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import Login from "./components/auth/Login/Login";
+import Register from "./components/auth/Register/Register";
+import Automations from "./pages/Automations/Automations";
+import Clients from "./pages/Clients/Clients";
+import CRM from "./pages/CRM/CRM";
+import Dashboard from "./pages/Dashboard/Dashboard";
+import Finance from "./pages/Financeiro/Finance";
 import Home from "./pages/Home";
+import AuthLayout from "./pages/_Layouts/AuthLayout";
+import DashboardLayout from "./pages/_Layouts/DashboardLayout";
+import Leads from "./pages/Leads/Leads";
 import PortfolioDev from "./pages/PortfolioDev";
 import PortfolioSocialMedia from "./pages/PortfolioSocialMedia";
 import TermsAndService from "./pages/TermosAndServicos";
-import AuthLayout from "./pages/Layouts/AuthLayout";
-import Login from "./components/auth/Login/Login";
-import Register from "./components/auth/Register/Register";
-import Dashboard from "./pages/Dashboard/Dashboard";
-import DashboardLayout from "./pages/Layouts/DashboardLayout";
-import Clients from "./pages/Clients/Clients";
-
+import Whatsapp from "./pages/whatsapp/whatsapp";
+import Reports from "./pages/Reports/Reports";
+import Settings from "./pages/Settings/Settings";
 
 export default function App() {
   return (
@@ -33,24 +39,16 @@ export default function App() {
         </Route>
 
         {/* Dashboard */}
-        <Route element={<DashboardLayout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-
-          <Route path="/clientes" element={<Clients />} />
-
-          {/* <Route path="/leads" element={<Leads />} />
-
-          <Route path="/crm" element={<CRM />} />
-
-          <Route path="/financeiro" element={<Financeiro />} /> */}
-
-          {/* <Route path="/whatsapp" element={<WhatsApp />} />
-
-          <Route path="/automacoes" element={<Automacoes />} />
-
-          <Route path="/relatorios" element={<Relatorios />} />
-
-          <Route path="/configuracoes" element={<Configuracoes />} /> */}
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<Dashboard />} />
+          <Route path="clients" element={<Clients />} />
+          <Route path="leads" element={<Leads />} />
+          <Route path="crm" element={<CRM />} />
+          <Route path="finance" element={<Finance />} />
+          <Route path="automations" element={<Automations />} />
+          <Route path="whatsapp" element={<Whatsapp />} />
+          <Route path="reports" element={<Reports />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
     </BrowserRouter>

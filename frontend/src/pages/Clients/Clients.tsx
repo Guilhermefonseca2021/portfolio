@@ -1,63 +1,56 @@
 // src/pages/dashboard/Clients.tsx
 
-import { HiPlus } from "react-icons/hi2";
 import DataTable from "../../components/dashboard/reuses/table/DataTable";
 
-const columns = [
-  {
-    key: "name",
-    title: "Cliente",
-  },
-  {
-    key: "company",
-    title: "Empresa",
-  },
-  {
-    key: "status",
-    title: "Status",
-  },
-  {
-    key: "createdAt",
-    title: "Cadastro",
-  },
-];
+import { FiPlus } from "react-icons/fi";
+import StatusBadge from "../../components/dashboard/reuses/table/StatusBadge";
 
-const data = [
+type Employee = {
+  avatar: string;
+  name: string;
+  email: string;
+  role: string;
+  department: string;
+  status: string;
+  employed: string;
+};
+
+const employees: Employee[] = [
   {
+    avatar: "https://i.pravatar.cc/150?img=1",
     name: "João Silva",
-    company: "Fonseca Tech",
-    status: "Ativo",
-    createdAt: "24/07/2026",
+    email: "joao@email.com",
+    role: "Manager",
+    department: "Marketing",
+    status: "online",
+    employed: "12/01/2025",
   },
   {
+    avatar: "https://i.pravatar.cc/150?img=2",
     name: "Maria Souza",
-    company: "Creative Studio",
-    status: "Ativo",
-    createdAt: "21/07/2026",
+    email: "maria@email.com",
+    role: "Developer",
+    department: "Technology",
+    status: "offline",
+    employed: "22/08/2024",
   },
   {
-    name: "Carlos Lima",
-    company: "Lima Imports",
-    status: "Inativo",
-    createdAt: "17/07/2026",
+    avatar: "https://i.pravatar.cc/150?img=3",
+    name: "Pedro Lima",
+    email: "pedro@email.com",
+    role: "Designer",
+    department: "UI/UX",
+    status: "pending",
+    employed: "05/03/2025",
   },
   {
+    avatar: "https://i.pravatar.cc/150?img=4",
     name: "Ana Costa",
-    company: "AC Solutions",
-    status: "Ativo",
-    createdAt: "14/07/2026",
-  },
-  {
-    name: "Pedro Santos",
-    company: "PS Digital",
-    status: "Pendente",
-    createdAt: "09/07/2026",
-  },
-  {
-    name: "Lucas Oliveira",
-    company: "Dev Solutions",
-    status: "Ativo",
-    createdAt: "02/07/2026",
+    email: "ana@email.com",
+    role: "Sales",
+    department: "Commercial",
+    status: "online",
+    employed: "17/09/2023",
   },
 ];
 
@@ -72,36 +65,86 @@ export default function Clients() {
         </p>
       </div>
 
-      <DataTable
-        title="Lista de Clientes"
-        description="Visualize, pesquise e gerencie seus clientes."
-        columns={columns}
-        data={data}
+      <DataTable<Employee>
+        title="Clientes"
+        description="Gerencie todos as empresas que ja tem contratos."
+        data={employees}
+        columns={[
+          {
+            key: "name",
+            title: "Empresa",
+            sortable: true,
+            render: (row) => (
+              <div className="flex items-center gap-3">
+                <img
+                  src={row.avatar}
+                  alt={row.name}
+                  className="h-11 w-11 rounded-full border border-secondary object-cover"
+                />
+
+                <div>
+                  <p className="font-semibold text-secondaryText">{row.name}</p>
+
+                  <p className="text-sm text-secondaryText/60">{row.email}</p>
+                </div>
+              </div>
+            ),
+          },
+          {
+            key: "role",
+            title: "Contrato",
+            sortable: false,
+            render: (row) => (
+              <div>
+                <p className="font-medium text-secondaryText">{row.role}</p>
+
+                <p className="text-sm text-secondaryText/60">
+                  {row.department}
+                </p>
+              </div>
+            ),
+          },
+          {
+            key: "status",
+            title: "Status",
+            sortable: false,
+            render: (row) => <StatusBadge status={row.status} />,
+          },
+          {
+            key: "employed",
+            title: "Admissão",
+            sortable: true,
+          },
+          {
+            key: "actions",
+            title: "",
+            render: () => (
+              <button className="rounded-lg border border-secondary px-4 py-2 text-sm text-secondaryText transition hover:bg-secondary">
+                Editar
+              </button>
+            ),
+          },
+        ]}
         actions={
-          <button
-            className="
-              flex items-center gap-2
-              rounded-xl
-              bg-primary
-              px-5
-              py-3
-              font-semibold
-              text-primaryText
-              transition
-              hover:opacity-90
-            "
-          >
-            <HiPlus size={18} />
-            Novo Cliente
-          </button>
+          <div className="flex gap-3">
+            <button className="rounded-xl border border-secondary px-4 py-2 text-sm text-secondaryText transition hover:bg-secondary">
+              Ver Todos
+            </button>
+
+            <button className="flex items-center gap-2 rounded-xl bg-primary px-5 py-2 text-sm font-semibold text-primaryText transition hover:opacity-90">
+              <FiPlus size={16} />
+              Nova empresa
+            </button>
+          </div>
         }
         pagination={{
           page: 1,
-          totalPages: 12,
+          totalPages: 10,
           onPrevious: () => console.log("Anterior"),
           onNext: () => console.log("Próxima"),
         }}
       />
+      
     </div>
   );
 }

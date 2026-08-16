@@ -4,9 +4,11 @@ interface Props {
   openModal: () => void;
 
   onSubmit: (data: ContactFormData) => void;
+
+  submitting?: boolean;
 }
 
-export default function ContactForm({ services, openModal, onSubmit }: Props) {
+export default function ContactForm({ services, openModal, onSubmit, submitting }: Props) {
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -128,6 +130,7 @@ export default function ContactForm({ services, openModal, onSubmit }: Props) {
 
       <button
         type="submit"
+        disabled={submitting}
         className="
         mt-5
         h-12
@@ -138,9 +141,10 @@ export default function ContactForm({ services, openModal, onSubmit }: Props) {
         text-white
         transition
         hover:opacity-90
+        disabled:opacity-50
         "
       >
-        Solicitar orçamento
+        {submitting ? "Enviando..." : "Solicitar orçamento"}
       </button>
     </form>
   );

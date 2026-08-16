@@ -1,11 +1,12 @@
 import { useState } from "react";
+import fonsecaApi from "../../../services/fonsecaApi";
+import { notifyToast } from "../../ui/GlobalToast";
 
 import ContactForm from "./ContactForm";
 import ServicesModal from "./ServicesModal";
 
 export default function Contact() {
   const [modal, setModal] = useState(false);
-
   const [services, setServices] = useState<string[]>([]);
 
   function toggleService(service: string) {
@@ -16,21 +17,32 @@ export default function Contact() {
     );
   }
 
-  function handleSubmit(data: ContactFormData) {
-    console.log("LEAD:", data);
+  async function handleSubmit(data: ContactFormData) {
+    try {
+      await fonsecaApi.leads.create(data);
+      notifyToast(
+        "Lead enviado com sucesso! Entraremos em contato.",
+        "success",
+      );
+    } catch (error) {
+      const message = fonsecaApi.utils.getErrorMessage(
+        error,
+        "Não foi possível enviar seu contato.",
+      );
 
-    // API aqui depois
+      notifyToast(message, "error");
+    }
   }
 
   return (
     <section
       id="contact"
       className="
-      relative
-      overflow-hidden
-      bg-bg
-      py-6
-      md:py-14
+        relative
+        overflow-hidden
+        bg-bg
+        py-6
+        md:py-14
       "
     >
       {/* transição superior */}

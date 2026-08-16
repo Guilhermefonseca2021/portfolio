@@ -1,10 +1,16 @@
 import { HiMenu, HiBell, HiSearch } from "react-icons/hi";
+import { useUserContext } from "../../../contexts/UserContext";
 
 interface Props {
   setOpen: (v: boolean) => void;
 }
 
 export default function Navbar({ setOpen }: Props) {
+  const { user } = useUserContext();
+
+  const userName = user?.name ?? "Usuário";
+  const userRole = user?.role?.name ?? "Sem função definida";
+
   return (
     <header
       className="
@@ -86,9 +92,9 @@ export default function Navbar({ setOpen }: Props) {
 
         <div className="flex items-center gap-3">
           <div className="text-right">
-            <h3 className="font-semibold">Guilherme</h3>
+            <h3 className="font-semibold">{userName}</h3>
 
-            <p className="text-xs text-secondaryText/50">Administrator</p>
+            <p className="text-xs text-secondaryText/50">{userRole}</p>
           </div>
 
           <div

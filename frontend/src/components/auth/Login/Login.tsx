@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useUserContext } from "../../../contexts/UserContext";
+import fonsecaApi from "../../../services/fonsecaApi";
+import { notifyToast } from "../../ui/GlobalToast";
+import { saveSession } from "../../../utils/session";
 
 const loginSchema = z.object({
   email: z.string().min(1, "Informe seu e-mail").email("E-mail inválido"),
@@ -15,7 +19,9 @@ const loginSchema = z.object({
 type LoginForm = z.infer<typeof loginSchema>;
 
 export default function Login() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
     register,
@@ -30,9 +36,28 @@ export default function Login() {
     },
   });
 
+  const { refresh } = useUserContext();
+
   async function onSubmit(data: LoginForm) {
-    console.log(data);
-    // await api.post("/auth/login", data);
+    setSubmitError(null);
+
+    try {
+      const response = await fonsecaApi.auth.login({
+        email: data.email,
+        password: data.password,
+      });
+
+      saveSession(response.token, data.remember);
+      await refresh();
+      navigate("/dashboard");
+    } catch (error) {
+      const message = fonsecaApi.utils.getErrorMessage(
+        error,
+        "Não foi possível entrar no sistema.",
+      );
+      setSubmitError(message);
+      notifyToast(message, "error");
+    }
   }
 
   return (
@@ -142,6 +167,12 @@ export default function Login() {
               Esqueceu a senha?
             </Link>
           </div>
+
+          {submitError && (
+            <p className="rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">
+              {submitError}
+            </p>
+          )}
 
           <button
             disabled={isSubmitting}

@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash, FaGithub, FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useUserContext } from "../../../contexts/UserContext";
+import fonsecaApi from "../../../services/fonsecaApi";
+import { notifyToast } from "../../ui/GlobalToast";
+import { saveSession } from "../../../utils/session";
 
 const registerSchema = z
   .object({
@@ -24,8 +28,12 @@ const registerSchema = z
 type RegisterForm = z.infer<typeof registerSchema>;
 
 export default function Register() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
+  const { refresh } = useUserContext();
 
   const {
     register,
@@ -43,8 +51,29 @@ export default function Register() {
   });
 
   async function onSubmit(data: RegisterForm) {
-    console.log(data);
-    // await api.post("/auth/register", data);
+    setSubmitError(null);
+
+    try {
+      // confirmPassword is only used for client-side validation and is not sent to the backend.
+      const response = await fonsecaApi.auth.register({
+        companyName: data.name,
+        username: data.name,
+        email: data.email,
+        password: data.password,
+      });
+
+      saveSession(response.token, true);
+      await refresh();
+      notifyToast("Conta criada com sucesso! Bem-vindo ao painel.", "success");
+      navigate("/dashboard");
+    } catch (error) {
+      const message = fonsecaApi.utils.getErrorMessage(
+        error,
+        "Não foi possível criar sua conta.",
+      );
+      setSubmitError(message);
+      notifyToast(message, "error");
+    }
   }
 
   return (
@@ -218,6 +247,12 @@ export default function Register() {
               </p>
             )}
           </div>
+
+          {submitError && (
+            <p className="rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">
+              {submitError}
+            </p>
+          )}
 
           <button
             type="submit"

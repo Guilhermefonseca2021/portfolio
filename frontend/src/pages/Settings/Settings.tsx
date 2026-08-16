@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   HiBell,
   HiBuildingOffice2,
@@ -8,8 +9,61 @@ import {
   HiSparkles,
   HiUsers,
 } from "react-icons/hi2";
+import fonsecaApi from "../../services/fonsecaApi";
+import type { Company } from "../../types/api";
 
 export default function Settings() {
+  const [company, setCompany] = useState<Company | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadCompany() {
+      try {
+        setLoading(true);
+        const data = await fonsecaApi.company.getMe();
+        setCompany(data);
+      } catch (err) {
+        setError(
+          fonsecaApi.utils.getErrorMessage(err, "Erro ao carregar empresa."),
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadCompany();
+  }, []);
+
+  async function handleSave() {
+    if (!company) return;
+
+    try {
+      setSaving(true);
+      setError(null);
+      setSuccess(null);
+      const updated = await fonsecaApi.company.updateMe({
+        name: company.name,
+        fantasyName: company.fantasyName,
+        document: company.document,
+        email: company.email,
+        phone: company.phone,
+        website: company.website,
+        logo: company.logo,
+        timezone: company.timezone,
+      });
+      setCompany(updated);
+      setSuccess("Empresa atualizada com sucesso.");
+    } catch (err) {
+      setError(
+        fonsecaApi.utils.getErrorMessage(err, "Erro ao atualizar empresa."),
+      );
+    } finally {
+      setSaving(false);
+    }
+  }
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -37,51 +91,110 @@ export default function Settings() {
           </div>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2">
-          <div>
-            <label className="mb-2 block text-sm text-secondaryText/70">
-              Nome da empresa
-            </label>
+        {loading && (
+          <p className="text-secondaryText/70">Carregando empresa...</p>
+        )}
+        {error && (
+          <p className="mb-4 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">
+            {error}
+          </p>
+        )}
+        {success && (
+          <p className="mb-4 rounded-xl border border-green-500/30 bg-green-500/10 p-3 text-sm text-green-300">
+            {success}
+          </p>
+        )}
 
-            <input
-              defaultValue="Fonseca Software"
-              className="w-full rounded-xl border border-secondary bg-bg px-4 py-3 outline-none focus:border-primary"
-            />
+        {company && (
+          <div className="grid gap-5 md:grid-cols-2">
+            <div>
+              <label className="mb-2 block text-sm text-secondaryText/70">
+                Nome da empresa
+              </label>
+
+              <input
+                value={company.name}
+                onChange={(event) =>
+                  setCompany({ ...company, name: event.target.value })
+                }
+                className="w-full rounded-xl border border-secondary bg-bg px-4 py-3 outline-none focus:border-primary"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block text-sm text-secondaryText/70">
+                Nome fantasia
+              </label>
+
+              <input
+                value={company.fantasyName ?? ""}
+                onChange={(event) =>
+                  setCompany({ ...company, fantasyName: event.target.value })
+                }
+                className="w-full rounded-xl border border-secondary bg-bg px-4 py-3 outline-none focus:border-primary"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block text-sm text-secondaryText/70">
+                CNPJ
+              </label>
+
+              <input
+                value={company.document ?? ""}
+                onChange={(event) =>
+                  setCompany({ ...company, document: event.target.value })
+                }
+                placeholder="00.000.000/0001-00"
+                className="w-full rounded-xl border border-secondary bg-bg px-4 py-3 outline-none focus:border-primary"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block text-sm text-secondaryText/70">
+                E-mail
+              </label>
+
+              <input
+                value={company.email ?? ""}
+                onChange={(event) =>
+                  setCompany({ ...company, email: event.target.value })
+                }
+                className="w-full rounded-xl border border-secondary bg-bg px-4 py-3 outline-none focus:border-primary"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block text-sm text-secondaryText/70">
+                Telefone
+              </label>
+
+              <input
+                value={company.phone ?? ""}
+                onChange={(event) =>
+                  setCompany({ ...company, phone: event.target.value })
+                }
+                placeholder="(83) 99999-9999"
+                className="w-full rounded-xl border border-secondary bg-bg px-4 py-3 outline-none focus:border-primary"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block text-sm text-secondaryText/70">
+                Site
+              </label>
+
+              <input
+                value={company.website ?? ""}
+                onChange={(event) =>
+                  setCompany({ ...company, website: event.target.value })
+                }
+                placeholder="https://"
+                className="w-full rounded-xl border border-secondary bg-bg px-4 py-3 outline-none focus:border-primary"
+              />
+            </div>
           </div>
-
-          <div>
-            <label className="mb-2 block text-sm text-secondaryText/70">
-              CNPJ
-            </label>
-
-            <input
-              placeholder="00.000.000/0001-00"
-              className="w-full rounded-xl border border-secondary bg-bg px-4 py-3 outline-none focus:border-primary"
-            />
-          </div>
-
-          <div>
-            <label className="mb-2 block text-sm text-secondaryText/70">
-              Telefone
-            </label>
-
-            <input
-              placeholder="(83) 99999-9999"
-              className="w-full rounded-xl border border-secondary bg-bg px-4 py-3 outline-none focus:border-primary"
-            />
-          </div>
-
-          <div>
-            <label className="mb-2 block text-sm text-secondaryText/70">
-              Site
-            </label>
-
-            <input
-              placeholder="https://"
-              className="w-full rounded-xl border border-secondary bg-bg px-4 py-3 outline-none focus:border-primary"
-            />
-          </div>
-        </div>
+        )}
       </section>
 
       {/* Assinatura */}
@@ -358,8 +471,12 @@ export default function Settings() {
       </section>
 
       <div className="flex justify-end">
-        <button className="rounded-xl bg-primary px-8 py-3 font-semibold text-primaryText transition hover:opacity-90">
-          Salvar Alterações
+        <button
+          onClick={handleSave}
+          disabled={saving || !company}
+          className="rounded-xl bg-primary px-8 py-3 font-semibold text-primaryText transition hover:opacity-90 disabled:opacity-50"
+        >
+          {saving ? "Salvando..." : "Salvar Alterações"}
         </button>
       </div>
     </div>

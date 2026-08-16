@@ -1,6 +1,18 @@
 import { HiPaperAirplane } from "react-icons/hi2";
 
-export default function MessageBox() {
+interface Props {
+  value: string;
+  onChange: (value: string) => void;
+  onSend: () => void;
+  disabled?: boolean;
+}
+
+export default function MessageBox({
+  value,
+  onChange,
+  onSend,
+  disabled,
+}: Props) {
   return (
     <div
       className="
@@ -12,6 +24,8 @@ gap-3
 "
     >
       <input
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
         placeholder="Digite uma mensagem..."
         className="
 flex-1
@@ -24,14 +38,19 @@ py-3
 outline-none
 text-primary
 "
+        disabled={disabled}
       />
 
       <button
+        type="button"
+        onClick={onSend}
+        disabled={disabled || !value.trim()}
         className="
 bg-primary
 text-primaryText
 px-5
 rounded-xl
+disabled:opacity-50
 "
       >
         <HiPaperAirplane size={20} />

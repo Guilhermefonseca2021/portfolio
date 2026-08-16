@@ -1,60 +1,37 @@
 // src/pages/dashboard/Clients.tsx
 
+import { useEffect, useState } from "react";
 import DataTable from "../../components/dashboard/reuses/table/DataTable";
 
 import { FiPlus } from "react-icons/fi";
 import StatusBadge from "../../components/dashboard/reuses/table/StatusBadge";
-
-type Employee = {
-  avatar: string;
-  name: string;
-  email: string;
-  role: string;
-  department: string;
-  status: string;
-  employed: string;
-};
-
-const employees: Employee[] = [
-  {
-    avatar: "https://i.pravatar.cc/150?img=1",
-    name: "João Silva",
-    email: "joao@email.com",
-    role: "Manager",
-    department: "Marketing",
-    status: "online",
-    employed: "12/01/2025",
-  },
-  {
-    avatar: "https://i.pravatar.cc/150?img=2",
-    name: "Maria Souza",
-    email: "maria@email.com",
-    role: "Developer",
-    department: "Technology",
-    status: "offline",
-    employed: "22/08/2024",
-  },
-  {
-    avatar: "https://i.pravatar.cc/150?img=3",
-    name: "Pedro Lima",
-    email: "pedro@email.com",
-    role: "Designer",
-    department: "UI/UX",
-    status: "pending",
-    employed: "05/03/2025",
-  },
-  {
-    avatar: "https://i.pravatar.cc/150?img=4",
-    name: "Ana Costa",
-    email: "ana@email.com",
-    role: "Sales",
-    department: "Commercial",
-    status: "online",
-    employed: "17/09/2023",
-  },
-];
+import fonsecaApi from "../../services/fonsecaApi";
+import type { Customer } from "../../types/api";
 
 export default function Clients() {
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadCustomers() { 
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await fonsecaApi.customers.list();
+        setCustomers(data);
+      } catch (err) {
+        setError(
+          fonsecaApi.utils.getErrorMessage(err, "Erro ao carregar clientes."),
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadCustomers();
+  }, []);
+
   return (
     <div className="space-y-8">
       <div>
@@ -65,55 +42,52 @@ export default function Clients() {
         </p>
       </div>
 
-      <DataTable<Employee>
+      <DataTable<Customer>
         title="Clientes"
-        description="Gerencie todos as empresas que ja tem contratos."
-        data={employees}
+        description="Gerencie todos os clientes cadastrados pela empresa."
+        data={customers}
         columns={[
           {
             key: "name",
-            title: "Empresa",
+            title: "Cliente",
             sortable: true,
             render: (row) => (
               <div className="flex items-center gap-3">
-                <img
-                  src={row.avatar}
-                  alt={row.name}
-                  className="h-11 w-11 rounded-full border border-secondary object-cover"
-                />
+                <div className="flex h-11 w-11 items-center justify-center rounded-full border border-secondary bg-secondary/20 font-semibold text-secondaryText">
+                  {row.name?.slice(0, 2).toUpperCase()}
+                </div>
 
                 <div>
                   <p className="font-semibold text-secondaryText">{row.name}</p>
 
-                  <p className="text-sm text-secondaryText/60">{row.email}</p>
+                  <p className="text-sm text-secondaryText/60">
+                    {row.email ?? "Sem e-mail"}
+                  </p>
                 </div>
               </div>
             ),
           },
           {
-            key: "role",
-            title: "Contrato",
+            key: "phone",
+            title: "Telefone",
             sortable: false,
             render: (row) => (
-              <div>
-                <p className="font-medium text-secondaryText">{row.role}</p>
-
-                <p className="text-sm text-secondaryText/60">
-                  {row.department}
-                </p>
-              </div>
+              <span className="text-secondaryText">{row.phone ?? "-"}</span>
             ),
           },
           {
             key: "status",
             title: "Status",
             sortable: false,
-            render: (row) => <StatusBadge status={row.status} />,
+            render: (row) => <StatusBadge status={row.status ?? "ACTIVE"} />,
           },
           {
-            key: "employed",
-            title: "Admissão",
+            key: "document",
+            title: "Documento",
             sortable: true,
+            render: (row) => (
+              <span className="text-secondaryText">{row.document ?? "-"}</span>
+            ),
           },
           {
             key: "actions",
@@ -133,7 +107,7 @@ export default function Clients() {
 
             <button className="flex items-center gap-2 rounded-xl bg-primary px-5 py-2 text-sm font-semibold text-primaryText transition hover:opacity-90">
               <FiPlus size={16} />
-              Nova empresa
+              Novo cliente
             </button>
           </div>
         }
@@ -144,7 +118,18 @@ export default function Clients() {
           onNext: () => console.log("Próxima"),
         }}
       />
-      
+
+      {loading && (
+        <p className="text-secondaryText/70">Carregando clientes...</p>
+      )}
+      {!loading && !error && customers.length === 0 && (
+        <p className="text-secondaryText/70">Nenhum cliente encontrado.</p>
+      )}
+      {error && (
+        <p className="rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

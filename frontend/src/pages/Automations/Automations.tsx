@@ -1,55 +1,37 @@
 // src/pages/dashboard/Automations.tsx
 
+import { useEffect, useState } from "react";
 import { FiPlus } from "react-icons/fi";
 import IncomeCard from "../../components/dashboard/reuses/cards/IncomeCard";
 import DataTable from "../../components/dashboard/reuses/table/DataTable";
 import StatusBadge from "../../components/dashboard/reuses/table/StatusBadge";
-
-type Flow = {
-  name: string;
-  avatar: string;
-  trigger: string;
-  category: string;
-  status: "Ativo" | "Pausado" | "Erro";
-  executions: number;
-};
-
-const flows: Flow[] = [
-  {
-    name: "Boas-vindas WhatsApp",
-    avatar: "https://i.pravatar.cc/80?img=10",
-    trigger: "Novo Lead",
-    category: "WhatsApp",
-    status: "Ativo",
-    executions: 1820,
-  },
-  {
-    name: "Carrinho Abandonado",
-    avatar: "https://i.pravatar.cc/80?img=11",
-    trigger: "Compra",
-    category: "E-commerce",
-    status: "Ativo",
-    executions: 932,
-  },
-  {
-    name: "Lead CRM",
-    avatar: "https://i.pravatar.cc/80?img=12",
-    trigger: "Formulário",
-    category: "CRM",
-    status: "Pausado",
-    executions: 512,
-  },
-  {
-    name: "Follow-up Comercial",
-    avatar: "https://i.pravatar.cc/80?img=13",
-    trigger: "Pipeline",
-    category: "CRM",
-    status: "Erro",
-    executions: 88,
-  },
-];
+import fonsecaApi from "../../services/fonsecaApi";
+import type { Automation } from "../../types/api";
 
 export default function Automations() {
+  const [automations, setAutomations] = useState<Automation[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadAutomations() {
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await fonsecaApi.automations.list();
+        setAutomations(data);
+      } catch (err) {
+        setError(
+          fonsecaApi.utils.getErrorMessage(err, "Erro ao carregar automações."),
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadAutomations();
+  }, []);
+
   return (
     <div className="space-y-8">
       {/* HEADER */}
@@ -170,49 +152,48 @@ export default function Automations() {
 
       {/* TABELA */}
 
-      <DataTable<Flow>
+      <DataTable<Automation>
         title="Fluxos de Automação"
         description="Todos os fluxos cadastrados na plataforma."
-        data={flows}
+        data={automations}
         columns={[
           {
             key: "name",
             title: "Fluxo",
             render: (row) => (
               <div className="flex items-center gap-3">
-                <img
-                  src={row.avatar}
-                  alt={row.name}
-                  className="h-11 w-11 rounded-xl border border-secondary object-cover"
-                />
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-secondary bg-secondary/20 font-semibold text-secondaryText">
+                  {row.name.slice(0, 2).toUpperCase()}
+                </div>
 
                 <div>
                   <p className="font-semibold text-secondaryText">{row.name}</p>
 
-                  <p className="text-sm text-secondaryText/60">
-                    {row.category}
-                  </p>
+                  <p className="text-sm text-secondaryText/60">{row.keyword}</p>
                 </div>
               </div>
             ),
           },
           {
-            key: "trigger",
-            title: "Disparo",
-          },
-          {
-            key: "executions",
-            title: "Execuções",
+            key: "response",
+            title: "Resposta",
             render: (row) => (
-              <span className="font-semibold text-primary">
-                {row.executions.toLocaleString("pt-BR")}
-              </span>
+              <span className="text-secondaryText">{row.response}</span>
             ),
           },
           {
-            key: "status",
+            key: "priority",
+            title: "Prioridade",
+            render: (row) => (
+              <span className="font-semibold text-primary">{row.priority}</span>
+            ),
+          },
+          {
+            key: "active",
             title: "Status",
-            render: (row) => <StatusBadge status={row.status} />,
+            render: (row) => (
+              <StatusBadge status={row.active ? "Ativo" : "Pausado"} />
+            ),
           },
           {
             key: "actions",
@@ -243,6 +224,18 @@ export default function Automations() {
           onNext: () => {},
         }}
       />
+
+      {loading && (
+        <p className="text-secondaryText/70">Carregando automações...</p>
+      )}
+      {!loading && !error && automations.length === 0 && (
+        <p className="text-secondaryText/70">Nenhuma automação encontrada.</p>
+      )}
+      {error && (
+        <p className="rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

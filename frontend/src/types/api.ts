@@ -41,12 +41,45 @@ export interface Customer {
   notes?: string | null;
 }
 
+export interface Lead {
+  id: string;
+  name: string;
+  email?: string | null;
+  phone?: string | null;
+  notes?: string | null;
+  status?: string;
+  createdAt?: string;
+  company?: {
+    id: string;
+    name: string;
+  } | null;
+  deals?: {
+    id: string;
+    pipelineId: string;
+    stageId: string;
+    title?: string;
+    value?: number | null;
+    status?: string;
+    stage?: {
+      id: string;
+      name: string;
+      color?: string | null;
+      position?: number;
+    } | null;
+    pipeline?: {
+      id: string;
+      name: string;
+    } | null;
+  }[];
+}
+
 export interface Pipeline {
   id: string;
   companyId: string;
   name: string;
   description?: string | null;
   status?: string;
+  isDefault?: boolean;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -73,6 +106,17 @@ export interface Deal {
   description?: string | null;
   createdAt?: string;
   updatedAt?: string;
+  customer?: Customer | null;
+  pipeline?: {
+    id: string;
+    name: string;
+  } | null;
+  stage?: PipelineStage | null;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+  } | null;
 }
 
 export interface WhatsappSession {

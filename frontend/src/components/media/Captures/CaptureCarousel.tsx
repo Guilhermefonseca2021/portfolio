@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
 const images = [
-  "/images/portfolio/img1.png",
-  "/images/portfolio/img2.png",
-  "/images/portfolio/img3.png",
+  "/images/portfolio/img1.webp",
+  "/images/portfolio/img2.webp",
+  "/images/portfolio/img3.webp",
 ];
 
 export default function CaptureCarousel() {

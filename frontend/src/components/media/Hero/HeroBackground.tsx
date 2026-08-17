@@ -8,7 +8,7 @@ export default function HeroBackground() {
         playsInline
         className="absolute inset-0 h-full w-full object-cover"
       >
-        <source src="/videos/hero.mp4" type="video/mp4" />
+        <source src="/videos/hero.webm" type="video/mp4" />
       </video>
 
       <div className="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-black/30" />

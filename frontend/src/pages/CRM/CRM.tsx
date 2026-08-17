@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
+import { FiPlus } from "react-icons/fi";
 import fonsecaApi from "../../services/fonsecaApi";
+import { notifyToast } from "../../components/ui/GlobalToast";
 import type { Deal, Pipeline, PipelineStage } from "../../types/api";
 
 export default function CRM() {
@@ -8,25 +10,37 @@ export default function CRM() {
   const [deals, setDeals] = useState<Deal[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedPipelineId, setSelectedPipelineId] = useState<string | null>(
+    null,
+  );
+  const [creatingStage, setCreatingStage] = useState(false);
+  const [newStageName, setNewStageName] = useState("");
+
+  async function loadStages(pipelineId: string) {
+    try {
+      const stageData = await fonsecaApi.pipelineStages.list(pipelineId);
+      setStages(stageData);
+    } catch (err) {
+      setError(
+        fonsecaApi.utils.getErrorMessage(err, "Erro ao carregar etapas."),
+      );
+    }
+  }
 
   useEffect(() => {
     async function loadData() {
       try {
         setLoading(true);
         setError(null);
-        const [pipelineData, dealData] = await Promise.all([
-          fonsecaApi.pipelines.list(),
-          fonsecaApi.deals.list(),
-        ]);
+        const pipelineData = await fonsecaApi.pipelines.list();
+        const dealData = await fonsecaApi.deals.list();
 
         setPipelines(pipelineData);
         setDeals(dealData);
 
         if (pipelineData[0]) {
-          const stageData = await fonsecaApi.pipelineStages.list(
-            pipelineData[0].id,
-          );
-          setStages(stageData);
+          setSelectedPipelineId(pipelineData[0].id);
+          await loadStages(pipelineData[0].id);
         }
       } catch (err) {
         setError(
@@ -39,6 +53,34 @@ export default function CRM() {
 
     loadData();
   }, []);
+
+  async function handlePipelineSelect(pipelineId: string) {
+    setSelectedPipelineId(pipelineId);
+    setError(null);
+    await loadStages(pipelineId);
+  }
+
+  async function handleCreateStage() {
+    if (!selectedPipelineId || !newStageName.trim()) return;
+
+    try {
+      setCreatingStage(true);
+      setError(null);
+      await fonsecaApi.pipelineStages.create(selectedPipelineId, {
+        name: newStageName.trim(),
+        position: stages.length,
+      });
+      setNewStageName("");
+      notifyToast("Etapa criada com sucesso.", "success");
+      await loadStages(selectedPipelineId);
+    } catch (err) {
+      setError(
+        fonsecaApi.utils.getErrorMessage(err, "Erro ao criar etapa."),
+      );
+    } finally {
+      setCreatingStage(false);
+    }
+  }
 
   return (
     <div className="space-y-6">
@@ -64,9 +106,15 @@ export default function CRM() {
             </h2>
             <div className="space-y-3">
               {pipelines.map((pipeline) => (
-                <div
+                <button
                   key={pipeline.id}
-                  className="rounded-xl border border-secondary/70 bg-bg p-4"
+                  type="button"
+                  onClick={() => handlePipelineSelect(pipeline.id)}
+                  className={`w-full text-left rounded-xl border p-4 transition ${
+                    selectedPipelineId === pipeline.id
+                      ? "border-primary bg-primary/10"
+                      : "border-secondary/70 bg-bg hover:border-primary/50"
+                  }`}
                 >
                   <div className="flex items-center justify-between">
                     <h3 className="font-semibold text-secondaryText">
@@ -79,7 +127,7 @@ export default function CRM() {
                   <p className="mt-2 text-sm text-secondaryText/60">
                     {pipeline.description ?? "Sem descrição"}
                   </p>
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -88,6 +136,25 @@ export default function CRM() {
             <h2 className="mb-3 text-lg font-semibold text-secondaryText">
               Etapas
             </h2>
+
+            <div className="mb-4 flex gap-2">
+              <input
+                value={newStageName}
+                onChange={(e) => setNewStageName(e.target.value)}
+                placeholder="Nome da nova etapa"
+                className="flex-1 rounded-xl border border-secondary bg-bg px-4 py-2 text-sm text-secondaryText outline-none focus:border-primary"
+              />
+              <button
+                type="button"
+                onClick={handleCreateStage}
+                disabled={creatingStage || !selectedPipelineId}
+                className="flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primaryText transition hover:opacity-90 disabled:opacity-50"
+              >
+                <FiPlus size={16} />
+                {creatingStage ? "Criando..." : "Adicionar"}
+              </button>
+            </div>
+
             <div className="space-y-3">
               {stages.map((stage) => (
                 <div

@@ -3,6 +3,7 @@ import type {
   Company,
   Customer,
   Deal,
+  Lead,
   Pipeline,
   PipelineStage,
   User,
@@ -186,6 +187,10 @@ export const fonsecaApi = {
     remove: (id: string) => deleteJson(`/automations/${id}`),
   },
   leads: {
+    list: () =>
+      getJson<ApiResponse<Lead[]>>("/leads").then(
+        (res) => res.data ?? [],
+      ),
     create: (payload: {
       name: string;
       email: string;
@@ -199,6 +204,7 @@ export const fonsecaApi = {
       deadline?: string;
       message?: string;
     }) => postJson<ApiResponse<Customer>>("/leads", payload),
+    remove: (id: string) => deleteJson(`/leads/${id}`),
   },
   utils: {
     getErrorMessage: getApiErrorMessage,

@@ -29,9 +29,11 @@ export default function Finance() {
             <HiCurrencyDollar size={24} className="text-primary" />
           </div>
 
-          <h2 className="mt-4 text-3xl font-bold text-primary">R$ 8.450</h2>
+          <h2 className="mt-4 text-3xl font-bold text-primary">R$ 0,00</h2>
 
-          <p className="mt-2 text-sm text-green-400">+12% este mês</p>
+          <p className="mt-2 text-sm text-secondaryText/60">
+            Sem dados disponíveis
+          </p>
         </div>
 
         <div className="rounded-2xl border border-secondary bg-card p-6">
@@ -41,9 +43,11 @@ export default function Finance() {
             <HiReceiptPercent size={24} className="text-primary" />
           </div>
 
-          <h2 className="mt-4 text-3xl font-bold text-primary">156</h2>
+          <h2 className="mt-4 text-3xl font-bold text-primary">0</h2>
 
-          <p className="mt-2 text-sm text-secondaryText/60">Processados</p>
+          <p className="mt-2 text-sm text-secondaryText/60">
+            Sem dados disponíveis
+          </p>
         </div>
 
         <div className="rounded-2xl border border-secondary bg-card p-6">
@@ -53,9 +57,11 @@ export default function Finance() {
             <HiChartBar size={24} className="text-primary" />
           </div>
 
-          <h2 className="mt-4 text-3xl font-bold text-primary">342</h2>
+          <h2 className="mt-4 text-3xl font-bold text-primary">0</h2>
 
-          <p className="mt-2 text-sm text-secondaryText/60">Clientes ativos</p>
+          <p className="mt-2 text-sm text-secondaryText/60">
+            Sem dados disponíveis
+          </p>
         </div>
 
         <div className="rounded-2xl border border-secondary bg-card p-6">
@@ -65,10 +71,25 @@ export default function Finance() {
             <HiArrowTrendingUp size={24} className="text-primary" />
           </div>
 
-          <h2 className="mt-4 text-3xl font-bold text-primary">+24%</h2>
+          <h2 className="mt-4 text-3xl font-bold text-primary">0%</h2>
 
-          <p className="mt-2 text-sm text-green-400">Últimos 30 dias</p>
+          <p className="mt-2 text-sm text-secondaryText/60">
+            Sem dados disponíveis
+          </p>
         </div>
+      </div>
+
+      {/* Aviso de integração pendente */}
+      <div className="rounded-2xl border border-yellow-500/30 bg-yellow-500/10 p-6">
+        <h2 className="text-lg font-semibold text-yellow-300">
+          Módulo financeiro ainda não integrado
+        </h2>
+
+        <p className="mt-2 text-sm text-yellow-200/70">
+          O backend ainda não possui endpoints de receitas, despesas ou
+          movimentações financeiras. Assim que estes recursos estiverem
+          disponíveis, os indicadores serão preenchidos com dados reais.
+        </p>
       </div>
 
       {/* Componente de Pagamento */}

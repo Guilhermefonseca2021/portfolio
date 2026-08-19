@@ -10,7 +10,7 @@ import {
   HiUsers,
 } from "react-icons/hi2";
 import fonsecaApi from "../../services/fonsecaApi";
-import type { Company } from "../../types/api";
+import type { Company, WhatsappSession } from "../../types/api";
 
 export default function Settings() {
   const [company, setCompany] = useState<Company | null>(null);
@@ -18,6 +18,9 @@ export default function Settings() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [whatsappSessions, setWhatsappSessions] = useState<WhatsappSession[]>(
+    [],
+  );
 
   useEffect(() => {
     async function loadCompany() {
@@ -34,7 +37,17 @@ export default function Settings() {
       }
     }
 
+    async function loadWhatsappSessions() {
+      try {
+        const sessions = await fonsecaApi.whatsapp.sessions.list();
+        setWhatsappSessions(sessions);
+      } catch {
+        // Não bloqueia a página se as sessões falharem
+      }
+    }
+
     loadCompany();
+    loadWhatsappSessions();
   }, []);
 
   async function handleSave() {
@@ -286,33 +299,52 @@ export default function Settings() {
             </h2>
 
             <p className="text-sm text-secondaryText/50">
-              Integração com a Meta Cloud API.
+              Sessões conectadas à plataforma.
             </p>
           </div>
         </div>
 
-        <div className="grid gap-5 md:grid-cols-2">
-          <div>
-            <label className="mb-2 block text-sm text-secondaryText/70">
-              Número conectado
-            </label>
-
-            <input
-              placeholder="+55 83 99999-9999"
-              className="w-full rounded-xl border border-secondary bg-bg px-4 py-3 outline-none focus:border-primary"
-            />
+        {whatsappSessions.length === 0 ? (
+          <div className="rounded-xl border border-yellow-500/30 bg-yellow-500/10 p-4 text-sm text-yellow-300">
+            Nenhuma sessão WhatsApp conectada. Acesse a página WhatsApp para
+            criar uma sessão.
           </div>
+        ) : (
+          <div className="space-y-4">
+            {whatsappSessions.map((session) => (
+              <div
+                key={session.id}
+                className="flex items-center justify-between rounded-xl border border-secondary bg-bg p-4"
+              >
+                <div>
+                  <p className="font-semibold text-secondaryText">
+                    {session.instanceName ?? session.id}
+                  </p>
 
-          <div>
-            <label className="mb-2 block text-sm text-secondaryText/70">
-              Status
-            </label>
+                  <span className="text-sm text-secondaryText/60">
+                    {session.phone ?? "Número não informado"}
+                  </span>
+                </div>
 
-            <div className="rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-3 font-semibold text-green-400">
-              Conectado
-            </div>
+                <span
+                  className={`rounded-full border px-3 py-1 text-xs font-semibold ${
+                    session.status === "CONNECTED"
+                      ? "border-green-500/30 bg-green-500/15 text-green-400"
+                      : session.status === "CONNECTING"
+                        ? "border-yellow-500/30 bg-yellow-500/15 text-yellow-400"
+                        : "border-red-500/30 bg-red-500/15 text-red-400"
+                  }`}
+                >
+                  {session.status === "CONNECTED"
+                    ? "Conectado"
+                    : session.status === "CONNECTING"
+                      ? "Conectando..."
+                      : "Desconectado"}
+                </span>
+              </div>
+            ))}
           </div>
-        </div>
+        )}
       </section>
 
       {/* IA */}

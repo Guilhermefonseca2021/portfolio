@@ -17,7 +17,7 @@ import fonsecaApi from "../../services/fonsecaApi";
 import { notifyToast } from "../../components/ui/GlobalToast";
 
 import type { TableColumn } from "../../@types/table";
-import type { Lead, Pipeline, PipelineStage } from "../../types/api";
+import type { Lead, Pipeline, PipelineStage, WhatsappSession } from "../../types/api";
 
 // ===========================
 // PAGE
@@ -53,6 +53,15 @@ export default function Leads() {
     null,
   );
   const [movingDealId, setMovingDealId] = useState<string | null>(null);
+
+  // WhatsApp message modal state
+  const [whatsappLead, setWhatsappLead] = useState<Lead | null>(null);
+  const [whatsappSessions, setWhatsappSessions] = useState<WhatsappSession[]>([]);
+  const [selectedSessionId, setSelectedSessionId] = useState<string>("");
+  const [whatsappMessage, setWhatsappMessage] = useState("");
+  const [sendingWhatsapp, setSendingWhatsapp] = useState(false);
+  const [whatsappError, setWhatsappError] = useState<string | null>(null);
+  const [loadingSessions, setLoadingSessions] = useState(false);
 
   useEffect(() => {
     async function loadLeads() {
@@ -97,6 +106,71 @@ export default function Leads() {
     loadLeads();
     loadPipelines();
   }, []);
+
+  // ===========================
+  // WHATSAPP
+  // ===========================
+
+  async function handleOpenWhatsapp(lead: Lead) {
+    setWhatsappLead(lead);
+    setWhatsappMessage("");
+    setWhatsappError(null);
+    setSelectedSessionId("");
+
+    try {
+      setLoadingSessions(true);
+      const sessions = await fonsecaApi.whatsapp.sessions.list();
+      setWhatsappSessions(sessions);
+
+      const connected = sessions.find((s) => s.status === "CONNECTED");
+      if (connected) {
+        setSelectedSessionId(connected.id);
+      } else if (sessions[0]) {
+        setSelectedSessionId(sessions[0].id);
+      }
+    } catch (err) {
+      setWhatsappError(
+        fonsecaApi.utils.getErrorMessage(
+          err,
+          "Erro ao carregar sessões do WhatsApp.",
+        ),
+      );
+    } finally {
+      setLoadingSessions(false);
+    }
+  }
+
+  async function handleSendWhatsapp() {
+    if (!whatsappLead || !selectedSessionId || !whatsappMessage.trim()) return;
+
+    const phone = whatsappLead.phone?.replace(/\D/g, "");
+    if (!phone) {
+      setWhatsappError("Este lead não possui telefone cadastrado.");
+      return;
+    }
+
+    try {
+      setSendingWhatsapp(true);
+      setWhatsappError(null);
+      await fonsecaApi.whatsapp.messages.send({
+        sessionId: selectedSessionId,
+        number: phone,
+        text: whatsappMessage.trim(),
+      });
+      notifyToast("Mensagem enviada com sucesso.", "success");
+      setWhatsappLead(null);
+      setWhatsappMessage("");
+    } catch (err) {
+      const message = fonsecaApi.utils.getErrorMessage(
+        err,
+        "Erro ao enviar mensagem.",
+      );
+      setWhatsappError(message);
+      notifyToast(message, "error");
+    } finally {
+      setSendingWhatsapp(false);
+    }
+  }
 
   // ===========================
   // PIPELINE
@@ -270,6 +344,43 @@ export default function Leads() {
   }, [filtered, stages]);
 
   // ===========================
+  // METRICS
+  // ===========================
+
+  const totalLeads = leads.length;
+
+  const hoje = new Date();
+  const novosHoje = leads.filter((lead) => {
+    if (!lead.createdAt) return false;
+    const created = new Date(lead.createdAt);
+    return (
+      created.getDate() === hoje.getDate() &&
+      created.getMonth() === hoje.getMonth() &&
+      created.getFullYear() === hoje.getFullYear()
+    );
+  }).length;
+
+  // Em negociação: leads que possuem deal em etapa que não seja a primeira
+  const emNegociacao = useMemo(() => {
+    if (stages.length === 0) return 0;
+    const firstStageId = stages[0]?.id;
+    return leads.filter((lead) => {
+      const deal = lead.deals?.[0];
+      return deal && deal.stageId && deal.stageId !== firstStageId;
+    }).length;
+  }, [leads, stages]);
+
+  // Conversão: leads com deal em status WON
+  const conversao = useMemo(() => {
+    if (totalLeads === 0) return 0;
+    const won = leads.filter((lead) => {
+      const deal = lead.deals?.[0];
+      return deal?.status === "WON";
+    }).length;
+    return Math.round((won / totalLeads) * 100);
+  }, [leads, totalLeads]);
+
+  // ===========================
   // TABLE
   // ===========================
 
@@ -367,7 +478,11 @@ export default function Leads() {
 
       render: (lead) => (
         <div className="flex justify-end gap-2">
-          <button className="rounded-lg bg-secondary p-2 transition hover:bg-primary hover:text-primaryText">
+          <button
+            onClick={() => handleOpenWhatsapp(lead)}
+            title="Enviar mensagem no WhatsApp"
+            className="rounded-lg bg-secondary p-2 transition hover:bg-green-500 hover:text-white"
+          >
             <FaWhatsapp />
           </button>
 
@@ -386,18 +501,6 @@ export default function Leads() {
       ),
     },
   ];
-
-  const totalLeads = leads.length;
-  const hoje = new Date();
-  const novosHoje = leads.filter((lead) => {
-    if (!lead.createdAt) return false;
-    const created = new Date(lead.createdAt);
-    return (
-      created.getDate() === hoje.getDate() &&
-      created.getMonth() === hoje.getMonth() &&
-      created.getFullYear() === hoje.getFullYear()
-    );
-  }).length;
 
   return (
     <>
@@ -436,13 +539,13 @@ export default function Leads() {
         </div>
 
         <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          <IncomeCard title="Total de Leads" total={totalLeads} sessions={[]} />
+          <IncomeCard title="Total de Leads" total={totalLeads} prefix="" decimals={0} sessions={[]} />
 
-          <IncomeCard title="Novos Hoje" total={novosHoje} sessions={[]} />
+          <IncomeCard title="Novos Hoje" total={novosHoje} prefix="" decimals={0} sessions={[]} />
 
-          <IncomeCard title="Em Negociação" total={0} sessions={[]} />
+          <IncomeCard title="Em Negociação" total={emNegociacao} prefix="" decimals={0} sessions={[]} />
 
-          <IncomeCard title="Conversão" total={0} sessions={[]} />
+          <IncomeCard title="Conversão" total={conversao} prefix="" decimals={0} sessions={[]} />
         </div>
 
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -874,6 +977,109 @@ export default function Leads() {
             </button>
           </div>
         </form>
+      </Modal>
+
+      {/* WhatsApp Message Modal */}
+      <Modal
+        open={whatsappLead !== null}
+        title={`WhatsApp - ${whatsappLead?.name ?? ""}`}
+        width="md"
+        onClose={() => setWhatsappLead(null)}
+      >
+        <div className="space-y-5">
+          {whatsappError && (
+            <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-300">
+              {whatsappError}
+            </div>
+          )}
+
+          {whatsappLead?.phone ? (
+            <div className="rounded-xl border border-secondary bg-bg p-4">
+              <p className="text-sm text-secondaryText/60">Telefone</p>
+              <p className="mt-1 font-semibold text-secondaryText">
+                {whatsappLead.phone}
+              </p>
+            </div>
+          ) : (
+            <div className="rounded-xl border border-yellow-500/30 bg-yellow-500/10 p-3 text-sm text-yellow-300">
+              Este lead não possui telefone cadastrado.
+            </div>
+          )}
+
+          {/* Sessão WhatsApp */}
+          <div>
+            <label className="mb-1 block text-sm font-medium text-secondaryText">
+              Sessão WhatsApp
+            </label>
+
+            {loadingSessions ? (
+              <p className="text-sm text-secondaryText/70">
+                Carregando sessões...
+              </p>
+            ) : whatsappSessions.length === 0 ? (
+              <div className="rounded-xl border border-yellow-500/30 bg-yellow-500/10 p-3 text-sm text-yellow-300">
+                Nenhum WhatsApp conectado. Conecte uma sessão para enviar
+                mensagens.
+              </div>
+            ) : (
+              <select
+                value={selectedSessionId}
+                onChange={(e) => setSelectedSessionId(e.target.value)}
+                className="w-full rounded-xl border border-secondary bg-bg px-4 py-2.5 text-secondaryText outline-none transition focus:border-primary"
+              >
+                {whatsappSessions.map((session) => (
+                  <option key={session.id} value={session.id}>
+                    {session.instanceName ?? session.id} -{" "}
+                    {session.status === "CONNECTED"
+                      ? "Conectado"
+                      : session.status === "CONNECTING"
+                        ? "Conectando..."
+                        : "Desconectado"}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
+
+          {/* Mensagem */}
+          <div>
+            <label className="mb-1 block text-sm font-medium text-secondaryText">
+              Mensagem
+            </label>
+            <textarea
+              value={whatsappMessage}
+              onChange={(e) => setWhatsappMessage(e.target.value)}
+              placeholder="Olá, tudo bem?"
+              rows={4}
+              className="w-full rounded-xl border border-secondary bg-bg px-4 py-2.5 text-secondaryText outline-none transition focus:border-primary"
+            />
+          </div>
+
+          <div className="flex justify-end gap-3 border-t border-secondary pt-5">
+            <button
+              type="button"
+              onClick={() => setWhatsappLead(null)}
+              className="rounded-xl border border-secondary px-5 py-2 text-secondaryText transition hover:bg-secondary"
+            >
+              Cancelar
+            </button>
+
+            <button
+              type="button"
+              onClick={handleSendWhatsapp}
+              disabled={
+                sendingWhatsapp ||
+                !selectedSessionId ||
+                !whatsappMessage.trim() ||
+                !whatsappLead?.phone
+              }
+              className="flex items-center gap-2 rounded-xl bg-green-500 px-6 py-2 font-semibold text-white transition hover:opacity-90 disabled:opacity-50"
+            >
+              <FaWhatsapp />
+              {sendingWhatsapp ? "Enviando..." : "Enviar mensagem"}
+            </button>
+          </div>
+        </div>
       </Modal>
 
       <Modal

@@ -20,6 +20,8 @@ import Reports from "./pages/Reports/Reports";
 import Settings from "./pages/Settings/Settings";
 import TermsAndService from "./pages/TermosAndServicos";
 import Whatsapp from "./pages/whatsapp/whatsapp";
+import Images from "./pages/Services/Images";
+import PublicImage from "./pages/Services/PublicImage";
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
   if (!isAuthenticated()) {
@@ -69,7 +71,11 @@ export default function App() {
             <Route path="whatsapp" element={<Whatsapp />} />
             <Route path="reports" element={<Reports />} />
             <Route path="settings" element={<Settings />} />
+            <Route path="services/images" element={<Images />} />
           </Route>
+
+          {/* Página pública de compartilhamento */}
+          <Route path="/s/:id" element={<PublicImage />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>

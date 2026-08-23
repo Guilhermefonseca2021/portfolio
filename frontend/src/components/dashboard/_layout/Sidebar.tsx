@@ -7,6 +7,7 @@ import {
   HiChevronRight,
   HiCog6Tooth,
   HiCurrencyDollar,
+  HiPhoto,
   HiSquares2X2,
   HiUserGroup,
   HiUsers,
@@ -152,6 +153,14 @@ export default function Sidebar({ open, setOpen }: Props) {
                 right={<HiChevronRight size={18} />}
               >
                 Configurações
+              </NavItem>
+
+              <NavItem
+                to="/dashboard/services/images"
+                icon={<HiPhoto size={20} />}
+                right={<HiChevronRight size={18} />}
+              >
+                Serviços › Imagens
               </NavItem>
             </div>
           </div>

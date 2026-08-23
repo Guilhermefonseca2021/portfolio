@@ -26,6 +26,7 @@ export interface Company {
   logo?: string | null;
   timezone?: string | null;
   status?: string;
+  plan?: string;
 }
 
 export interface Customer {

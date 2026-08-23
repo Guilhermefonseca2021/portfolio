@@ -33,6 +33,25 @@ interface AuthResponse {
   role: string;
 }
 
+export interface ImageItem {
+  id: string;
+  name: string;
+  url: string;
+  price: number;
+  fileName?: string | null;
+  fileSize?: string | null;
+  mimeType?: string | null;
+  createdAt?: string;
+}
+
+export interface StorageInfo {
+  plan: string;
+  storageLimit: number;
+  storageUsed: number;
+  storageAvailable: number;
+  percentageUsed: number;
+}
+
 export const fonsecaApi = {
   auth: {
     login: (payload: { email: string; password: string }) =>
@@ -205,6 +224,32 @@ export const fonsecaApi = {
       message?: string;
     }) => postJson<ApiResponse<Customer>>("/leads", payload),
     remove: (id: string) => deleteJson(`/leads/${id}`),
+  },
+  images: {
+    list: () =>
+      getJson<ApiResponse<ImageItem[]>>("/images").then(
+        (res) => res.data ?? [],
+      ),
+    get: (id: string) =>
+      getJson<ApiResponse<ImageItem>>(`/images/public/${id}`).then(
+        (res) => res.data as ImageItem,
+      ),
+    create: (payload: { name: string; price: number; url: string }) =>
+      postJson<ApiResponse<ImageItem>>("/images", payload),
+    upload: (payload: { name: string; price: number; file: File }) => {
+      const formData = new FormData();
+      formData.append("name", payload.name);
+      formData.append("price", String(payload.price));
+      formData.append("file", payload.file);
+      return postJson<ApiResponse<ImageItem>>("/images/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+    },
+    storage: () =>
+      getJson<ApiResponse<StorageInfo>>("/images/storage").then(
+        (res) => res.data as StorageInfo,
+      ),
+    remove: (id: string) => deleteJson(`/images/${id}`),
   },
   utils: {
     getErrorMessage: getApiErrorMessage,

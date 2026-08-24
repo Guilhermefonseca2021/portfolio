@@ -152,7 +152,9 @@ export interface WhatsappMessage {
   sessionId?: string;
   number?: string;
   text?: string;
+  body?: string;
   type?: string;
+  sender?: string;
   createdAt?: string;
 }
 

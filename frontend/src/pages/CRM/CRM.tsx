@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { FiPlus } from "react-icons/fi";
+import { FiPlusCircle } from "react-icons/fi";
 import fonsecaApi from "../../services/fonsecaApi";
 import { notifyToast } from "../../components/ui/GlobalToast";
+import Modal from "../../components/dashboard/reuses/modal/Modal";
 import type { Deal, Pipeline, PipelineStage } from "../../types/api";
 
 export default function CRM() {
@@ -11,9 +12,10 @@ export default function CRM() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedPipelineId, setSelectedPipelineId] = useState<string | null>(null);
-  const [creatingStage, setCreatingStage] = useState(false);
-  const [newStageName, setNewStageName] = useState("");
   const [updatingDealId, setUpdatingDealId] = useState<string | null>(null);
+  const [pipelineModalOpen, setPipelineModalOpen] = useState(false);
+  const [newPipelineName, setNewPipelineName] = useState("");
+  const [creatingPipeline, setCreatingPipeline] = useState(false);
 
   async function loadStages(pipelineId: string) {
     try {
@@ -55,23 +57,26 @@ export default function CRM() {
     await loadStages(pipelineId);
   }
 
-  async function handleCreateStage() {
-    if (!selectedPipelineId || !newStageName.trim()) return;
+  async function handleCreatePipeline() {
+    if (!newPipelineName.trim()) return;
 
     try {
-      setCreatingStage(true);
+      setCreatingPipeline(true);
       setError(null);
-      await fonsecaApi.pipelineStages.create(selectedPipelineId, {
-        name: newStageName.trim(),
-        position: stages.length,
-      });
-      setNewStageName("");
-      notifyToast("Etapa criada com sucesso.", "success");
-      await loadStages(selectedPipelineId);
+      await fonsecaApi.pipelines.create({ name: newPipelineName.trim() });
+      setNewPipelineName("");
+      setPipelineModalOpen(false);
+      notifyToast("Pipeline criada com sucesso.", "success");
+      const pipelineData = await fonsecaApi.pipelines.list();
+      setPipelines(pipelineData);
+      if (pipelineData[0]) {
+        setSelectedPipelineId(pipelineData[0].id);
+        await loadStages(pipelineData[0].id);
+      }
     } catch (err) {
-      setError(fonsecaApi.utils.getErrorMessage(err, "Erro ao criar etapa."));
+      setError(fonsecaApi.utils.getErrorMessage(err, "Erro ao criar pipeline."));
     } finally {
-      setCreatingStage(false);
+      setCreatingPipeline(false);
     }
   }
 
@@ -127,23 +132,14 @@ export default function CRM() {
             ))}
           </select>
 
-          <div className="flex gap-2">
-            <input
-              value={newStageName}
-              onChange={(e) => setNewStageName(e.target.value)}
-              placeholder="Nova etapa"
-              className="rounded-xl border border-secondary bg-bg px-4 py-2 text-sm text-secondaryText outline-none focus:border-primary"
-            />
-            <button
-              type="button"
-              onClick={handleCreateStage}
-              disabled={creatingStage || !selectedPipelineId}
-              className="flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primaryText transition hover:opacity-90 disabled:opacity-50"
-            >
-              <FiPlus size={16} />
-              {creatingStage ? "Criando..." : "Adicionar"}
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => setPipelineModalOpen(true)}
+            className="flex items-center gap-2 rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-primaryText transition hover:opacity-90"
+          >
+            <FiPlusCircle size={16} />
+            Nova Pipeline
+          </button>
         </div>
       </div>
 
@@ -221,6 +217,39 @@ export default function CRM() {
           })}
         </div>
       )}
+
+      {/* Modal Nova Pipeline */}
+      <Modal open={pipelineModalOpen} title="Nova Pipeline" width="sm" onClose={() => setPipelineModalOpen(false)}>
+        <div className="space-y-5">
+          <div>
+            <label className="mb-1 block text-sm font-medium text-secondaryText">Nome da pipeline</label>
+            <input
+              value={newPipelineName}
+              onChange={(e) => setNewPipelineName(e.target.value)}
+              placeholder="Ex: Vendas, Marketing, ..."
+              className="w-full rounded-xl border border-secondary bg-bg px-4 py-2.5 text-secondaryText outline-none focus:border-primary"
+            />
+          </div>
+
+          <div className="flex justify-end gap-3 border-t border-secondary pt-5">
+            <button
+              type="button"
+              onClick={() => setPipelineModalOpen(false)}
+              className="rounded-xl border border-secondary px-5 py-2 text-secondaryText transition hover:bg-secondary"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              onClick={handleCreatePipeline}
+              disabled={creatingPipeline || !newPipelineName.trim()}
+              className="rounded-xl bg-primary px-6 py-2 font-semibold text-primaryText transition hover:opacity-90 disabled:opacity-50"
+            >
+              {creatingPipeline ? "Criando..." : "Criar pipeline"}
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

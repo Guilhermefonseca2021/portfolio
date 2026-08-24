@@ -1,4 +1,5 @@
-import { HiMenu, HiBell, HiSearch } from "react-icons/hi";
+import { HiMenu, HiBell, HiSearch, HiUser } from "react-icons/hi";
+import { Link } from "react-router-dom";
 import { useUserContext } from "../../../contexts/UserContext";
 
 interface Props {
@@ -76,6 +77,25 @@ export default function Navbar({ setOpen }: Props) {
       </div>
 
       <div className="flex items-center gap-4">
+        <Link
+          to="/dashboard/profile"
+          className="
+          w-11
+          h-11
+          rounded-xl
+          bg-secondary
+          flex
+          items-center
+          justify-center
+          transition
+          hover:border-primary
+          hover:text-primary
+        "
+          title="Perfil"
+        >
+          <HiUser size={20} />
+        </Link>
+
         <button
           className="
           w-11

@@ -10,7 +10,6 @@ import {
   HiUsers,
 } from "react-icons/hi2";
 import fonsecaApi from "../../services/fonsecaApi";
-import type { Company, WhatsappSession } from "../../types/api";
 
 export default function Settings() {
   const [company, setCompany] = useState<Company | null>(null);

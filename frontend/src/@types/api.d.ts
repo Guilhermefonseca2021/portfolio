@@ -1,4 +1,4 @@
-export interface User {
+interface User {
   id: string;
   name: string;
   email: string;
@@ -15,7 +15,7 @@ export interface User {
   createdAt?: string;
 }
 
-export interface Company {
+interface Company {
   id: string;
   name: string;
   fantasyName?: string | null;
@@ -27,10 +27,9 @@ export interface Company {
   timezone?: string | null;
   status?: string;
   plan?: string;
-  automationLimit?: number;
 }
 
-export interface Customer {
+interface Customer {
   id: string;
   companyId: string;
   name: string;
@@ -43,7 +42,7 @@ export interface Customer {
   notes?: string | null;
 }
 
-export interface Lead {
+interface Lead {
   id: string;
   name: string;
   email?: string | null;
@@ -75,7 +74,7 @@ export interface Lead {
   }[];
 }
 
-export interface Pipeline {
+interface Pipeline {
   id: string;
   companyId: string;
   name: string;
@@ -86,7 +85,7 @@ export interface Pipeline {
   updatedAt?: string;
 }
 
-export interface PipelineStage {
+interface PipelineStage {
   id: string;
   pipelineId: string;
   name: string;
@@ -96,7 +95,7 @@ export interface PipelineStage {
   updatedAt?: string;
 }
 
-export interface Deal {
+interface Deal {
   id: string;
   companyId: string;
   title?: string;
@@ -121,7 +120,7 @@ export interface Deal {
   } | null;
 }
 
-export interface WhatsappSession {
+interface WhatsappSession {
   id: string;
   companyId: string;
   instanceName?: string | null;
@@ -134,7 +133,7 @@ export interface WhatsappSession {
   updatedAt?: string;
 }
 
-export interface WhatsappConversation {
+interface WhatsappConversation {
   id: string;
   companyId: string;
   contactName?: string | null;
@@ -146,7 +145,7 @@ export interface WhatsappConversation {
   updatedAt?: string;
 }
 
-export interface WhatsappMessage {
+interface WhatsappMessage {
   id: string;
   conversationId?: string;
   sessionId?: string;
@@ -156,7 +155,7 @@ export interface WhatsappMessage {
   createdAt?: string;
 }
 
-export interface Automation {
+interface Automation {
   id: string;
   companyId: string;
   name: string;
@@ -168,20 +167,21 @@ export interface Automation {
   updatedAt?: string;
 }
 
-export interface ApiResponse<T> {
+
+interface ApiResponse<T> {
   success?: boolean;
   data?: T;
   message?: string;
 }
 
-export interface AuthResponse {
+interface AuthResponse {
   token: string;
   user: User;
   company: Company;
   role: string;
 }
 
-export interface ImageItem {
+interface ImageItem {
   id: string;
   name: string;
   url: string;
@@ -192,7 +192,7 @@ export interface ImageItem {
   createdAt?: string;
 }
 
-export interface StorageInfo {
+interface StorageInfo {
   plan: string;
   storageLimit: number;
   storageUsed: number;

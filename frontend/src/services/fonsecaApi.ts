@@ -1,16 +1,3 @@
-import type {
-  Automation,
-  Company,
-  Customer,
-  Deal,
-  Lead,
-  Pipeline,
-  PipelineStage,
-  User,
-  WhatsappConversation,
-  WhatsappMessage,
-  WhatsappSession,
-} from "../types/api";
 import {
   deleteJson,
   getApiErrorMessage,
@@ -19,38 +6,6 @@ import {
   postJson,
   putJson,
 } from "./api";
-
-interface ApiResponse<T> {
-  success?: boolean;
-  data?: T;
-  message?: string;
-}
-
-interface AuthResponse {
-  token: string;
-  user: User;
-  company: Company;
-  role: string;
-}
-
-export interface ImageItem {
-  id: string;
-  name: string;
-  url: string;
-  price: number;
-  fileName?: string | null;
-  fileSize?: string | null;
-  mimeType?: string | null;
-  createdAt?: string;
-}
-
-export interface StorageInfo {
-  plan: string;
-  storageLimit: number;
-  storageUsed: number;
-  storageAvailable: number;
-  percentageUsed: number;
-}
 
 export const fonsecaApi = {
   auth: {

@@ -5,7 +5,6 @@ import QuickReplies from "../../components/dashboard/whatsapp/QuickReplies";
 import WhatsappStats from "../../components/dashboard/whatsapp/WhatsappStats";
 import Modal from "../../components/dashboard/reuses/modal/Modal";
 import fonsecaApi from "../../services/fonsecaApi";
-import type { WhatsappConversation, WhatsappSession } from "../../types/api";
 
 export default function Whatsapp() {
   const [sessions, setSessions] = useState<WhatsappSession[]>([]);

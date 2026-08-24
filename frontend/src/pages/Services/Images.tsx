@@ -3,7 +3,6 @@ import { FiPlus, FiCopy, FiTrash2, FiLink, FiUpload } from "react-icons/fi";
 import Modal from "../../components/dashboard/reuses/modal/Modal";
 import fonsecaApi from "../../services/fonsecaApi";
 import { notifyToast } from "../../components/ui/GlobalToast";
-import type { ImageItem, StorageInfo } from "../../services/fonsecaApi";
 
 const inputClass =
   "w-full rounded-xl border border-secondary bg-bg px-4 py-2.5 text-secondaryText outline-none transition focus:border-primary";

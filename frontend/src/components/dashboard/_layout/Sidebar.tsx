@@ -2,6 +2,7 @@ import {
   HiArrowLeftOnRectangle,
   HiBolt,
   HiBuildingOffice2,
+  HiBriefcase,
   HiChartBar,
   HiChatBubbleLeftRight,
   HiChevronRight,
@@ -63,6 +64,12 @@ export default function Sidebar({ open, setOpen }: Props) {
             <div className="space-y-2">
               <NavItem to="/dashboard" icon={<HiSquares2X2 size={20} />}>
                 Dashboard
+              </NavItem>
+              <NavItem to="/dashboard/profile" icon={<HiUsers size={20} />}>
+                Perfil
+              </NavItem>
+              <NavItem to="/dashboard/contracts" icon={<HiBriefcase size={20} />}>
+                Contratos
               </NavItem>
             </div>
           </div>
@@ -153,6 +160,14 @@ export default function Sidebar({ open, setOpen }: Props) {
                 right={<HiChevronRight size={18} />}
               >
                 Configurações
+              </NavItem>
+
+              <NavItem
+                to="/dashboard/plans"
+                icon={<HiBolt size={20} />}
+                right={<HiChevronRight size={18} />}
+              >
+                Planos
               </NavItem>
 
               <NavItem

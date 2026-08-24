@@ -22,6 +22,10 @@ import TermsAndService from "./pages/TermosAndServicos";
 import Whatsapp from "./pages/whatsapp/whatsapp";
 import Images from "./pages/Services/Images";
 import PublicImage from "./pages/Services/PublicImage";
+import Profile from "./pages/Settings/Profile";
+import UpdateProfile from "./pages/Settings/UpdateProfile";
+import Plans from "./pages/Settings/Plans";
+import Contracts from "./pages/Settings/Contracts";
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
   if (!isAuthenticated()) {
@@ -72,6 +76,10 @@ export default function App() {
             <Route path="reports" element={<Reports />} />
             <Route path="settings" element={<Settings />} />
             <Route path="services/images" element={<Images />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="profile/update" element={<UpdateProfile />} />
+            <Route path="plans" element={<Plans />} />
+            <Route path="contracts" element={<Contracts />} />
           </Route>
 
           {/* Página pública de compartilhamento */}

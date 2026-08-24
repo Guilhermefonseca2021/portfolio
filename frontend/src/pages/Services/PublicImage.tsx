@@ -1,10 +1,11 @@
-import { useEffect, useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { FiArrowLeft, FiShoppingCart } from "react-icons/fi";
 import { useParams } from "react-router-dom";
-import { FiShoppingCart, FiArrowLeft } from "react-icons/fi";
 import fonsecaApi from "../../services/fonsecaApi";
-import type { ImageItem } from "../../services/fonsecaApi";
 
-const API_BASE_URL = (import.meta.env.VITE_API_URL ?? "http://localhost:3333").replace(/\/$/, "");
+const API_BASE_URL = (
+  import.meta.env.VITE_API_URL ?? "http://localhost:3333"
+).replace(/\/$/, "");
 
 function resolveImageUrl(image: ImageItem): string {
   const raw = image.url?.trim();
@@ -18,12 +19,22 @@ function resolveImageUrl(image: ImageItem): string {
   return `${API_BASE_URL}${path}`;
 }
 
-function SafeImage({ src, alt, className }: { src: string; alt?: string; className?: string }) {
+function SafeImage({
+  src,
+  alt,
+  className,
+}: {
+  src: string;
+  alt?: string;
+  className?: string;
+}) {
   const [errored, setErrored] = useState(false);
 
   if (!src || errored) {
     return (
-      <div className={`flex items-center justify-center bg-secondary/40 text-secondaryText/60 ${className ?? ""}`}>
+      <div
+        className={`flex items-center justify-center bg-secondary/40 text-secondaryText/60 ${className ?? ""}`}
+      >
         <span>Imagem indisponível</span>
       </div>
     );
@@ -34,7 +45,12 @@ function SafeImage({ src, alt, className }: { src: string; alt?: string; classNa
       src={src}
       alt={alt ?? "Imagem"}
       className={className}
-      onError={() => setErrored(true)}
+      onError={(event) => {
+        console.error("❌ FALHA AO CARREGAR IMAGEM");
+        console.error("URL:", src);
+        console.error("Elemento:", event.currentTarget);
+        setErrored(true);
+      }}
     />
   );
 }
@@ -79,13 +95,17 @@ export default function PublicImage() {
             <span className="font-semibold">Fonseca</span>
           </a>
 
-          <span className="text-sm text-secondaryText/60">Imagens para venda</span>
+          <span className="text-sm text-secondaryText/60">
+            Imagens para venda
+          </span>
         </div>
       </header>
 
       <main className="mx-auto max-w-6xl px-6 py-10">
         {loading ? (
-          <p className="text-center text-secondaryText/70">Carregando imagem...</p>
+          <p className="text-center text-secondaryText/70">
+            Carregando imagem...
+          </p>
         ) : error ? (
           <div className="rounded-2xl border border-red-500/30 bg-red-500/10 p-8 text-center">
             <p className="text-red-300">{error}</p>
@@ -102,24 +122,29 @@ export default function PublicImage() {
 
             <div className="flex flex-col justify-center space-y-6">
               <div>
-                <h1 className="text-3xl font-bold text-secondaryText">{image.name}</h1>
-                <p className="mt-2 text-secondaryText/60">Imagem digital de alta qualidade.</p>
+                <h1 className="text-3xl font-bold text-secondaryText">
+                  {image.name}
+                </h1>
+                <p className="mt-2 text-secondaryText/60">
+                  Imagem digital de alta qualidade.
+                </p>
               </div>
 
               <div className="rounded-2xl border border-secondary bg-card p-6">
                 <p className="text-sm text-secondaryText/60">Preço</p>
-                <p className="mt-1 text-4xl font-bold text-primary">R$ {Number(image.price).toFixed(2)}</p>
+                <p className="mt-1 text-4xl font-bold text-primary">
+                  R$ {Number(image.price).toFixed(2)}
+                </p>
               </div>
 
-              <button
-                className="flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-lg font-semibold text-primaryText transition hover:opacity-90"
-              >
+              <button className="flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-lg font-semibold text-primaryText transition hover:opacity-90">
                 <FiShoppingCart size={20} />
                 Comprar Imagem
               </button>
 
               <p className="text-xs text-secondaryText/50">
-                Ao comprar, você receberá acesso imediato ao download da imagem em alta resolução.
+                Ao comprar, você receberá acesso imediato ao download da imagem
+                em alta resolução.
               </p>
             </div>
           </div>

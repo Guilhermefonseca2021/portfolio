@@ -30,7 +30,9 @@ api.interceptors.response.use(
         window.location.pathname === "/login" ||
         window.location.pathname === "/register";
 
-      if (!isAuthRoute) {
+      const isProtectedRoute = window.location.pathname.startsWith("/dashboard");
+
+      if (isProtectedRoute && !isAuthRoute) {
         clearSession();
         window.location.href = "/login";
       }

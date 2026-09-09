@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { FiArrowLeft, FiShoppingCart } from "react-icons/fi";
 import { useParams } from "react-router-dom";
 import fonsecaApi from "../../services/fonsecaApi";
+import { notifyToast } from "../../components/ui/GlobalToast";
 
 const API_BASE_URL = (
   import.meta.env.VITE_API_URL ?? "http://localhost:3333"
@@ -83,6 +84,18 @@ export default function PublicImage() {
     return () => clearTimeout(timer);
   }, [id, loadImage]);
 
+  const handleBuy = useCallback(async () => {
+    if (!image) return;
+    try {
+      const result = await fonsecaApi.stripe.checkoutImage(image.id);
+      if (result.data?.url) {
+        window.location.href = result.data.url;
+      }
+    } catch {
+      notifyToast("Erro ao iniciar compra da imagem.", "error");
+    }
+  }, [image]);
+
   return (
     <div className="min-h-screen bg-bg">
       <header className="border-b border-secondary bg-card">
@@ -137,10 +150,19 @@ export default function PublicImage() {
                 </p>
               </div>
 
-              <button className="flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-lg font-semibold text-primaryText transition hover:opacity-90">
-                <FiShoppingCart size={20} />
-                Comprar Imagem
-              </button>
+                {Number(image.price) > 0 ? (
+                  <button
+                    onClick={handleBuy}
+                    className="flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-lg font-semibold text-primaryText transition hover:opacity-90"
+                  >
+                    <FiShoppingCart size={20} />
+                    Comprar Imagem
+                  </button>
+                ) : (
+                  <p className="text-sm text-secondaryText/60">
+                    Esta imagem ainda não está à venda.
+                  </p>
+                )}
 
               <p className="text-xs text-secondaryText/50">
                 Ao comprar, você receberá acesso imediato ao download da imagem

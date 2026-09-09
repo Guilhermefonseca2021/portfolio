@@ -28,6 +28,8 @@ export interface Company {
   status?: string;
   plan?: string;
   automationLimit?: number;
+  stripeCustomerId?: string | null;
+  stripeSubscriptionId?: string | null;
 }
 
 export interface Customer {
@@ -188,10 +190,12 @@ export interface ImageItem {
   name: string;
   url: string;
   price: number;
+  isActive: boolean;
   fileName?: string | null;
   fileSize?: string | null;
   mimeType?: string | null;
   createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface StorageInfo {
@@ -200,4 +204,116 @@ export interface StorageInfo {
   storageUsed: number;
   storageAvailable: number;
   percentageUsed: number;
+}
+
+export interface ImageFolder {
+  id: string;
+  companyId: string;
+  name: string;
+  description?: string | null;
+  price: number;
+  isActive: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  images?: FolderImage[];
+}
+
+export interface FolderImage {
+  id: string;
+  folderId: string;
+  imageId: string;
+  position: number;
+  createdAt?: string;
+  image?: ImageItem;
+}
+
+export interface CheckoutSession {
+  id: string;
+  mode: string | null;
+  paymentStatus: string | null;
+  amountTotal: number | null;
+  currency: string | null;
+  subscription: string | null;
+  customerId: string | null;
+}
+
+export interface Plan {
+  key: string;
+  name: string;
+  price: number;
+  storageLimitBytes: number;
+  storageLimitGb: number;
+}
+
+export interface CurrentPlan {
+  key: string;
+  name: string;
+  price: number;
+  storageLimitBytes: number;
+  storageLimitGb: number;
+  storageUsed: number;
+  storageAvailable: number;
+  percentageUsed: number;
+}
+
+export interface SubscriptionInfo {
+  plan: string;
+  status: string;
+  currentPeriodStart: string | null;
+  currentPeriodEnd: string | null;
+  nextBillingDate: string | null;
+  stripeSubscriptionId: string | null;
+  stripeCustomerId: string | null;
+  cancelAtPeriodEnd: boolean;
+}
+
+export interface BillingInfo {
+  plan: string;
+  planPrice: number;
+  storageLimitGb: number;
+  status: string;
+  nextBillingDate: string | null;
+  stripeCustomerId: string | null;
+  stripeSubscriptionId: string | null;
+}
+
+export interface PaymentHistoryEntry {
+  id: string;
+  date: string;
+  description: string;
+  amount: number;
+  status: string;
+  method: string;
+}
+
+export interface OrderItem {
+  id: string;
+  imageId?: string | null;
+  folderId?: string | null;
+  quantity: number;
+  unitPrice: number;
+  image?: { id: string; name: string; url: string } | null;
+  folder?: { id: string; name: string } | null;
+}
+
+export interface OrderPayment {
+  id: string;
+  status: string;
+  amount: number;
+  method: string;
+  transactionId?: string | null;
+  createdAt: string;
+}
+
+export interface Order {
+  id: string;
+  status: string;
+  total: number;
+  paymentMethod?: string | null;
+  paidAt: string | null;
+  createdAt: string;
+  customerName?: string | null;
+  customerEmail?: string | null;
+  items: OrderItem[];
+  payment: OrderPayment | null;
 }

@@ -7,6 +7,7 @@ type ToastPayload = {
 
 let toastTimer: number | undefined;
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function notifyToast(
   message: string,
   type: ToastPayload["type"] = "success",

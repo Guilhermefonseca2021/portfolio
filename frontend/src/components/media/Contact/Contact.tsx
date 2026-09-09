@@ -19,9 +19,9 @@ export default function Contact() {
 
   async function handleSubmit(data: ContactFormData) {
     try {
-      await fonsecaApi.leads.create(data);
+await fonsecaApi.leads.create(data);
       notifyToast(
-        "Lead enviado com sucesso! Entraremos em contato.",
+        "Pedido enviado para orçamento com sucesso! Entraremos em contato.",
         "success",
       );
     } catch (error) {

@@ -186,6 +186,7 @@ interface ImageItem {
   name: string;
   url: string;
   price: number;
+  isActive: boolean;
   fileName?: string | null;
   fileSize?: string | null;
   mimeType?: string | null;

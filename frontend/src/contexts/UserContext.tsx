@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import type { Company, User } from "../types/api";
 import fonsecaApi from "../services/fonsecaApi";
+import { isAuthenticated } from "../utils/session";
 
 interface UserContextValue {
   user: User | null;
@@ -16,8 +17,13 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   const [company, setCompany] = useState<Company | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const refresh = async () => {
-    setLoading(true);
+  const load = async () => {
+    if (!isAuthenticated()) {
+      setUser(null);
+      setCompany(null);
+      setLoading(false);
+      return;
+    }
 
     try {
       const [userResult, companyResult] = await Promise.allSettled([
@@ -44,8 +50,14 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const refresh = async () => {
+    setLoading(true);
+    await load();
+  };
+
   useEffect(() => {
-    refresh();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    load();
   }, []);
 
   const value = useMemo(
@@ -61,6 +73,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useUserContext() {
   const context = useContext(UserContext);
 

@@ -57,7 +57,7 @@ iframe.goog-te-banner-frame {
   display: none;
 }
 
-@theme {
+/* @theme {
   --color-bg: #050012;
   --color-card: #040121;
   --color-primary: #c89bff;
@@ -66,6 +66,17 @@ iframe.goog-te-banner-frame {
   --color-bgAccent: #65417c;
   --color-primaryText: #050012;
   --color-secondaryText: #f0e6ff;
+} */
+ 
+@theme {
+  --color-bg: #0F1115;
+  --color-card: #171A21;
+  --color-primary: #5B8DEF;
+  --color-secondary: #222731;
+  --color-accent: #3B82A0;
+  --color-bgAccent: #1C2630;
+  --color-primaryText: #0F1115;
+  --color-secondaryText: #E6E8EC;
 }
 
 @keyframes marquee {

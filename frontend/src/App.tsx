@@ -26,6 +26,8 @@ import Profile from "./pages/Settings/Profile";
 import UpdateProfile from "./pages/Settings/UpdateProfile";
 import Plans from "./pages/Settings/Plans";
 import Contracts from "./pages/Settings/Contracts";
+import CheckoutSuccess from "./pages/Checkout/CheckoutSuccess";
+import CheckoutCancel from "./pages/Checkout/CheckoutCancel";
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
   if (!isAuthenticated()) {
@@ -81,6 +83,10 @@ export default function App() {
             <Route path="plans" element={<Plans />} />
             <Route path="contracts" element={<Contracts />} />
           </Route>
+
+          {/* Checkout */}
+          <Route path="/checkout/success" element={<CheckoutSuccess />} />
+          <Route path="/checkout/cancel" element={<CheckoutCancel />} />
 
           {/* Página pública de compartilhamento */}
           <Route path="/s/:id" element={<PublicImage />} />

@@ -6,6 +6,17 @@ import {
   postJson,
   putJson,
 } from "./api";
+ import type {
+  CheckoutSession,
+  FolderImage,
+  ImageFolder,
+  Plan,
+  CurrentPlan,
+  SubscriptionInfo,
+  BillingInfo,
+  PaymentHistoryEntry,
+  Order,
+} from "../types/api";
 
 export const fonsecaApi = {
   auth: {
@@ -205,9 +216,88 @@ export const fonsecaApi = {
         (res) => res.data as StorageInfo,
       ),
     remove: (id: string) => deleteJson(`/images/${id}`),
+    toggleActive: (id: string, isActive: boolean) =>
+      patchJson<ApiResponse<ImageItem>>(`/images/${id}/active`, { isActive }),
+  },
+  imageFolders: {
+    list: () =>
+      getJson<ApiResponse<ImageFolder[]>>("/image-folders").then(
+        (res) => res.data ?? [],
+      ),
+    get: (id: string) =>
+      getJson<ApiResponse<ImageFolder>>(`/image-folders/${id}`).then(
+        (res) => res.data as ImageFolder,
+      ),
+    create: (payload: { name: string; description?: string; price: number }) =>
+      postJson<ApiResponse<ImageFolder>>("/image-folders", payload),
+    update: (id: string, payload: Partial<ImageFolder>) =>
+      putJson<ApiResponse<ImageFolder>>(`/image-folders/${id}`, payload),
+    remove: (id: string) => deleteJson(`/image-folders/${id}`),
+    addImage: (id: string, imageId: string, position?: number) =>
+      postJson<ApiResponse<FolderImage>>(`/image-folders/${id}/images`, { imageId, position }),
+    removeImage: (folderId: string, imageId: string) =>
+      deleteJson(`/image-folders/${folderId}/images/${imageId}`),
+  },
+  stripe: {
+    checkoutPlan: (planId: string) =>
+      postJson<ApiResponse<{ url: string; sessionId: string }>>(
+        "/stripe/checkout/plan",
+        { planId },
+      ),
+    checkoutFolder: (folderId: string, quantity?: number) =>
+      postJson<ApiResponse<{ url: string; sessionId: string }>>(
+        `/stripe/checkout/folder/${folderId}`,
+        { quantity: quantity ?? 1 },
+      ),
+    checkoutImage: (imageId: string) =>
+      postJson<ApiResponse<{ url: string; sessionId: string }>>(
+        `/stripe/checkout/image/${imageId}`,
+      ),
+    portal: (returnUrl?: string) =>
+      postJson<ApiResponse<{ url: string }>>("/stripe/portal", {
+        returnUrl,
+      }),
+    getSession: (sessionId: string) =>
+      getJson<ApiResponse<CheckoutSession>>(
+        `/stripe/checkout/session/${sessionId}`,
+      ),
   },
   utils: {
     getErrorMessage: getApiErrorMessage,
+  },
+  plans: {
+    list: () =>
+      getJson<ApiResponse<Plan[]>>("/plans").then(
+        (res) => res.data ?? [],
+      ),
+    current: () =>
+      getJson<ApiResponse<CurrentPlan>>("/plans/current").then(
+        (res) => res.data as CurrentPlan,
+      ),
+    checkout: (plan: string) =>
+      postJson<ApiResponse<{ url: string; sessionId: string }>>("/plans/checkout", { plan }),
+  },
+  subscription: {
+    get: () =>
+      getJson<ApiResponse<SubscriptionInfo>>("/subscription").then(
+        (res) => res.data as SubscriptionInfo,
+      ),
+  },
+  billing: {
+    info: () =>
+      getJson<ApiResponse<BillingInfo>>("/billing").then(
+        (res) => res.data as BillingInfo,
+      ),
+    history: () =>
+      getJson<ApiResponse<PaymentHistoryEntry[]>>("/billing/history").then(
+        (res) => res.data ?? [],
+      ),
+  },
+  contracts: {
+    list: () =>
+      getJson<ApiResponse<Order[]>>("/orders").then(
+        (res) => res.data ?? [],
+      ),
   },
 };
 

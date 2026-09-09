@@ -35,7 +35,6 @@ export default function Analytics() {
 
   async function loadData() {
     try {
-      setLoading(true);
       const [dealsData, pipelinesData, customersData, leadsData] = await Promise.all([
         fonsecaApi.deals.list(),
         fonsecaApi.pipelines.list(),
@@ -59,6 +58,7 @@ export default function Analytics() {
   }
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadData();
   }, []);
 

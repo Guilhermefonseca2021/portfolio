@@ -7,16 +7,7 @@ export default function Header() {
 
   return (
     <header
-      className="
-        fixed
-        top-0
-        z-50
-        w-full
-        border-b
-        border-white/10
-        bg-bg/80
-        backdrop-blur-xl
-      "
+      className="fixed top-0 z-50 w-full border-b border-white/[.08] bg-bg/75 backdrop-blur-2xl"
     >
       <div
         className="
@@ -38,20 +29,8 @@ export default function Header() {
             gap-2
           "
         >
-          <div
-            className="
-              flex
-              h-10
-              w-10
-              items-center
-              justify-center
-              rounded-xl
-              bg-primary
-              font-bold
-              text-primaryText
-            "
-          >
-            F
+          <div className="flex size-10 items-center justify-center rounded-full bg-primary font-bold text-primaryText shadow-[0_0_0_5px_rgba(214,255,75,.08)]">
+            f
           </div>
 
           <span

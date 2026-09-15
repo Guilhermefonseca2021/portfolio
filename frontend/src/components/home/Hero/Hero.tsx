@@ -40,33 +40,12 @@ export default function Hero() {
             text-center
           "
         >
-          <span
-            className="
-              inline-flex
-              rounded-full
-              border
-              border-primary/20
-              bg-primary/10
-              px-4
-              py-1.5
-              text-xs
-              font-medium
-              text-primary
-            "
-          >
-            Gestão de serviços digitais B2B
+          <span className="eyebrow inline-flex items-center gap-2">
+            <span className="size-1.5 rounded-full bg-primary" /> Gestão de serviços digitais B2B
           </span>
 
           <h1
-            className="
-              mt-8
-              text-5xl
-              font-bold
-              leading-[1.05]
-              tracking-tight
-              text-secondaryText
-              md:text-7xl
-            "
+            className="display-type mt-8 text-5xl font-medium leading-[.98] tracking-tight text-secondaryText md:text-8xl"
           >
             Organize serviços,
             <br />

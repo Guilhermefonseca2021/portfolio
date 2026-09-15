@@ -18,7 +18,7 @@ export default function Navbar({ setOpen }: Props) {
     .toUpperCase();
 
   return (
-    <header className="sticky top-0 z-20 h-16 bg-card/80 backdrop-blur-xl border-b border-secondary/60 px-6 flex items-center justify-between">
+    <header className="sticky top-0 z-20 flex h-20 items-center justify-between border-b border-white/[.08] bg-card/70 px-6 backdrop-blur-2xl lg:px-8">
       <div className="flex items-center gap-4">
         <button
           onClick={() => setOpen(true)}

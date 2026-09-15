@@ -7,7 +7,7 @@ import { Outlet } from "react-router-dom";
 
 export default function AuthLayout() {
   return (
-    <main className="h-dvh bg-bg">
+    <main className="h-dvh bg-bg text-secondaryText">
       {/* MOBILE */}
       <section className="h-full w-full overflow-y-auto lg:hidden bg-background">
         <div className="min-h-full w-full h-full">
@@ -18,11 +18,11 @@ export default function AuthLayout() {
       {/* DESKTOP */}
       <section className="hidden h-full lg:block">
         <div className="mx-auto h-full max-w-7xl px-5 py-5 lg:px-8 lg:py-8">
-          <div className="grid h-full overflow-hidden rounded-3xl border border-white/10 bg-card lg:grid-cols-2">
+          <div className="surface grid h-full overflow-hidden rounded-[2rem] lg:grid-cols-2">
             {/* Lado esquerdo */}
             <section className="flex h-full bg-secondary">
               <div className="flex h-full w-full flex-col justify-center px-12">
-                <h1 className="mt-6 text-5xl font-black leading-tight text-secondaryText">
+                <h1 className="display-type mt-6 text-5xl font-medium leading-[.98] text-secondaryText">
                   <span className="inline-flex w-fit rounded-full border border-primary/20 bg-primary/10 px-3 py-1.5 text-sm font-medium text-primary">
                     Transparência é com a gente.
                   </span>

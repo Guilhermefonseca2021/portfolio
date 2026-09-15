@@ -1,21 +1,23 @@
+import { FiCalendar, FiCreditCard, FiUsers } from "react-icons/fi";
+
 const benefits = [
   {
     title: "Centralize seus clientes",
     description:
       "Organize dados, histórico, serviços contratados, documentos e informações importantes de cada cliente.",
-    icon: "👥",
+    icon: FiUsers,
   },
   {
     title: "Controle contratos e financeiro",
     description:
       "Gerencie contratos ativos, planos, pagamentos recebidos, valores pendentes e gastos da operação.",
-    icon: "💰",
+    icon: FiCreditCard,
   },
   {
     title: "Organize agenda e comunicação",
     description:
       "Controle reuniões, entregas, prazos e automatize mensagens e lembretes para seus clientes.",
-    icon: "📅",
+    icon: FiCalendar,
   },
 ];
 
@@ -239,7 +241,7 @@ export default function ForProfessionals() {
                       bg-primary/10
                     "
                   >
-                    {item.icon}
+                    <item.icon aria-hidden="true" />
                   </div>
 
                   <div>

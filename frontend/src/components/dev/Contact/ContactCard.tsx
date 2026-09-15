@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FiAtSign, FiBriefcase, FiGithub, FiPhone } from "react-icons/fi";
 import ContactItem from "./ContactItem";
 import fonsecaApi from "../../../services/fonsecaApi";
 import { notifyToast } from "../../ui/GlobalToast";
@@ -65,25 +66,25 @@ export default function ContactCard() {
 
           <div className="space-y-6">
             <ContactItem
-              icon="📧"
+              icon={<FiAtSign aria-hidden="true" />}
               title="Email"
               value="gsbloogs194@email.com"
             />
 
             <ContactItem
-              icon="📱"
+              icon={<FiPhone aria-hidden="true" />}
               title="WhatsApp"
               value="+55 (83) 99812-9695"
             />
 
             <ContactItem
-              icon="💼"
+              icon={<FiBriefcase aria-hidden="true" />}
               title="LinkedIn"
               value="linkedin.com/in/guilhermefonseca2021"
             />
 
             <ContactItem
-              icon="🐙"
+              icon={<FiGithub aria-hidden="true" />}
               title="GitHub"
               value="github.com/Guilhermefonseca2021"
             />

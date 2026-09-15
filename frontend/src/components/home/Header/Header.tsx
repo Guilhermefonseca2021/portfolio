@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HiBars3, HiXMark } from "react-icons/hi2";
+import { FiMenu, FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -7,7 +7,7 @@ export default function Header() {
 
   return (
     <header
-      className="fixed top-0 z-50 w-full border-b border-white/[.08] bg-bg/75 backdrop-blur-2xl"
+      className="fixed top-0 z-50 w-full border-b border-black/[.06] bg-white/75 backdrop-blur-2xl"
     >
       <div
         className="
@@ -29,8 +29,8 @@ export default function Header() {
             gap-2
           "
         >
-          <div className="flex size-10 items-center justify-center rounded-full bg-primary font-bold text-primaryText shadow-[0_0_0_5px_rgba(214,255,75,.08)]">
-            f
+          <div className="flex size-8 items-center justify-center rounded-full bg-secondaryText text-sm font-semibold text-primaryText">
+            F
           </div>
 
           <span
@@ -128,7 +128,7 @@ export default function Header() {
             lg:hidden
           "
         >
-          {open ? <HiXMark /> : <HiBars3 />}
+          {open ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
         </button>
       </div>
 

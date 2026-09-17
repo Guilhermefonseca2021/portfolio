@@ -1,4 +1,6 @@
 
+import type { Service } from "../../../@types/service";
+
 type Props = {
   service: Service;
 };
@@ -20,7 +22,7 @@ export default function ServiceCard({ service }: Props) {
       "
     >
       <div className="mb-6 text-5xl">
-        {service.icon}
+        <service.icon aria-hidden="true" />
       </div>
 
       <h3 className="text-2xl font-bold text-secondaryText">

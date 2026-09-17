@@ -92,7 +92,7 @@ export default function ServicesGrid() {
                   text-xl
                 "
               >
-                {service.icon}
+                <service.icon aria-hidden="true" />
               </div>
 
               <h3

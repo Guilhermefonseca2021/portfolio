@@ -1,29 +1,10 @@
 export default function Hero() {
   return (
     <section
-      className="
-        relative
-        overflow-hidden
-        bg-bg
-        pt-40
-        pb-24
-      "
+      className="apple-gradient relative overflow-hidden pb-28 pt-40"
     >
-      {/* Glow */}
-      <div
-        className="
-          pointer-events-none
-          absolute
-          left-1/2
-          top-20
-          h-[500px]
-          w-[500px]
-          -translate-x-1/2
-          rounded-full
-          bg-primary/20
-          blur-[160px]
-        "
-      />
+      <div className="pointer-events-none absolute inset-0 bg-[url('/apple-hero-texture.png')] bg-cover bg-center opacity-45 mix-blend-multiply" />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-[#f5f5f7]" />
 
       <div
         className="
@@ -40,33 +21,12 @@ export default function Hero() {
             text-center
           "
         >
-          <span
-            className="
-              inline-flex
-              rounded-full
-              border
-              border-primary/20
-              bg-primary/10
-              px-4
-              py-1.5
-              text-xs
-              font-medium
-              text-primary
-            "
-          >
-            Gestão de serviços digitais B2B
+          <span className="eyebrow inline-flex items-center gap-2">
+            <span className="size-1.5 rounded-full bg-primary" /> Gestão de serviços digitais B2B
           </span>
 
           <h1
-            className="
-              mt-8
-              text-5xl
-              font-bold
-              leading-[1.05]
-              tracking-tight
-              text-secondaryText
-              md:text-7xl
-            "
+            className="display-type mt-8 text-5xl font-medium leading-[.98] tracking-tight text-secondaryText md:text-8xl"
           >
             Organize serviços,
             <br />
@@ -133,7 +93,11 @@ export default function Hero() {
             </button>
           </div>
         </div>
-      </div>
+          <div className="floating-card mx-auto mt-16 flex max-w-md items-center justify-between rounded-2xl px-5 py-4 text-left text-sm text-secondaryText/75">
+            <span><strong className="block text-secondaryText">Operação mais simples.</strong> Tudo conectado em uma única plataforma.</span>
+            <span className="ml-4 flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-primaryText">→</span>
+          </div>
+        </div>
     </section>
   );
 }

@@ -1,26 +1,28 @@
+import { FiCalendar, FiCreditCard, FiFileText, FiUsers } from "react-icons/fi";
+
 const features = [
   {
     title: "Clientes",
     description:
       "Organize clientes, histórico de serviços e informações importantes em um só lugar.",
-    icon: "👥",
+    icon: FiUsers,
   },
   {
     title: "Contratos",
     description:
       "Gerencie contratos, planos e documentos dos serviços realizados.",
-    icon: "📄",
+    icon: FiFileText,
   },
   {
     title: "Financeiro",
     description:
       "Controle pagamentos, gastos e acompanhe a saúde da sua operação.",
-    icon: "💰",
+    icon: FiCreditCard,
   },
   {
     title: "Agenda",
     description: "Organize compromissos, entregas e atividades da sua equipe.",
-    icon: "📅",
+    icon: FiCalendar,
   },
 ];
 
@@ -174,7 +176,7 @@ export default function PlatformPreview() {
                       text-2xl
                     "
                   >
-                    {item.icon}
+                    <item.icon aria-hidden="true" />
                   </div>
 
                   <h4

@@ -13,7 +13,7 @@ body,
   overflow-x: hidden;
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: #c89bff #050012;
+  scrollbar-color: #8e8e93 #f5f5f7;
 }
 
 /* Chrome / Edge / Safari */
@@ -24,16 +24,12 @@ body,
 
 
 ::-webkit-scrollbar-track {
-  background: #050012;
+  background: #f5f5f7;
 }
 
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(
-    180deg,
-    #c89bff,
-    #684f7b
-  );
+  background: linear-gradient(180deg, #8e8e93, #c7c7cc);
 
   border-radius: 999px;
 
@@ -69,14 +65,49 @@ iframe.goog-te-banner-frame {
 } */
  
 @theme {
-  --color-bg: #0F1115;
-  --color-card: #171A21;
-  --color-primary: #5B8DEF;
-  --color-secondary: #222731;
-  --color-accent: #3B82A0;
-  --color-bgAccent: #1C2630;
-  --color-primaryText: #0F1115;
-  --color-secondaryText: #E6E8EC;
+  --color-bg: #f5f5f7;
+  --color-card: #ffffff;
+  --color-primary: #0071e3;
+  --color-secondary: #d2d2d7;
+  --color-accent: #86868b;
+  --color-bgAccent: #e8e8ed;
+  --color-primaryText: #ffffff;
+  --color-secondaryText: #1d1d1f;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+} 
+
+:root {
+  color-scheme: light;
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #f5f5f7;
+}
+
+button, a, input, textarea, select { font: inherit; }
+a { text-decoration: none; }
+
+::selection { background: #0071e3; color: #ffffff; }
+
+.display-type { font-family: "Space Grotesk", "Inter", sans-serif; letter-spacing: -0.045em; }
+.surface { border: 1px solid rgba(29,29,31,.08); background: rgba(255,255,255,.78); box-shadow: 0 18px 50px rgba(29,29,31,.08); }
+.eyebrow { letter-spacing: .12em; text-transform: uppercase; font-size: .68rem; font-weight: 700; color: #86868b; }
+.floating-card { border: 1px solid rgba(29,29,31,.08); background: rgba(255,255,255,.72); box-shadow: 0 24px 60px rgba(29,29,31,.12); backdrop-filter: blur(24px); }
+.apple-gradient { background: linear-gradient(135deg, #fbfbfd 0%, #e8f1ff 48%, #dbeafe 100%); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .surface, a, button { transition: border-color .2s ease, background-color .2s ease, color .2s ease, transform .2s ease; }
+  a:hover, button:hover { transform: translateY(-1px); }
 }
 
 @keyframes marquee {

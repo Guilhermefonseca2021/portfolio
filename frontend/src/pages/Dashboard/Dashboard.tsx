@@ -150,14 +150,15 @@ export default function Dashboard() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold text-primary">Dashboard</h1>
+        <p className="eyebrow">Visão geral</p>
+        <h1 className="display-type mt-2 text-4xl font-medium text-secondaryText">Dashboard</h1>
         <p className="mt-2 text-secondaryText/60">{greeting}</p>
       </div>
 
       {loading ? (
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="rounded-2xl border border-secondary bg-card p-6">
+            <div key={i} className="surface rounded-2xl p-6">
               <p className="text-secondaryText/70">Carregando...</p>
             </div>
           ))}
@@ -198,7 +199,7 @@ export default function Dashboard() {
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2">
-            <section className="rounded-2xl border border-secondary bg-card p-6">
+            <section className="surface rounded-2xl p-6">
               <h2 className="text-xl font-semibold text-secondaryText">Negociações por etapa</h2>
               <div className="mt-4 h-72">
                 <ResponsiveContainer width="100%" height="100%">
@@ -218,7 +219,7 @@ export default function Dashboard() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-secondary bg-card p-6">
+            <section className="surface rounded-2xl p-6">
               <h2 className="text-xl font-semibold text-secondaryText">Valor por etapa</h2>
               <div className="mt-4 h-72">
                 <ResponsiveContainer width="100%" height="100%">
@@ -249,7 +250,7 @@ export default function Dashboard() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-secondary bg-card p-6">
+            <section className="surface rounded-2xl p-6">
               <h2 className="text-xl font-semibold text-secondaryText">Evolução de negociações</h2>
               <div className="mt-4 h-72">
                 <ResponsiveContainer width="100%" height="100%">
@@ -269,7 +270,7 @@ export default function Dashboard() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-secondary bg-card p-6">
+            <section className="surface rounded-2xl p-6">
               <h2 className="text-xl font-semibold text-secondaryText">Funil rápido</h2>
               <div className="mt-4 space-y-4">
                 {stages.map((stage) => {
@@ -297,7 +298,7 @@ export default function Dashboard() {
             </section>
           </div>
 
-          <section className="rounded-2xl border border-secondary bg-card p-6">
+          <section className="surface rounded-2xl p-6">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-semibold text-secondaryText">Negociações recentes</h2>
               <span className="text-sm text-secondaryText/60">
@@ -374,7 +375,7 @@ function MetricCard({
   icon: React.ReactNode;
 }) {
   return (
-    <section className="rounded-2xl border border-secondary bg-card p-6">
+    <section className="surface rounded-2xl p-6">
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm text-secondaryText/60">{title}</p>

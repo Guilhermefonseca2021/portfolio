@@ -1,21 +1,23 @@
+import { FiBarChart2, FiTarget, FiUsers } from "react-icons/fi";
+
 const items = [
   {
     title: "Estratégia antes da execução",
     description:
       "Entendemos seus objetivos, identificamos oportunidades e construímos um caminho claro para sua marca crescer.",
-    icon: "🎯",
+    icon: FiTarget,
   },
   {
     title: "Profissionais conectados",
     description:
       "Tenha acesso a especialistas preparados para transformar ideias em projetos reais com acompanhamento completo.",
-    icon: "🤝",
+    icon: FiUsers,
   },
   {
     title: "Resultados acompanhados",
     description:
       "Acompanhe cada etapa do projeto, visualize entregas e tenha controle sobre tudo que está sendo desenvolvido.",
-    icon: "📈",
+    icon: FiBarChart2,
   },
 ];
 
@@ -110,7 +112,7 @@ export default function Solution() {
                   text-xl
                 "
               >
-                {item.icon}
+                <item.icon aria-hidden="true" />
               </div>
 
               <h3

@@ -71,15 +71,7 @@ export default function Sidebar({ open, setOpen }: Props) {
       )}
 
       <aside
-        className={`
-          fixed left-0 top-0 z-40
-          flex h-screen w-72 flex-col
-          border-r border-secondary/60
-          bg-card
-          transition-all duration-300
-          ${open ? "translate-x-0" : "-translate-x-full"}
-          lg:translate-x-0
-        `}
+        className={`fixed left-0 top-0 z-40 flex h-screen w-72 flex-col border-r border-white/[.08] bg-card/95 backdrop-blur-2xl transition-all duration-300 ${open ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0`}
       >
         {/* Header */}
         <div className="flex h-16 items-center border-b border-secondary/60 px-6">

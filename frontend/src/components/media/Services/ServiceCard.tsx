@@ -14,11 +14,12 @@ export default function ServiceCard({ service }: Props) {
         rounded-2xl
         border
         border-white/10
-        bg-card
+        bg-white/[0.04]
         p-3
         transition-all
         duration-300
         hover:-translate-y-1
+        hover:bg-white/[0.07]
         hover:border-primary/40
       "
     >
@@ -59,7 +60,7 @@ export default function ServiceCard({ service }: Props) {
           className="
             text-sm
             font-semibold
-            text-secondaryText
+            text-white
           "
         >
           {service.title}
@@ -70,7 +71,7 @@ export default function ServiceCard({ service }: Props) {
             mt-1
             text-xs
             leading-5
-            text-secondaryText/70
+            text-white/70
           "
         >
           {service.description}
@@ -94,7 +95,7 @@ export default function ServiceCard({ service }: Props) {
                 px-2
                 py-0.5
                 text-[10px]
-                text-secondaryText/70
+                text-white/70
               "
             >
               {feature}

@@ -31,20 +31,24 @@ export default function PortfolioSocialMedia() {
         path="/socialmedia"
         keywords="social media, estratégia de conteúdo, branding, marketing digital, performance"
       />
-      <a href="#conteudo-social" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-primaryText">Ir para o conteúdo</a>
+      <a
+        href="#conteudo-social"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-primary focus:px-4 focus:py-2 focus:text-primaryText"
+      >
+        Ir para o conteúdo
+      </a>
       <Header />
 
-      <div id="conteudo-social" className="relative">
-        <div className="pointer-events-none absolute left-1/2 top-0 h-px w-[min(92%,1100px)] -translate-x-1/2 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-        <div className="space-y-0">
-        <Hero />
+      <div id="conteudo-social" className="relative bg-[#0b1220]">
+        <div className="space-y-0 bg-[#0b1220]">
+          <Hero />
 
-        <Clients />
+          <Clients />
 
-        <div className="relative space-y-0">
-          {isDesktop && (
-            <div
-              className="
+          <div className="relative space-y-0">
+            {isDesktop && (
+              <div
+                className="
                 pointer-events-none
                 absolute
                 right-0
@@ -53,22 +57,22 @@ export default function PortfolioSocialMedia() {
                 h-[900px]
                 w-[600px]
               "
-            >
-              <div className="h-[620px] w-[620px]">
-                <ThreeCamera />
+              >
+                <div className="h-[620px] w-[620px]">
+                  <ThreeCamera />
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          <ProblemSection />
+            <ProblemSection />
 
-          <Captures />
+            <Captures />
 
-          <Services />
+            <Services />
 
-          <Contact />
+            <Contact />
+          </div>
         </div>
-      </div>
       </div>
     </main>
   );

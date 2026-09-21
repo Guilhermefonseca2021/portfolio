@@ -6,26 +6,13 @@ export default function Captures() {
       id="captacoes"
       className="
         relative
+        isolate
         overflow-hidden
-        bg-background
+        bg-[#0b1220]
         py-4
         md:py-8
       "
     >
-      {/* transição sutil */}
-      <div
-        className="
-          pointer-events-none
-          absolute
-          inset-x-0
-          top-0
-          h-32
-          bg-gradient-to-b
-          from-bg/0
-          to-bg/40
-        "
-      />
-
       <div
         className="
           relative
@@ -74,12 +61,13 @@ export default function Captures() {
             <h2
               className="
                 mt-5
-                text-4xl
+                text-3xl
                 font-bold
                 leading-[1.1]
                 tracking-tight
-                text-secondaryText
-                md:text-6xl
+                text-primary
+                sm:text-4xl
+                lg:text-5xl
               "
             >
               Cada vídeo começa
@@ -92,7 +80,7 @@ export default function Captures() {
                 mt-7
                 text-lg
                 leading-8
-                text-secondaryText/70
+                text-white/70
               "
             >
               Produção cinematográfica para marcas que querem transformar
@@ -118,7 +106,7 @@ export default function Captures() {
                       px-5
                       py-2
                       text-sm
-                      text-secondaryText/70
+                      text-white/70
                     "
                 >
                   {item}

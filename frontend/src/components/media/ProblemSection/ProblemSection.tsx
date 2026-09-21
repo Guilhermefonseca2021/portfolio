@@ -30,56 +30,6 @@ export default function ProblemSection() {
       md:py-16
       "
     >
-      {/* BACKGROUND GLOW */}
-
-      <div
-        className="
-        pointer-events-none
-        absolute
-        -left-40
-        top-20
-        h-[500px]
-        w-[500px]
-        rounded-full
-        bg-primary/10
-        blur-[160px]
-        "
-      />
-
-      <div
-        className="
-        pointer-events-none
-        absolute
-        right-[-150px]
-        bottom-0
-        h-[600px]
-        w-[600px]
-        rounded-full
-        bg-primary/5
-        blur-[180px]
-        "
-      />
-
-      {/* GRID TEXTURE */}
-
-      <div
-        className="
-        pointer-events-none
-        absolute
-        inset-0
-        opacity-[0.03]
-        "
-      >
-        <div
-          className="
-          h-full
-          w-full
-          bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)]
-          bg-[size:80px_80px]
-          "
-        />
-      </div>
-
       <div
         className="
         relative
@@ -109,12 +59,13 @@ export default function ProblemSection() {
           <h2
             className="
           mt-4
-          text-4xl
+          text-3xl
             font-bold
             leading-tight
             tracking-tight
             text-white
-            md:text-6xl
+            sm:text-4xl
+            lg:text-5xl
             "
           >
             O problema não é falta

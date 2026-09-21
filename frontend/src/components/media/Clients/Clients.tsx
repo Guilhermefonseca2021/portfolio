@@ -3,10 +3,6 @@ import ClientsRow from "./ClientsRow";
 export default function Clients() {
   return (
     <section className="relative isolate overflow-hidden bg-[#0b1220] pb-12 pt-14 text-white sm:pb-16 sm:pt-16">
-      {/* Background Glow */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,.18),transparent_38%),linear-gradient(180deg,transparent,rgba(3,8,20,.3))]" />
-      <div className="pointer-events-none absolute -right-24 top-20 -z-10 size-72 rounded-full bg-sky-300/20 blur-3xl" />
-
       <div className="mx-auto max-w-7xl px-8">
         {/* Badge */}
         <div className="mb-10 flex justify-center sm:mb-16">
@@ -38,9 +34,7 @@ export default function Clients() {
 
           <br />
 
-          <span className="text-white">
-            confiaram no nosso trabalho.
-          </span>
+          <span className="text-white">confiaram no nosso trabalho.</span>
         </h2>
 
         <p className="mx-auto mt-8 max-w-3xl text-center text-lg leading-8 text-white/75">

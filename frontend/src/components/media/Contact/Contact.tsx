@@ -18,8 +18,29 @@ export default function Contact() {
   }
 
   async function handleSubmit(data: ContactFormData) {
+    const message = [
+      "Olá, Gabriel! Gostaria de solicitar um orçamento.",
+      "",
+      data.name.trim() && `Nome: ${data.name.trim()}`,
+      data.email.trim() && `E-mail: ${data.email.trim()}`,
+      data.whatsapp.trim() && `WhatsApp: ${data.whatsapp.trim()}`,
+      data.company.trim() && `Empresa: ${data.company.trim()}`,
+      data.instagram.trim() && `Instagram: ${data.instagram.trim()}`,
+      data.services.length > 0 && `Serviços: ${data.services.join(", ")}`,
+      data.objective.trim() && `Objetivo: ${data.objective.trim()}`,
+      data.companySize.trim() && `Porte da empresa: ${data.companySize.trim()}`,
+      data.budget.trim() && `Orçamento: ${data.budget.trim()}`,
+      data.deadline.trim() && `Prazo: ${data.deadline.trim()}`,
+      data.message.trim() && `Mensagem: ${data.message.trim()}`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    const whatsappLink = `https://wa.me/5583986625571?text=${encodeURIComponent(message)}`;
+    window.open(whatsappLink, "_blank", "noopener,noreferrer");
+
     try {
-await fonsecaApi.leads.create(data);
+      await fonsecaApi.leads.create(data);
       notifyToast(
         "Pedido enviado para orçamento com sucesso! Entraremos em contato.",
         "success",
@@ -40,42 +61,11 @@ await fonsecaApi.leads.create(data);
       className="
         relative
         overflow-hidden
-        bg-bg
+        bg-[#0b1220]
         py-6
         md:py-14
       "
     >
-      {/* transição superior */}
-
-      <div
-        className="
-        pointer-events-none
-        absolute
-        inset-x-0
-        top-0
-        h-32
-        bg-gradient-to-b
-        from-bg/0
-        to-bg/40
-        "
-      />
-
-      {/* glow */}
-
-      <div
-        className="
-        pointer-events-none
-        absolute
-        right-[-120px]
-        top-20
-        h-[500px]
-        w-[500px]
-        rounded-full
-        bg-primary/10
-        blur-[170px]
-        "
-      />
-
       <div
         className="
         relative
@@ -105,12 +95,13 @@ await fonsecaApi.leads.create(data);
           <h2
             className="
             mt-5
-            text-4xl
+            text-3xl
             font-bold
             leading-tight
             tracking-tight
-            text-secondaryText
-            md:text-6xl
+            text-white
+            sm:text-4xl
+            lg:text-5xl
             "
           >
             Vamos criar algo
@@ -123,7 +114,7 @@ await fonsecaApi.leads.create(data);
             max-w-xl
             text-lg
             leading-8
-            text-secondaryText/70
+            text-white/70
             "
           >
             Conte sua ideia e receba uma estratégia personalizada para

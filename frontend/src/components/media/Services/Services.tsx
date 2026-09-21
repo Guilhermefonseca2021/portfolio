@@ -8,41 +8,11 @@ export default function Services() {
       className="
         relative
         overflow-hidden
-        bg-bg
+        bg-[#0b1220]
         py-6
         md:py-6
       "
     >
-      {/* transição suave */}
-      <div
-        className="
-          pointer-events-none
-          absolute
-          inset-x-0
-          top-0
-          h-32
-          bg-gradient-to-b
-          from-background/0
-          to-bg/40
-        "
-      />
-
-      {/* glow */}
-      <div
-        className="
-          pointer-events-none
-          absolute
-          left-1/2
-          top-40
-          h-[450px]
-          w-[450px]
-          -translate-x-1/2
-          rounded-full
-          bg-primary/5
-          blur-[160px]
-        "
-      />
-
       <div
         className="
           relative
@@ -72,12 +42,13 @@ export default function Services() {
           <h2
             className="
               mt-5
-              text-4xl
+              text-3xl
               font-bold
               leading-[1.1]
               tracking-tight
-              text-secondaryText
-              md:text-6xl
+              text-white
+              sm:text-4xl
+              lg:text-5xl
             "
           >
             Soluções completas para construir
@@ -90,7 +61,7 @@ export default function Services() {
               max-w-2xl
               text-lg
               leading-8
-              text-secondaryText/70
+              text-white/70
             "
           >
             Não produzimos apenas conteúdo. Desenvolvemos estratégias que

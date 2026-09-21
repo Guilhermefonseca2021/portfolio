@@ -2,7 +2,7 @@ import ClientsRow from "./ClientsRow";
 
 export default function Clients() {
   return (
-    <section className="relative isolate overflow-hidden bg-gradient-to-br from-[#0b1220] via-[#172a4a] to-[#334f7d] py-20 text-white sm:py-24">
+    <section className="relative isolate overflow-hidden bg-gradient-to-br from-[#0b1220] via-[#172a4a] to-[#334f7d] pb-16 pt-16 text-white sm:pb-20 sm:pt-20">
       {/* Background Glow */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,.18),transparent_38%),linear-gradient(180deg,transparent,rgba(3,8,20,.3))]" />
       <div className="pointer-events-none absolute -right-24 top-20 -z-10 size-72 rounded-full bg-sky-300/20 blur-3xl" />
@@ -50,12 +50,12 @@ export default function Clients() {
         </p>
 
         {/* Logos */}
-        <div className="relative mt-14 overflow-hidden sm:mt-20">
+        <div className="relative mt-10 overflow-hidden sm:mt-14">
           {/* Fade esquerda */}
-          <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-24 bg-gradient-to-r sm:w-40 from-[#0b1220] via-[#0b1220]/80 to-transparent" />
+          <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-16 bg-gradient-to-r from-[#0b1220] via-[#0b1220]/70 to-transparent sm:w-28" />
 
           {/* Fade direita */}
-          <div className="pointer-events-none absolute right-0 top-0 z-20 h-full w-40 bg-gradient-to-l from-[#0b1220] via-[#0b1220]/80 to-transparent" />
+          <div className="pointer-events-none absolute right-0 top-0 z-20 h-full w-16 bg-gradient-to-l sm:w-28 from-[#0b1220] via-[#0b1220]/80 to-transparent" />
 
           <ClientsRow />
         </div>

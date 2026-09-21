@@ -26,8 +26,8 @@ export default function ProblemSection() {
       relative
       overflow-hidden
       bg-bg
-      py-24
-      md:py-32
+      py-16
+      md:py-24
       "
     >
       {/* BACKGROUND GLOW */}
@@ -108,8 +108,8 @@ export default function ProblemSection() {
 
           <h2
             className="
-            mt-5
-            text-4xl
+          mt-4
+          text-4xl
             font-bold
             leading-tight
             tracking-tight
@@ -141,7 +141,7 @@ export default function ProblemSection() {
         <div
           className="
           relative
-          mt-16
+          mt-12
           max-w-2xl
           "
         >

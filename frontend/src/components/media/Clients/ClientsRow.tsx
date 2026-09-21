@@ -11,7 +11,7 @@ export default function ClientsRow() {
             key={`${client.id}-${index}`}
             src={client.image}
             alt={client.name}
-            className="h-10 w-auto max-w-[150px] shrink-0 rounded-xl bg-white/90 px-3 py-2 object-contain opacity-90 shadow-lg grayscale-0 transition-all duration-300 hover:scale-105 hover:bg-white sm:h-12 sm:max-w-none sm:px-4"
+            className="h-10 w-auto max-w-[150px] shrink-0 rounded-xl bg-[#14213a] px-3 py-2 object-contain opacity-80 shadow-lg grayscale brightness-0 invert transition-all duration-300 hover:scale-105 hover:bg-white sm:h-12 sm:max-w-none sm:px-4"
           />
         ))}
       </div>

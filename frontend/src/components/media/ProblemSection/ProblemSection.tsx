@@ -25,7 +25,7 @@ export default function ProblemSection() {
       className="
       relative
       overflow-hidden
-      bg-bg
+      bg-[#0b1220]
       py-16
       md:py-24
       "
@@ -113,7 +113,7 @@ export default function ProblemSection() {
             font-bold
             leading-tight
             tracking-tight
-            text-secondaryText
+            text-white
             md:text-6xl
             "
           >
@@ -130,7 +130,7 @@ export default function ProblemSection() {
             max-w-xl
             text-lg
             leading-8
-            text-secondaryText/70
+            text-white/70
             "
           >
             Muitas marcas aparecem todos os dias, mas poucas criam uma
@@ -187,7 +187,7 @@ export default function ProblemSection() {
                     rounded-full
                     border
                     border-primary/40
-                    bg-bg
+                    bg-[#0b1220]
                     "
                 >
                   <span

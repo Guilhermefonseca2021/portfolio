@@ -9,7 +9,7 @@ export default function Clients() {
 
       <div className="mx-auto max-w-7xl px-8">
         {/* Badge */}
-        <div className="mb-16 flex justify-center">
+        <div className="mb-10 flex justify-center sm:mb-16">
           <div className="flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-5 py-2 backdrop-blur-xl">
             <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-primary shadow-[0_0_12px_#c89bff]" />
 
@@ -21,7 +21,7 @@ export default function Clients() {
 
         {/* Title */}
         <h2 className="mx-auto max-w-5xl text-center text-3xl font-black leading-tight lg:text-5xl">
-          <span className="text-secondaryText">Mais de </span>
+          <span className="text-white">Mais de </span>
 
           <span
             className="
@@ -38,7 +38,7 @@ export default function Clients() {
 
           <br />
 
-          <span className="text-secondaryText">
+          <span className="text-white">
             confiaram no nosso trabalho.
           </span>
         </h2>
@@ -50,9 +50,9 @@ export default function Clients() {
         </p>
 
         {/* Logos */}
-        <div className="relative mt-20 overflow-hidden">
+        <div className="relative mt-14 overflow-hidden sm:mt-20">
           {/* Fade esquerda */}
-          <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-40 bg-gradient-to-r from-[#0b1220] via-[#0b1220]/80 to-transparent" />
+          <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-24 bg-gradient-to-r sm:w-40 from-[#0b1220] via-[#0b1220]/80 to-transparent" />
 
           {/* Fade direita */}
           <div className="pointer-events-none absolute right-0 top-0 z-20 h-full w-40 bg-gradient-to-l from-[#0b1220] via-[#0b1220]/80 to-transparent" />

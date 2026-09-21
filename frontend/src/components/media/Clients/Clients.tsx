@@ -2,7 +2,7 @@ import ClientsRow from "./ClientsRow";
 
 export default function Clients() {
   return (
-    <section className="relative isolate overflow-hidden bg-[#0b1220] pb-16 pt-16 text-white sm:pb-20 sm:pt-20">
+    <section className="relative isolate overflow-hidden bg-[#0b1220] pb-12 pt-14 text-white sm:pb-16 sm:pt-16">
       {/* Background Glow */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,.18),transparent_38%),linear-gradient(180deg,transparent,rgba(3,8,20,.3))]" />
       <div className="pointer-events-none absolute -right-24 top-20 -z-10 size-72 rounded-full bg-sky-300/20 blur-3xl" />
@@ -50,7 +50,7 @@ export default function Clients() {
         </p>
 
         {/* Logos */}
-        <div className="relative mt-10 overflow-hidden sm:mt-14">
+        <div className="relative mt-8 overflow-hidden sm:mt-10">
           {/* Fade esquerda */}
           <div className="pointer-events-none absolute left-0 top-0 z-20 h-full w-16 bg-gradient-to-r from-[#0b1220] via-[#0b1220]/85 to-transparent sm:w-28" />
 

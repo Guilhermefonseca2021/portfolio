@@ -26,8 +26,8 @@ export default function ProblemSection() {
       relative
       overflow-hidden
       bg-[#0b1220]
-      py-16
-      md:py-24
+      py-12
+      md:py-16
       "
     >
       {/* BACKGROUND GLOW */}
@@ -208,7 +208,7 @@ export default function ProblemSection() {
                     className="
                       text-xl
                       font-semibold
-                      text-secondaryText
+                      text-white
                       transition
                       duration-300
                       group-hover:text-primary
@@ -222,7 +222,7 @@ export default function ProblemSection() {
                       mt-2
                       max-w-lg
                       leading-7
-                      text-secondaryText/60
+                      text-white/60
                       "
                   >
                     {item.description}

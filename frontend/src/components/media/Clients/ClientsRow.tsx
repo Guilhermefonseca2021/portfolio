@@ -4,14 +4,14 @@ const infiniteClients = [...clients, ...clients];
 
 export default function ClientsRow() {
   return (
-    <div className="relative overflow-hidden py-4">
-      <div className="clients-scroll flex w-max items-center gap-12 lg:gap-16">
+    <div className="relative overflow-hidden py-8 sm:py-10">
+      <div className="clients-scroll flex w-max items-center justify-center gap-12 lg:gap-16">
         {infiniteClients.map((client, index) => (
           <img
             key={`${client.id}-${index}`}
             src={client.image}
             alt={client.name}
-            className="h-10 w-auto max-w-[150px] shrink-0 rounded-xl bg-[#14213a] px-3 py-2 object-contain opacity-80 shadow-lg grayscale brightness-0 invert transition-all duration-300 hover:scale-105 hover:bg-white sm:h-12 sm:max-w-none sm:px-4"
+            className="h-12 w-auto max-w-[140px] shrink-0 object-contain opacity-90 transition-all duration-300 hover:scale-110 hover:opacity-100 sm:h-16 sm:max-w-[160px]"
           />
         ))}
       </div>

@@ -7,13 +7,13 @@ export default function HeroContent() {
         Engenheiro de Software
       </span>
 
-      <h1 className="text-5xl font-black leading-tight text-secondaryText lg:text-7xl">
+      <h1 className="text-4xl font-black leading-[1.02] tracking-tight text-secondaryText sm:text-5xl lg:text-7xl">
         Guilherme
         <br />
         Fonseca
       </h1>
 
-      <p className="mt-8 text-lg leading-8 text-secondaryText/70">
+      <p className="mt-6 max-w-xl text-base leading-7 text-secondaryText/70 sm:mt-8 sm:text-lg sm:leading-8">
         Desenvolvedor Full Stack especializado em React, Node.js, TypeScript, IA
         e arquitetura escalável para produtos digitais.
       </p>

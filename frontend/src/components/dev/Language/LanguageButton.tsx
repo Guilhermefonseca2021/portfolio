@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FiGlobe } from "react-icons/fi";
 import LanguageLoader from "./LanguageLoader";
 import { loadGoogleTranslate } from "./googleTranslate";
 
@@ -43,9 +44,10 @@ export default function TranslateButton() {
     <>
       <button
         onClick={changeLanguage}
-        className="rounded-xl border border-primary px-5 py-3 font-semibold text-primary transition hover:bg-primary hover:text-primaryText"
+        className="inline-flex items-center gap-2 rounded-xl border border-primary px-5 py-3 font-semibold text-primary transition hover:bg-primary hover:text-primaryText"
       >
-        {english ? "🇧🇷 Português" : "🇺🇸 English"}
+        <FiGlobe aria-hidden="true" />
+        {english ? "Português" : "English"}
       </button>
 
       <LanguageLoader open={loading} />

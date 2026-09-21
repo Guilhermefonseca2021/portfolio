@@ -11,7 +11,7 @@ export default function Hero() {
     >
       <HeroBackground />
 
-      <div className="relative z-20 mx-auto w-full max-w-7xl px-8">
+      <div className="relative z-20 mx-auto flex min-h-[100svh] w-full max-w-7xl flex-col justify-center px-6 py-28 sm:px-8 lg:min-h-screen">
         <HeroContent />
 
         <HeroButtons />

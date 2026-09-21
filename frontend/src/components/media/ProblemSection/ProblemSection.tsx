@@ -25,9 +25,9 @@ export default function ProblemSection() {
       className="
       relative
       overflow-hidden
-      bg-bg
-      py-24
-      md:py-32
+      bg-[#0b1220]
+      py-12
+      md:py-16
       "
     >
       {/* BACKGROUND GLOW */}
@@ -108,12 +108,12 @@ export default function ProblemSection() {
 
           <h2
             className="
-            mt-5
-            text-4xl
+          mt-4
+          text-4xl
             font-bold
             leading-tight
             tracking-tight
-            text-secondaryText
+            text-white
             md:text-6xl
             "
           >
@@ -130,7 +130,7 @@ export default function ProblemSection() {
             max-w-xl
             text-lg
             leading-8
-            text-secondaryText/70
+            text-white/70
             "
           >
             Muitas marcas aparecem todos os dias, mas poucas criam uma
@@ -141,7 +141,7 @@ export default function ProblemSection() {
         <div
           className="
           relative
-          mt-16
+          mt-12
           max-w-2xl
           "
         >
@@ -187,7 +187,7 @@ export default function ProblemSection() {
                     rounded-full
                     border
                     border-primary/40
-                    bg-bg
+                    bg-[#0b1220]
                     "
                 >
                   <span
@@ -208,7 +208,7 @@ export default function ProblemSection() {
                     className="
                       text-xl
                       font-semibold
-                      text-secondaryText
+                      text-white
                       transition
                       duration-300
                       group-hover:text-primary
@@ -222,7 +222,7 @@ export default function ProblemSection() {
                       mt-2
                       max-w-lg
                       leading-7
-                      text-secondaryText/60
+                      text-white/60
                       "
                   >
                     {item.description}

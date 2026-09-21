@@ -4,14 +4,7 @@ export default function HeroContent() {
       
 
       <h1
-        className="
-        mt-8
-        text-5xl
-        font-bold
-        leading-tight
-        text-white
-        lg:text-6xl
-    "
+        className="mt-8 max-w-[11ch] text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl"
       >
         Conteúdo que
         <br />

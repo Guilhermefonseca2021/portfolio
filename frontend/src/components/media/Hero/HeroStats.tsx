@@ -1,6 +1,6 @@
 export default function HeroStats() {
   return (
-    <div className="mt-14 flex gap-12">
+    <div className="mt-10 grid grid-cols-3 gap-4 sm:mt-14 sm:flex sm:gap-12">
       <div>
         <span
           className="
@@ -13,7 +13,7 @@ export default function HeroStats() {
         text-xs
         font-medium
         uppercase
-        tracking-[3px]
+        tracking-[2px]
         text-primary
     "
         >

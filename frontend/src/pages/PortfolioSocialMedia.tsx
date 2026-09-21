@@ -24,7 +24,7 @@ export default function PortfolioSocialMedia() {
   }, []);
 
   return (
-    <main className="relative min-h-screen overflow-hidden bg-bg text-secondaryText">
+    <main className="relative min-h-screen overflow-hidden bg-[#0b1220] text-white">
       <PageSeo
         title="Social media estratégico para marcas | Fonseca Digital"
         description="Estratégia, conteúdo e performance para marcas que querem crescer nas redes sociais com clareza, consistência e resultado."

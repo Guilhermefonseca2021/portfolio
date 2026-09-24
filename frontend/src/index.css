@@ -179,6 +179,19 @@ a {
   will-change: transform;
 }
 
+@keyframes media-card-float {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--card-rotation, 0deg)); }
+  50% { transform: translate3d(0, -10px, 0) rotate(var(--card-rotation, 0deg)); }
+}
+
+.floating-media-card {
+  animation: media-card-float 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-media-card { animation: none; }
+}
+
 .input {
   @apply h-12
   rounded-lg

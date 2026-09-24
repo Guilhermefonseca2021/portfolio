@@ -8,10 +8,10 @@ export default function HeroContent() {
         Social media estratégico
       </span>
 
-      <h1 className="mt-6 max-w-[11ch] text-4xl font-bold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
+      <h1 className="mt-6 max-w-[11ch] text-4xl font-black leading-[0.98] tracking-[-0.045em] text-white sm:text-5xl lg:text-7xl">
         Conteúdo que
         <br />
-        <span className="text-primary">gera resultado.</span>
+        <span className="relative inline-block font-black text-primary drop-shadow-[0_0_12px_rgba(0,113,227,0.45)] after:absolute after:-bottom-2 after:left-0 after:h-1 after:w-full after:rounded-full after:bg-primary after:shadow-[0_0_10px_rgba(0,113,227,0.75)] after:content-[''] sm:after:-bottom-3 sm:after:h-1.5">gera resultado.</span>
       </h1>
 
       <p

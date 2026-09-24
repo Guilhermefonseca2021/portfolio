@@ -2,12 +2,16 @@ import { useState } from "react";
 import { FiMenu, FiX } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
-export default function Header() {
+type HeaderProps = {
+  dark?: boolean;
+};
+
+export default function Header({ dark = false }: HeaderProps) {
   const [open, setOpen] = useState(false);
 
   return (
     <header
-      className="fixed top-0 z-50 w-full border-b border-black/[.06] bg-white/75 backdrop-blur-2xl"
+      className={`fixed top-0 z-50 w-full border-b backdrop-blur-2xl ${dark ? "border-white/10 bg-[#0b1220]/80" : "border-black/[.06] bg-white/75"}`}
     >
       <div
         className="
@@ -29,17 +33,12 @@ export default function Header() {
             gap-2
           "
         >
-          <div className="flex size-8 items-center justify-center rounded-full bg-secondaryText text-sm font-semibold text-primaryText">
+          <div className={`flex size-8 items-center justify-center rounded-full text-sm font-semibold ${dark ? "bg-white text-[#0b1220]" : "bg-secondaryText text-primaryText"}`}>
             F
           </div>
 
           <span
-            className="
-              text-xl
-              font-bold
-              tracking-tight
-              text-secondaryText
-            "
+            className={`text-xl font-bold tracking-tight ${dark ? "text-white" : "text-secondaryText"}`}
           >
             Fonseca
             <span className="text-primary">.</span>
@@ -57,7 +56,7 @@ export default function Header() {
         >
           <a
             href="#services"
-            className="text-sm text-secondaryText/70 transition hover:text-primary"
+            className={`text-sm ${dark ? "text-white/75" : "text-secondaryText/70"} transition hover:text-primary`}
           >
             Serviços
           </a>
@@ -65,13 +64,13 @@ export default function Header() {
           <Link
             to="/socialmedia"
             onClick={() => setOpen(false)}
-            className="py-3 text-secondaryText hover:text-primary"
+            className={`py-3 ${dark ? "text-white/80" : "text-secondaryText"} hover:text-primary`}
           >
             Portfólio
           </Link>
           <a
             href="#contact"
-            className="py-3 text-secondaryText hover:text-primary"
+            className={`py-3 ${dark ? "text-white/80" : "text-secondaryText"} hover:text-primary`}
           >
             Contato
           </a>
@@ -135,19 +134,13 @@ export default function Header() {
       {/* Mobile Menu */}
       {open && (
         <div
-          className="
-            border-t
-            border-white/10
-            bg-bg/95
-            backdrop-blur-xl
-            lg:hidden
-          "
+          className={`border-t border-white/10 backdrop-blur-xl ${dark ? "bg-[#0b1220]/95" : "bg-bg/95"} lg:hidden`}
         >
           <nav className="flex flex-col px-6 py-6">
             <a
               href="#services"
               onClick={() => setOpen(false)}
-              className="py-3 text-secondaryText hover:text-primary"
+              className={`py-3 ${dark ? "text-white/80" : "text-secondaryText"} hover:text-primary`}
             >
               Serviços
             </a>
@@ -155,7 +148,7 @@ export default function Header() {
             <Link
               to="/socialmedia"
               onClick={() => setOpen(false)}
-              className="py-3 text-secondaryText hover:text-primary"
+              className={`py-3 ${dark ? "text-white/80" : "text-secondaryText"} hover:text-primary`}
             >
               Portfólio
             </Link>
@@ -163,7 +156,7 @@ export default function Header() {
             <a
               href="#clients"
               onClick={() => setOpen(false)}
-              className="py-3 text-secondaryText hover:text-primary"
+              className={`py-3 ${dark ? "text-white/80" : "text-secondaryText"} hover:text-primary`}
             >
               Clientes
             </a>
@@ -171,7 +164,7 @@ export default function Header() {
             <a
               href="#contact"
               onClick={() => setOpen(false)}
-              className="py-3 text-secondaryText hover:text-primary"
+              className={`py-3 ${dark ? "text-white/80" : "text-secondaryText"} hover:text-primary`}
             >
               Contato
             </a>

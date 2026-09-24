@@ -5,13 +5,13 @@ export default function Clients() {
   return (
     <section className="relative isolate overflow-hidden bg-[#0b1220] pb-12 pt-14 text-white sm:pb-16 sm:pt-16">
       <div className="mx-auto max-w-7xl px-8">
-        {/* Badge */}
+        {/* Identidade da seção */}
         <div className="mb-10 flex justify-center sm:mb-16">
           <div className="flex items-center gap-3 rounded-full border border-white/20 bg-white/10 px-5 py-2 backdrop-blur-xl">
             <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-primary shadow-[0_0_12px_#c89bff]" />
 
             <span className="text-xs font-semibold uppercase tracking-[4px] text-white/80">
-              TRUSTED BY
+              EMPRESAS QUE CONFIAM
             </span>
           </div>
         </div>

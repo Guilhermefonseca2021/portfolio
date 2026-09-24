@@ -8,7 +8,12 @@ interface Props {
   submitting?: boolean;
 }
 
-export default function ContactForm({ services, openModal, onSubmit, submitting }: Props) {
+export default function ContactForm({
+  services,
+  openModal,
+  onSubmit,
+  submitting,
+}: Props) {
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -19,21 +24,21 @@ export default function ContactForm({ services, openModal, onSubmit, submitting 
 
       email: String(form.get("email") ?? ""),
 
-      whatsapp: String(form.get("whatsapp") ?? ""),
+      whatsapp: "",
 
-      company: String(form.get("company") ?? ""),
+      company: "",
 
-      instagram: String(form.get("instagram") ?? ""),
+      instagram: "",
 
       services,
 
-      objective: String(form.get("objective") ?? ""),
+      objective: "",
 
-      companySize: String(form.get("companySize") ?? ""),
+      companySize: "",
 
-      budget: String(form.get("budget") ?? ""),
+      budget: "",
 
-      deadline: String(form.get("deadline") ?? ""),
+      deadline: "",
 
       message: String(form.get("message") ?? ""),
     });
@@ -59,13 +64,9 @@ export default function ContactForm({ services, openModal, onSubmit, submitting 
         md:grid-cols-2
         "
       >
-        <input name="name" placeholder="Nome" className="input" />
+        <input name="name" placeholder="Nome ou empresa" className="input" />
 
         <input name="email" placeholder="Email" className="input" />
-
-        <input name="whatsapp" placeholder="WhatsApp" className="input" />
-
-        <input name="company" placeholder="Empresa" className="input" />
       </div>
 
       <button
@@ -106,7 +107,7 @@ export default function ContactForm({ services, openModal, onSubmit, submitting 
 
       <textarea
         name="message"
-        placeholder="Conte sobre seu projeto..."
+        placeholder="Conte sobre seu projeto (opcional)"
         className="
         mt-5
         block
@@ -144,7 +145,7 @@ export default function ContactForm({ services, openModal, onSubmit, submitting 
         disabled:opacity-50
         "
       >
-        {submitting ? "Enviando..." : "Solicitar orçamento"}
+        {submitting ? "Enviando..." : "Enviar mensagem"}
       </button>
     </form>
   );

@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+import { FiVideo } from "react-icons/fi";
 import type { ServiceItem } from "./servicesItems";
 
 interface Props {
@@ -6,95 +8,66 @@ interface Props {
 
 export default function ServiceCard({ service }: Props) {
   return (
-    <article
+    <motion.article
       className="
         group
         relative
         overflow-hidden
-        rounded-2xl
-        border
+        flex
+        items-start
+        gap-4
+        border-t
         border-white/10
-        bg-white/[0.04]
-        p-3
+        py-5
         transition-all
         duration-300
-        hover:-translate-y-1
-        hover:bg-white/[0.07]
-        hover:border-primary/40
+        hover:border-primary/60
       "
+      whileHover={{ x: 6 }}
+      transition={{ duration: 0.25, ease: "easeOut" }}
     >
-      <div
-        className="
-          absolute
-          -right-10
-          -top-10
-          h-24
-          w-24
-          rounded-full
-          bg-primary/10
-          blur-[50px]
-          opacity-0
-          transition
-          group-hover:opacity-100
-        "
-      />
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-sm text-primary">
+        <FiVideo aria-hidden="true" />
+      </div>
 
-      <div className="relative z-10">
-        <div
-          className="
-            mb-2
-            flex
-            h-8
-            w-8
-            items-center
-            justify-center
-            rounded-lg
-            bg-primary/10
-            text-sm
-          "
-        >
-          🎥
-        </div>
-
-        <h3
-          className="
+      <div className="min-w-0 flex-1">
+        <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
+          <div
+            className="
             text-sm
             font-semibold
             text-white
           "
-        >
-          {service.title}
-        </h3>
+          >
+            {service.title}
+          </div>
 
-        <p
-          className="
-            mt-1
+          <p
+            className="
             text-xs
-            leading-5
-            text-white/70
+            text-white/50
           "
-        >
-          {service.description}
-        </p>
+          >
+            {service.description}
+          </p>
+        </div>
 
         <div
           className="
             mt-3
             flex
             flex-wrap
-            gap-1
+            gap-x-4
+            gap-y-1
           "
         >
           {service.features.map((feature) => (
             <span
               key={feature}
               className="
-                rounded-full
-                border
-                border-white/10
-                px-2
-                py-0.5
                 text-[10px]
+                uppercase
+                tracking-[1px]
                 text-white/70
               "
             >
@@ -103,6 +76,6 @@ export default function ServiceCard({ service }: Props) {
           ))}
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }

@@ -1,3 +1,4 @@
+import MotionReveal from "../MotionReveal";
 import CaptureCarousel from "./CaptureCarousel";
 
 export default function Captures() {
@@ -22,7 +23,21 @@ export default function Captures() {
           px-8
         "
       >
-        <div
+        <MotionReveal className="mb-8 flex items-end justify-between gap-4">
+          <div>
+            <span className="text-xs font-semibold uppercase tracking-[5px] text-primary">
+              Portfólio
+            </span>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              Trabalhos recentes
+            </h2>
+          </div>
+          <span className="hidden text-xs uppercase tracking-[2px] text-white/40 sm:block">
+            Conteúdo que conecta
+          </span>
+        </MotionReveal>
+
+        <MotionReveal
           className="
             grid
             items-center
@@ -102,7 +117,7 @@ export default function Captures() {
                       rounded-full
                       border
                       border-white/10
-                      bg-white/[0.02]
+                      bg-white/2
                       px-5
                       py-2
                       text-sm
@@ -114,7 +129,7 @@ export default function Captures() {
               ))}
             </div>
           </div>
-        </div>
+        </MotionReveal>
       </div>
     </section>
   );

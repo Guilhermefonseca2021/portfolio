@@ -1,3 +1,6 @@
+import { motion } from "framer-motion";
+import MotionReveal from "../MotionReveal";
+
 export default function ProblemSection() {
   const problems = [
     {
@@ -39,7 +42,7 @@ export default function ProblemSection() {
         px-8
         "
       >
-        <div
+        <MotionReveal
           className="
           max-w-3xl
           "
@@ -87,7 +90,7 @@ export default function ProblemSection() {
             Muitas marcas aparecem todos os dias, mas poucas criam uma
             comunicação capaz de gerar percepção, autoridade e valor.
           </p>
-        </div>
+        </MotionReveal>
 
         <div
           className="
@@ -115,7 +118,7 @@ export default function ProblemSection() {
             "
           >
             {problems.map((item) => (
-              <article
+              <motion.article
                 key={item.title}
                 className="
                   group
@@ -123,6 +126,10 @@ export default function ProblemSection() {
                   flex
                   gap-6
                   "
+                initial={{ opacity: 0, x: -18 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.5 }}
               >
                 <div
                   className="
@@ -179,7 +186,7 @@ export default function ProblemSection() {
                     {item.description}
                   </p>
                 </div>
-              </article>
+              </motion.article>
             ))}
           </div>
         </div>

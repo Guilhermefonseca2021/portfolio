@@ -1,6 +1,11 @@
+import MotionReveal from "../MotionReveal";
+
 export default function HeroButtons() {
   return (
-    <div className="mt-8 flex w-full flex-col gap-3 sm:mt-10 sm:w-auto sm:flex-row sm:gap-4">
+    <MotionReveal
+      className="mt-8 flex w-full flex-col gap-3 sm:mt-10 sm:w-auto sm:flex-row sm:gap-4"
+      delay={0.12}
+    >
       <a
         href="#contact"
         className="rounded-lg bg-primary px-6 py-3 text-center text-sm font-semibold text-black"
@@ -9,7 +14,7 @@ export default function HeroButtons() {
       </a>
 
       <a
-        href="#portfolio"
+        href="#captacoes"
         className="
             rounded-lg
             border
@@ -25,6 +30,6 @@ export default function HeroButtons() {
       >
         Ver trabalhos
       </a>
-    </div>
+    </MotionReveal>
   );
 }

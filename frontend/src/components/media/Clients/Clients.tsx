@@ -1,3 +1,4 @@
+import MotionReveal from "../MotionReveal";
 import ClientsRow from "./ClientsRow";
 
 export default function Clients() {
@@ -16,11 +17,12 @@ export default function Clients() {
         </div>
 
         {/* Title */}
-        <h2 className="mx-auto max-w-5xl text-center text-3xl font-black leading-tight lg:text-5xl">
-          <span className="text-white">Mais de </span>
+        <MotionReveal>
+          <h2 className="mx-auto max-w-5xl text-center text-3xl font-black leading-tight lg:text-5xl">
+            <span className="text-white">Mais de </span>
 
-          <span
-            className="
+            <span
+              className="
               bg-gradient-to-r
               from-white
               via-sky-200
@@ -28,20 +30,21 @@ export default function Clients() {
               bg-clip-text
               text-transparent
             "
-          >
-            50 empresas
-          </span>
+            >
+              50 empresas
+            </span>
 
-          <br />
+            <br />
 
-          <span className="text-white">confiaram no nosso trabalho.</span>
-        </h2>
+            <span className="text-white">confiaram no nosso trabalho.</span>
+          </h2>
 
-        <p className="mx-auto mt-8 max-w-3xl text-center text-lg leading-8 text-white/75">
-          Produzimos conteúdo estratégico para concessionárias, restaurantes,
-          cafeterias, joalherias, clínicas, eventos, influenciadores e empresas
-          que desejam vender mais através das redes sociais.
-        </p>
+          <p className="mx-auto mt-8 max-w-3xl text-center text-lg leading-8 text-white/75">
+            Produzimos conteúdo estratégico para concessionárias, restaurantes,
+            cafeterias, joalherias, clínicas, eventos, influenciadores e
+            empresas que desejam vender mais através das redes sociais.
+          </p>
+        </MotionReveal>
 
         {/* Logos */}
         <div className="relative mt-8 overflow-hidden sm:mt-10">

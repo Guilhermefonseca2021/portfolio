@@ -2,6 +2,7 @@ import { useState } from "react";
 import fonsecaApi from "../../../services/fonsecaApi";
 import { notifyToast } from "../../ui/GlobalToast";
 
+import MotionReveal from "../MotionReveal";
 import ContactForm from "./ContactForm";
 import ServicesModal from "./ServicesModal";
 
@@ -75,7 +76,7 @@ export default function Contact() {
         px-8
         "
       >
-        <div
+        <MotionReveal
           className="
           max-w-3xl
           "
@@ -120,13 +121,15 @@ export default function Contact() {
             Conte sua ideia e receba uma estratégia personalizada para
             transformar sua marca.
           </p>
-        </div>
+        </MotionReveal>
 
-        <ContactForm
-          services={services}
-          openModal={() => setModal(true)}
-          onSubmit={handleSubmit}
-        />
+        <MotionReveal delay={0.12}>
+          <ContactForm
+            services={services}
+            openModal={() => setModal(true)}
+            onSubmit={handleSubmit}
+          />
+        </MotionReveal>
       </div>
 
       {modal && (

@@ -31,7 +31,7 @@ export default function Clients() {
               text-transparent
             "
             >
-              50 empresas
+              +200 empresas
             </span>
 
             <br />

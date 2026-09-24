@@ -23,7 +23,7 @@ export default function PortfolioSocialMedia() {
       >
         Ir para o conteúdo
       </a>
-      <Header dark />
+      <Header />
 
       <div id="conteudo-social" className="relative bg-[#0b1220]">
         <div className="space-y-0 bg-[#0b1220]">

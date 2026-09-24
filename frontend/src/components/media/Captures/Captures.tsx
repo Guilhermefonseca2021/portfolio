@@ -110,7 +110,7 @@ export default function Captures() {
                 gap-3
               "
             >
-              {["Mídias sociais", "Conteúdo visual", "Identidade de marca"].map((item) => (
+              {["Social Media", "Conteúdo Visual", "Branding"].map((item) => (
                 <span
                   key={item}
                   className="

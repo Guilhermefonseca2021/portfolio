@@ -8,7 +8,7 @@ export interface ServiceItem {
 const services: ServiceItem[] = [
   {
     id: 1,
-    title: "Mídias sociais",
+    title: "Social Media",
     description: "Conteúdo estratégico para atrair clientes.",
     features: ["Posts", "Reels", "Planejamento"],
   },

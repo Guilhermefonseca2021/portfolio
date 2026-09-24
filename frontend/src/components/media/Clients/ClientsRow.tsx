@@ -124,7 +124,7 @@ export default function ClientsRow() {
             key={`${client.id}-${index}`}
             src={client.image}
             alt={client.name}
-            className="h-12 w-20 max-w-20 shrink-0 object-cover object-center opacity-90 transition-all duration-300 hover:scale-105 hover:opacity-100 sm:h-16 sm:w-32 sm:max-w-32 lg:h-20 lg:w-48 lg:max-w-48"
+            className="h-8 w-14 max-w-14 shrink-0 object-contain opacity-90 transition-all duration-300 hover:scale-110 hover:opacity-100 sm:h-12 sm:w-28 sm:max-w-28 lg:h-16 lg:w-40 lg:max-w-40"
             draggable={false}
           />
         ))}

@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 const mediaCards = [
-  { label: "img 1", src: "/portfolio/media/img1.png", position: "left-[6%] top-[18%] rotate-[-8deg]" },
-  { label: "img 2", src: "/portfolio/media/img2.png", position: "right-[10%] top-[14%] rotate-[7deg]" },
-  { label: "img 3", src: "/portfolio/media/img3.png", position: "right-[4%] bottom-[18%] rotate-[-6deg]" },
-  { label: "img 4", src: "/portfolio/media/img4.png", position: "left-[13%] bottom-[14%] rotate-[6deg]" },
-  { label: "img 5", src: "/portfolio/media/img5.png", position: "left-1/2 top-[8%] rotate-[3deg]" },
+  { label: "img 1", src: "/portfolio/media/img1.png", position: "left-[4%] top-[12%] rotate-[-8deg]" },
+  { label: "img 2", src: "/portfolio/media/img2.png", position: "right-[8%] top-[10%] rotate-[7deg]" },
+  { label: "img 3", src: "/portfolio/media/img3.png", position: "right-[3%] bottom-[14%] rotate-[-6deg]" },
+  { label: "img 4", src: "/portfolio/media/img4.png", position: "left-[10%] bottom-[10%] rotate-[6deg]" },
+  { label: "img 5", src: "/portfolio/media/img5.png", position: "left-1/2 top-[5%] rotate-[3deg]" },
 ];
 
 function FloatingMediaCard({ label, src, position }: (typeof mediaCards)[number]) {

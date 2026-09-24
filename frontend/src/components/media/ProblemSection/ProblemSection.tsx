@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import MotionReveal from "../MotionReveal";
+import FloatingMediaCards from "../Hero/FloatingMediaCards";
 
 export default function ProblemSection() {
   const problems = [
@@ -33,6 +34,12 @@ export default function ProblemSection() {
       md:py-16
       "
     >
+      <div className="pointer-events-none absolute inset-0 opacity-70">
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(90,145,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(90,145,255,.08)_1px,transparent_1px)] bg-[size:56px_56px] [mask-image:linear-gradient(to_bottom,transparent,black_18%,black_80%,transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_30%,rgba(0,113,227,.22),transparent_30%),radial-gradient(circle_at_15%_75%,rgba(80,120,255,.12),transparent_28%)]" />
+        <div className="absolute left-1/2 top-0 h-px w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-primary/70 to-transparent" />
+      </div>
+      <FloatingMediaCards />
       <div
         className="
         relative

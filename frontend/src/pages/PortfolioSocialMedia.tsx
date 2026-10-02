@@ -5,6 +5,7 @@ import Header from "../components/media/Header/Header";
 import Hero from "../components/media/Hero/Hero";
 import ProblemSection from "../components/media/ProblemSection/ProblemSection";
 import Services from "../components/media/Services/Services";
+import SocialConversionSections from "../components/media/SocialConversionSections";
 import PageSeo from "../components/seo/PageSeo";
 
 
@@ -33,6 +34,8 @@ export default function PortfolioSocialMedia() {
 
           <div className="relative space-y-0">
             <ProblemSection />
+
+            <SocialConversionSections />
 
             <Captures />
 

@@ -47,7 +47,7 @@ export default function CaptureCarousel() {
           md:h-[420px]
           items-center
           justify-center
-          bg-black/20
+          bg-[#0b1220]
         "
       >
         <img
@@ -57,7 +57,7 @@ export default function CaptureCarousel() {
           className="
             h-full
             w-full
-            object-contain
+            object-cover
             select-none
             transition-all
             duration-500

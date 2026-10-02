@@ -20,7 +20,7 @@ interface TableProps<T> extends TableHTMLAttributes<HTMLTableElement> {
 }
 
 export const Table = forwardRef<HTMLTableElement, TableProps<unknown>>(
-  ({ columns, data, rowKey, emptyMessage = "Nenhum registro encontrado", striped = true, hoverable = true, className = "", children, ...props }, ref) => {
+  ({ columns, data, rowKey, emptyMessage = "Nenhum registro encontrado", striped = true, hoverable = true, className = "", ...props }, ref) => {
     const getRowKey = (row: unknown) => (typeof rowKey === "function" ? rowKey(row) : String(row[rowKey as keyof typeof row]));
 
     return (

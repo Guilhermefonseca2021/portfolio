@@ -109,9 +109,17 @@ a {
   color: #ffffff;
 }
 
-.display-type {
-  font-family: "Space Grotesk", "Inter", sans-serif;
+.display-type,
+.social-display {
+  font-family: "Inter", "Helvetica Neue", Arial, ui-sans-serif, system-ui, sans-serif;
+  font-stretch: normal;
   letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.social-display strong,
+.social-display .text-primary {
+  letter-spacing: -0.055em;
 }
 .surface {
   border: 1px solid rgba(29, 29, 31, 0.08);

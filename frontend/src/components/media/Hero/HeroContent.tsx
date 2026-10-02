@@ -23,8 +23,7 @@ export default function HeroContent() {
         text-white/65
     "
       >
-        Estratégias de mídias sociais, vídeos e fotografia profissional para
-        empresas que querem crescer nas redes sociais.
+Mídias sociais, vídeos e fotos gastronômicas com visitas semanais em João Pessoa e região. Conteúdo e estratégia com resultado.
       </p>
     </MotionReveal>
   );

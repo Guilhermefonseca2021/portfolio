@@ -136,10 +136,10 @@ export default function ContactForm({
         mt-5
         h-12
         w-full
-        rounded-xl
-        bg-primary
-        font-semibold
-        text-white
+brand-button rounded-[18px]
+  bg-primary
+  font-extrabold
+  text-white
         transition
         hover:opacity-90
         disabled:opacity-50

@@ -8,7 +8,7 @@ export default function HeroButtons() {
     >
       <a
         href="#contact"
-        className="rounded-[18px] bg-primary shadow-[0_0_0_rgba(0,113,227,0)] transition-shadow hover:shadow-[0_0_28px_rgba(0,113,227,0.42)] px-6 py-3 text-center text-sm font-semibold text-black"
+        className="brand-button rounded-[18px] bg-primary shadow-[0_0_0_rgba(0,113,227,0)] transition-shadow hover:shadow-[0_0_28px_rgba(0,113,227,0.42)] px-6 py-3 text-center text-sm font-extrabold tracking-[-0.01em] text-white"
       >
         Solicitar orçamento
       </a>

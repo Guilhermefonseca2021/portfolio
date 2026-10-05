@@ -120,11 +120,11 @@ export default function ServicesModal({
           mt-5
           h-11
           w-full
-          rounded-[18px]
-          bg-primary
-          text-sm
-          font-semibold
-          text-white
+brand-button rounded-[18px]
+  bg-primary
+  text-sm
+  font-extrabold
+  text-white
           "
         >
           Confirmar

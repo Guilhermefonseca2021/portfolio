@@ -144,7 +144,6 @@ export default function MediaShowcaseCarousel({
   useEffect(() => {
     videoRefs.current.forEach((video, index) => {
       if (!video) return;
-
       if (index === currentIndex && items[index]?.type === "video") {
         video.muted = true;
         video.currentTime = 0;
@@ -344,7 +343,7 @@ export default function MediaShowcaseCarousel({
                         event.currentTarget.play().catch(() => undefined);
                       }
                     }}
-                    className="absolute inset-0 h-full w-full bg-black object-cover"
+                    className="absolute inset-0 h-full w-full bg-black object-fill"
                   />
                 ) : (
                   <img
@@ -352,7 +351,7 @@ export default function MediaShowcaseCarousel({
                     alt={isCenter ? item.desc : ""}
                     loading="lazy"
                     draggable={false}
-                    className="absolute inset-0 h-full w-full bg-black/30 object-cover"
+                    className="absolute inset-0 h-full w-full bg-black/30 object-fill"
                   />
                 )}
 

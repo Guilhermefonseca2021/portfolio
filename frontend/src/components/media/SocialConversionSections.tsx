@@ -1,47 +1,40 @@
 import { useState } from "react";
 import {
   FiArrowUpRight,
-  FiBarChart2,
   FiCheck,
   FiCompass,
   FiLayers,
-  FiPenTool,
   FiShield,
-  FiTarget,
-  FiTrendingUp,
 } from "react-icons/fi";
 import MotionReveal from "./MotionReveal";
 
-const benefits = [
+const pillars = [
   [
-    FiTarget,
-    "Conteúdo com direção",
-    "Cada peça nasce de um objetivo: posicionar, conectar ou gerar oportunidade.",
+    FiCompass,
+    "Posicionamento",
+    "Clareza sobre o que sua marca representa e para quem fala.",
   ],
   [
-    FiPenTool,
-    "Identidade consistente",
-    "Uma linguagem visual reconhecível em todos os pontos de contato da marca.",
+    FiLayers,
+    "Sistema visual",
+    "Direção que mantém o conteúdo reconhecível em diferentes formatos.",
   ],
   [
-    FiBarChart2,
-    "Decisões com dados",
-    "Acompanhamento de métricas para ajustar a estratégia com clareza.",
-  ],
-  [
-    FiTrendingUp,
-    "Presença que cresce",
-    "Mais organização, autoridade e consistência para sua marca aparecer melhor.",
+    FiShield,
+    "Acompanhamento",
+    "Um processo transparente para revisar, aprender e evoluir.",
   ],
 ] as const;
 
 const steps = [
   "Diagnóstico",
   "Estratégia",
+  "Design",
   "Planejamento",
   "Produção",
   "Publicação",
-  "Análise",
+  "Dados e análise",
+  "Evolução",
 ];
 const included = [
   "Planejamento editorial",
@@ -111,20 +104,20 @@ export default function SocialConversionSections() {
             </div>
           </div>
 
-          <MotionReveal className="max-w-3xl">
-            <SectionLabel>Por que a Fonseca</SectionLabel>
+          <MotionReveal className="mt-12 max-w-3xl border-t border-white/10 pt-10">
+            <SectionLabel>Estratégia + design + dados</SectionLabel>
             <h2 className="social-display mt-4 text-3xl font-bold text-white sm:text-5xl">
-              Sua marca não precisa de mais posts.{" "}
-              <span className="text-primary">Precisa de presença.</span>
+              Mídias sociais pensadas como{" "}
+              <span className="text-primary">produto de marca.</span>
             </h2>
             <p className="mt-4 max-w-2xl text-base leading-7 text-white/65">
-              Unimos estratégia, design e acompanhamento para construir valor de
-              forma consistente.
+              Uma jornada contínua que conecta o posicionamento da marca à
+              criação, publicação e evolução do conteúdo.
             </p>
           </MotionReveal>
 
-          <div className="mt-9 grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
-            {benefits.map(([Icon, title, description], index) => (
+          <div className="mt-9 grid gap-x-8 gap-y-7 sm:grid-cols-3">
+            {pillars.map(([Icon, title, description], index) => (
               <MotionReveal key={title} delay={index * 0.06}>
                 <article className="h-full border-l border-primary/40 pl-4">
                   <Icon className="size-5 text-primary" aria-hidden="true" />
@@ -137,26 +130,12 @@ export default function SocialConversionSections() {
             ))}
           </div>
 
-          <div className="mt-12 border-t border-white/10 pt-8">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <SectionLabel>Como funciona</SectionLabel>
-                <h3 className="mt-3 text-2xl font-bold text-white sm:text-3xl">
-                  Do primeiro insight à análise.
-                </h3>
-              </div>
-              <span className="text-sm text-white/50">
-                Um processo, seis etapas.
-              </span>
-            </div>
-            <ol className="mt-7 grid grid-cols-2 gap-y-5 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="mt-10 border-t border-white/10 pt-8">
+            <ol className="grid grid-cols-2 gap-x-4 gap-y-5 sm:grid-cols-4 lg:grid-cols-8">
               {steps.map((step, index) => (
-                <li
-                  key={step}
-                  className="flex items-center gap-3 border-white/10 pr-3 lg:border-r"
-                >
+                <li key={step} className="flex items-start gap-2">
                   <span className="text-xs font-bold text-primary">
-                    0{index + 1}
+                    {String(index + 1).padStart(2, "0")}
                   </span>
                   <span className="text-sm font-medium text-white/85">
                     {step}
@@ -165,77 +144,20 @@ export default function SocialConversionSections() {
               ))}
             </ol>
           </div>
-        </div>
-      </section>
 
-      <section className="border-t border-white/10 bg-[#0d1729] py-14 sm:py-20">
-        <div className="mx-auto grid max-w-7xl gap-10 px-6 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:items-start">
-          <MotionReveal>
-            <SectionLabel>O que está incluso</SectionLabel>
-            <h2 className="social-display mt-4 text-3xl font-bold text-white sm:text-5xl">
-              Tudo organizado para sua marca{" "}
-              <span className="text-primary">comunicar melhor.</span>
-            </h2>
-            <p className="mt-4 max-w-lg leading-7 text-white/60">
-              Um serviço pensado para tirar o peso da operação e dar clareza
-              para cada próximo passo.
-            </p>
-          </MotionReveal>
-          <div className="grid gap-3 sm:grid-cols-2">
+          <div className="mt-8 grid gap-x-6 gap-y-1 border-t border-white/10 pt-5 sm:grid-cols-2 lg:grid-cols-3">
             {included.map((item) => (
               <div
                 key={item}
-                className="flex items-center gap-3 border-b border-white/10 py-3 text-sm text-white/80"
+                className="flex items-center gap-3 border-b border-white/10 py-3 text-sm text-white/75"
               >
                 <FiCheck
-                  className="size-5 shrink-0 text-primary"
+                  className="size-4 shrink-0 text-primary"
                   aria-hidden="true"
                 />
                 {item}
               </div>
             ))}
-          </div>
-        </div>
-      </section>
-      <section className="bg-[#0b1220] py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-6 sm:px-8">
-          <MotionReveal>
-            <SectionLabel>Estratégia + design + dados</SectionLabel>
-            <h2 className="mt-5 max-w-3xl text-3xl font-bold text-white sm:text-5xl">
-              Mídias sociais pensadas como{" "}
-              <span className="text-primary">produto de marca.</span>
-            </h2>
-          </MotionReveal>
-          <div className="mt-12 grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl border border-primary/30 bg-primary/[.08] p-6">
-              <FiCompass className="size-6 text-primary" />
-              <h3 className="mt-8 text-xl font-semibold text-white">
-                Posicionamento
-              </h3>
-              <p className="mt-3 leading-7 text-white/60">
-                Clareza sobre o que sua marca representa e para quem ela fala.
-              </p>
-            </div>
-            <div className="spotlight-card rounded-2xl border border-white/10 bg-white/[.035] p-6">
-              <FiLayers className="size-6 text-primary" />
-              <h3 className="mt-8 text-xl font-semibold text-white">
-                Sistema visual
-              </h3>
-              <p className="mt-3 leading-7 text-white/60">
-                Direção que mantém o conteúdo reconhecível, mesmo em diferentes
-                formatos.
-              </p>
-            </div>
-            <div className="spotlight-card rounded-2xl border border-white/10 bg-white/[.035] p-6">
-              <FiShield className="size-6 text-primary" />
-              <h3 className="mt-8 text-xl font-semibold text-white">
-                Acompanhamento
-              </h3>
-              <p className="mt-3 leading-7 text-white/60">
-                Um processo transparente para revisar, aprender e evoluir
-                continuamente.
-              </p>
-            </div>
           </div>
         </div>
       </section>

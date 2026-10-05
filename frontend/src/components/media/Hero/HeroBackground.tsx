@@ -33,6 +33,7 @@ export default function HeroBackground() {
         muted
         loop
         playsInline
+        controls={false}
         preload="auto"
         aria-hidden="true"
         className="absolute inset-0 h-full w-full object-cover"

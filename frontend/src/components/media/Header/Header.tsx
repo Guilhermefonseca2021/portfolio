@@ -39,7 +39,7 @@ export default function Header() {
           href="#contact"
           className="inline-flex shrink-0 items-center gap-1 rounded-full border border-sky-400/50 bg-gradient-to-r from-primary to-sky-500 px-2.5 py-2 text-[9px] font-semibold uppercase tracking-[0.08em] text-white shadow-[0_0_16px_rgba(14,165,233,0.35)] transition hover:scale-[1.02] hover:shadow-[0_0_24px_rgba(14,165,233,0.65)] sm:px-3 sm:text-[10px] md:px-3.5 lg:gap-2 lg:px-5 lg:py-2.5 lg:text-sm"
         >
-          Pedir orçamento
+          Fale conosco
           <FiArrowUpRight aria-hidden="true" className="size-3.5 lg:size-4" />
         </a>
       </div>

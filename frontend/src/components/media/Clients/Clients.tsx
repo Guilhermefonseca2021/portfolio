@@ -1,5 +1,5 @@
-import MotionReveal from "../MotionReveal";
 import { FiArrowUpRight } from "react-icons/fi";
+import MotionReveal from "../MotionReveal";
 import ClientsRow from "./ClientsRow";
 
 export default function Clients() {

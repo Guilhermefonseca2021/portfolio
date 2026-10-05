@@ -8,7 +8,9 @@ interface Props {
 
 export default function ServiceCard({ service }: Props) {
   return (
-    <motion.article
+    <motion.a
+      href="#contact"
+      aria-label={`Selecionar serviço ${service.title} no formulário`}
       className="
         group
         relative
@@ -26,7 +28,7 @@ export default function ServiceCard({ service }: Props) {
       whileHover={{ x: 6 }}
       transition={{ duration: 0.25, ease: "easeOut" }}
     >
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-sm text-primary">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[18px] bg-primary/10 text-sm text-primary">
         <FiVideo aria-hidden="true" />
       </div>
 
@@ -76,6 +78,9 @@ export default function ServiceCard({ service }: Props) {
           ))}
         </div>
       </div>
-    </motion.article>
+      <span className="pointer-events-none absolute right-4 top-4 text-xs font-semibold uppercase tracking-[0.16em] text-primary opacity-0 transition-opacity group-hover:opacity-100">
+        Ir ao formulário
+      </span>
+    </motion.a>
   );
 }

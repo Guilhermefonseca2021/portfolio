@@ -79,7 +79,7 @@ export default function ContactForm({
         w-full
         items-center
         justify-between
-        rounded-xl
+        rounded-[18px]
         border
         border-white/10
         bg-black/20
@@ -114,7 +114,7 @@ export default function ContactForm({
         min-h-[150px]
         w-full
         resize-none
-        rounded-xl
+        rounded-[18px]
         border
         border-white/10
         bg-black/20

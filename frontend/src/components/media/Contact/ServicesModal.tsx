@@ -13,6 +13,9 @@ export default function ServicesModal({
 }: Props) {
   return (
     <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="services-title"
       className="
       fixed
       inset-0
@@ -32,7 +35,7 @@ export default function ServicesModal({
         w-full
         max-w-md
         flex-col
-        rounded-2xl
+        rounded-[18px]
         border
         border-white/10
         bg-[#101725]
@@ -46,7 +49,7 @@ export default function ServicesModal({
           justify-between
           "
         >
-          <h3
+          <h3 id="services-title"
             className="
             text-lg
             font-bold
@@ -84,7 +87,7 @@ export default function ServicesModal({
               cursor-pointer
               items-center
               gap-3
-              rounded-lg
+              rounded-[18px]
               border
               p-3
               text-sm
@@ -117,7 +120,7 @@ export default function ServicesModal({
           mt-5
           h-11
           w-full
-          rounded-xl
+          rounded-[18px]
           bg-primary
           text-sm
           font-semibold

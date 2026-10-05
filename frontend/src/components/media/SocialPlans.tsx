@@ -20,9 +20,9 @@ export default function SocialPlans() {
         <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {plans.map((plan, index) => (
             <MotionReveal key={plan.name} delay={index * 0.05}>
-              <article className={`flex h-full flex-col rounded-2xl border p-6 ${plan.featured ? "border-primary/60 bg-primary/[.1] shadow-[0_0_32px_rgba(0,113,227,.15)]" : "border-white/10 bg-white/[.035]"}`}>
+              <article className={`flex h-full flex-col spotlight-card rounded-2xl border p-6 ${plan.featured ? "border-primary/60 bg-primary/[.1] shadow-[0_0_32px_rgba(0,113,227,.15)]" : "border-white/10 bg-white/[.035]"}`}>
                 <div className="flex-1"><h3 className="text-xl font-semibold text-white">{plan.name}</h3><p className="mt-4 text-2xl font-bold text-primary">{plan.price}</p><p className="mt-4 text-sm leading-6 text-white/60">{plan.description}</p><ul className="mt-6 space-y-3">{plan.features.map((feature) => <li key={feature} className="flex gap-2 text-sm text-white/80"><FiCheck className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden="true" />{feature}</li>)}</ul></div>
-                <a href="#contact" className="mt-8 inline-flex items-center justify-center gap-2 rounded-full border border-white/15 px-4 py-2.5 text-sm font-semibold text-white transition hover:border-primary hover:bg-primary">Conversar sobre este plano <FiMessageCircle aria-hidden="true" /></a>
+                <a href="#contact" className="mt-8 inline-flex items-center justify-center gap-2 rounded-[18px] border border-white/15 shadow-[0_0_0_rgba(0,113,227,0)] hover:shadow-[0_0_24px_rgba(0,113,227,0.32)] px-4 py-2.5 text-sm font-semibold text-white transition hover:border-primary hover:bg-primary">Conversar sobre este plano <FiMessageCircle aria-hidden="true" /></a>
               </article>
             </MotionReveal>
           ))}

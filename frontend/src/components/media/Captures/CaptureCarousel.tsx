@@ -6,23 +6,28 @@ const images = [
   "/images/portfolio/img3.webp",
 ];
 
+const videos = [
+  "/portfolio/media/trabalho-01.mp4",
+  "/portfolio/media/trabalho-02.mp4",
+];
+
 export default function CaptureCarousel() {
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % images.length);
+      setCurrent((prev) => (prev + 1) % (images.length + videos.length));
     }, 3500);
 
     return () => clearInterval(timer);
   }, []);
 
   function next() {
-    setCurrent((prev) => (prev + 1) % images.length);
+    setCurrent((prev) => (prev + 1) % (images.length + videos.length));
   }
 
   function prev() {
-    setCurrent((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+    setCurrent((prev) => (prev === 0 ? images.length + videos.length - 1 : prev - 1));
   }
 
   return (
@@ -50,7 +55,17 @@ export default function CaptureCarousel() {
           bg-[#0b1220]
         "
       >
-        <img
+        {current >= images.length ? (
+          <video
+            src={videos[current - images.length]}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="h-full w-full object-cover select-none"
+            aria-label="Vídeo de trabalho da Fonseca Social Media"
+          />
+        ) : <img
           src={images[current]}
           alt="Projeto Social Media"
           draggable={false}
@@ -62,7 +77,7 @@ export default function CaptureCarousel() {
             transition-all
             duration-500
           "
-        />
+        />}
       </div>
 
       {/* ESQUERDA */}
@@ -124,7 +139,7 @@ export default function CaptureCarousel() {
           gap-2
         "
       >
-        {images.map((_, index) => (
+        {[...images, ...videos].map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrent(index)}

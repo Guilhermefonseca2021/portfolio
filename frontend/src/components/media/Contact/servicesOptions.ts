@@ -8,10 +8,6 @@ const servicesOptions: string[] = [
 
   "Criação de Criativos",
 
-  "Identidade Visual",
-
-  "Marketing Digital",
-
   "Tráfego Pago",
 
   "Criação de Sites",

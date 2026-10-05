@@ -44,11 +44,13 @@ export default function App() {
         <GlobalToast />
         <Routes>
           {/* Site */}
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<PortfolioSocialMedia />} />
+
+          <Route path="/plataforma" element={<Home />} />
 
           <Route path="/dev" element={<PortfolioDev />} />
 
-          <Route path="/socialmedia" element={<PortfolioSocialMedia />} />
+          <Route path="/socialmedia" element={<Navigate to="/" replace />} />
 
           <Route path="/terms" element={<TermsAndService />} />
 

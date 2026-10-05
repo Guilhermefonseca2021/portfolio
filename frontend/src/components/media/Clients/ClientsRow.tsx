@@ -112,7 +112,7 @@ export default function ClientsRow() {
     <div className="relative overflow-hidden py-8 sm:py-10">
       <div
         ref={trackRef}
-        className={`clients-scroll flex w-max touch-pan-y select-none items-center gap-4 sm:gap-8 lg:gap-16 ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
+        className={`clients-scroll flex w-max touch-pan-y select-none items-center gap-8 sm:gap-12 lg:gap-20 ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerEnd}
@@ -124,7 +124,7 @@ export default function ClientsRow() {
             key={`${client.id}-${index}`}
             src={client.image}
             alt={client.name}
-            className="h-8 w-14 max-w-14 shrink-0 object-contain opacity-90 transition-all duration-300 hover:scale-110 hover:opacity-100 sm:h-12 sm:w-28 sm:max-w-28 lg:h-16 lg:w-40 lg:max-w-40"
+            className="sponsor-logo h-12 w-20 max-w-20 shrink-0 object-contain opacity-90 transition-all duration-300 hover:scale-[1.18] hover:opacity-100 sm:h-16 sm:w-36 sm:max-w-36 lg:h-20 lg:w-52 lg:max-w-52"
             draggable={false}
           />
         ))}

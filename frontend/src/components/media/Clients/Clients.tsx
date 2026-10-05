@@ -11,7 +11,7 @@ export default function Clients() {
             <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-primary shadow-[0_0_12px_#c89bff]" />
 
             <span className="text-xs font-semibold uppercase tracking-[4px] text-white/80">
-              TRUSTED BY
+              EMPRESAS QUE CONFIARAM
             </span>
           </div>
         </div>

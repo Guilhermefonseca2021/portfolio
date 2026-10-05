@@ -1,4 +1,5 @@
 import MotionReveal from "../MotionReveal";
+import { FiArrowUpRight } from "react-icons/fi";
 import ClientsRow from "./ClientsRow";
 
 export default function Clients() {
@@ -55,6 +56,16 @@ export default function Clients() {
           <div className="pointer-events-none absolute right-0 top-0 z-20 h-full w-16 bg-gradient-to-l sm:w-28 from-[#0b1220] via-[#0b1220]/85 to-transparent" />
 
           <ClientsRow />
+        </div>
+
+        <div className="mt-8 flex justify-center">
+          <a
+            href="#contact"
+            className="brand-button inline-flex items-center gap-2 rounded-[18px] bg-primary px-5 py-3 text-sm font-bold text-white transition hover:bg-primary/90"
+          >
+            Quero fortalecer minha marca
+            <FiArrowUpRight aria-hidden="true" />
+          </a>
         </div>
       </div>
     </section>

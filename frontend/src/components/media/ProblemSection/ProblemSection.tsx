@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import MotionReveal from "../MotionReveal";
+import { FiArrowUpRight } from "react-icons/fi";
 import FloatingMediaCards from "../Hero/FloatingMediaCards";
+import MotionReveal from "../MotionReveal";
 
 export default function ProblemSection() {
   const problems = [
@@ -82,7 +83,7 @@ export default function ProblemSection() {
             <br />
             de conteúdo.
             <br />
-            <span className="text-primary">É falta de estratégia.</span>
+            <span className="impact-gradient">É falta de estratégia.</span>
           </h2>
 
           <p
@@ -197,6 +198,14 @@ export default function ProblemSection() {
             ))}
           </div>
         </div>
+
+        <a
+          href="#contact"
+          className="brand-button mt-10 inline-flex items-center gap-2 rounded-[18px] bg-primary px-5 py-3 text-sm font-bold text-white transition hover:bg-primary/90"
+        >
+          Quero uma estratégia para minha marca
+          <FiArrowUpRight aria-hidden="true" />
+        </a>
       </div>
     </section>
   );

@@ -7,9 +7,7 @@ import ProblemSection from "../components/media/ProblemSection/ProblemSection";
 import Services from "../components/media/Services/Services";
 import SocialConversionSections from "../components/media/SocialConversionSections";
 import SocialPlans from "../components/media/SocialPlans";
-import MediaShowcaseCarousel from "../components/media/MediaShowcaseCarousel";
 import PageSeo from "../components/seo/PageSeo";
-
 
 export default function PortfolioSocialMedia() {
   return (
@@ -43,13 +41,10 @@ export default function PortfolioSocialMedia() {
 
             <Captures />
 
-            <MediaShowcaseCarousel />
-
             <Services />
 
             <Contact />
           </div>
-
         </div>
       </div>
     </main>

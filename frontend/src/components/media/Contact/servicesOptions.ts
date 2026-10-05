@@ -4,6 +4,10 @@ const servicesOptions: string[] = [
 
   "Edição de Vídeos",
 
+  "Criação de Conteúdo",
+
+  "Captação de Conteúdo",
+
   "Fotografia Profissional",
 
   "Criação de Criativos",

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { FiVideo } from "react-icons/fi";
+import { FiArrowUpRight, FiVideo } from "react-icons/fi";
 import type { ServiceItem } from "./servicesItems";
 
 interface Props {
@@ -11,76 +11,65 @@ export default function ServiceCard({ service }: Props) {
     <motion.a
       href="#contact"
       aria-label={`Selecionar serviço ${service.title} no formulário`}
+      onClick={() => {
+        window.dispatchEvent(
+          new CustomEvent("social-service:selected", {
+            detail: { service: service.formService },
+          }),
+        );
+      }}
       className="
         group
         relative
-        overflow-hidden
         flex
         items-start
         gap-4
-        border-t
+        overflow-hidden
+        rounded-2xl
+        border
         border-white/10
-        py-5
+        bg-white/[0.02]
+        p-5
         transition-all
         duration-300
         hover:border-primary/60
+        hover:bg-white/[0.06]
+        hover:shadow-[0_18px_44px_rgba(0,113,227,0.22)]
       "
-      whileHover={{ x: 6 }}
-      transition={{ duration: 0.25, ease: "easeOut" }}
+      whileHover={{ y: -10, scale: 1.035, zIndex: 10 }}
+      transition={{ type: "spring", stiffness: 360, damping: 22 }}
     >
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[18px] bg-primary/10 text-sm text-primary">
+      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-sky-500/20 text-primary shadow-[0_0_24px_rgba(0,113,227,0.18)]">
         <FiVideo aria-hidden="true" />
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-center">
-          <div
-            className="
-            text-sm
-            font-semibold
-            text-white
-          "
-          >
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div className="text-base font-semibold text-white">
             {service.title}
           </div>
 
-          <p
-            className="
-            text-xs
-            text-white/50
-          "
-          >
-            {service.description}
-          </p>
+          <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-[0.15em] text-primary">
+            Ir ao formulário
+            <FiArrowUpRight aria-hidden="true" className="text-[12px]" />
+          </span>
         </div>
 
-        <div
-          className="
-            mt-3
-            flex
-            flex-wrap
-            gap-x-4
-            gap-y-1
-          "
-        >
+        <p className="mt-2 text-sm leading-6 text-white/60">
+          {service.description}
+        </p>
+
+        <div className="mt-3 flex flex-wrap gap-x-3 gap-y-1.5">
           {service.features.map((feature) => (
             <span
               key={feature}
-              className="
-                text-[10px]
-                uppercase
-                tracking-[1px]
-                text-white/70
-              "
+              className="rounded-full border border-white/10 bg-white/[0.02] px-2.5 py-1 text-[10px] uppercase tracking-[1px] text-white/70"
             >
               {feature}
             </span>
           ))}
         </div>
       </div>
-      <span className="pointer-events-none absolute right-4 top-4 text-xs font-semibold uppercase tracking-[0.16em] text-primary opacity-0 transition-opacity group-hover:opacity-100">
-        Ir ao formulário
-      </span>
     </motion.a>
   );
 }

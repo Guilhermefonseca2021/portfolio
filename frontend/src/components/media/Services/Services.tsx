@@ -1,3 +1,4 @@
+import { FiArrowUpRight } from "react-icons/fi";
 import MotionReveal from "../MotionReveal";
 import ServiceCard from "./ServiceCard";
 import services from "./servicesItems";
@@ -78,6 +79,18 @@ export default function Services() {
               <ServiceCard service={service} />
             </MotionReveal>
           ))}
+        </div>
+
+        <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-white/60">
+            Já sabe o que precisa? Vamos definir o melhor escopo.
+          </p>
+          <a
+            href="#contact"
+            className="brand-button inline-flex items-center justify-center gap-2 self-start rounded-[18px] bg-primary px-5 py-3 text-sm font-bold text-white transition hover:bg-primary/90 sm:self-auto"
+          >
+            Pedir orçamento <FiArrowUpRight aria-hidden="true" />
+          </a>
         </div>
       </div>
     </section>

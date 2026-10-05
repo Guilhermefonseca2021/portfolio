@@ -192,6 +192,19 @@ a {
   50% { transform: translate3d(0, -10px, 0) rotate(var(--card-rotation, 0deg)); }
 }
 
+.parallax-media {
+  transform: translate3d(0, -3%, 0) scale(1.04);
+  transition: transform 900ms cubic-bezier(.2,.7,.2,1);
+}
+
+.group:hover .parallax-media {
+  transform: translate3d(0, 2%, 0) scale(1.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parallax-media { transform: none; }
+}
+
 .floating-media-card {
   animation: media-card-float 7s ease-in-out infinite;
 }

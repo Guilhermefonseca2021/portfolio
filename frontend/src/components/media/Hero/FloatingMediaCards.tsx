@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 const mediaCards = [
-  { label: "img 1", src: "/portfolio/media/img1.png", position: "left-[4%] top-[12%] rotate-[-8deg]" },
-  { label: "img 2", src: "/portfolio/media/img2.png", position: "right-[8%] top-[10%] rotate-[7deg]" },
-  { label: "img 3", src: "/portfolio/media/img3.png", position: "right-[3%] bottom-[14%] rotate-[-6deg]" },
-  { label: "img 4", src: "/portfolio/media/img4.png", position: "left-[10%] bottom-[10%] rotate-[6deg]" },
-  { label: "img 5", src: "/portfolio/media/img5.png", position: "left-1/2 top-[5%] rotate-[3deg]" },
+  { label: "produção", src: "/portfolio/media/fonseca-camera.jpeg", position: "left-[4%] top-[12%] rotate-[-8deg]" },
+  { label: "estratégia", src: "/portfolio/media/fonseca-trabalho.jpeg", position: "right-[8%] top-[10%] rotate-[7deg]" },
+  { label: "movimento", src: "/portfolio/media/fonseca-video.mp4", position: "right-[3%] bottom-[14%] rotate-[-6deg]" },
+  { label: "presença", src: "/portfolio/media/fonseca-sorriso.jpeg", position: "left-[10%] bottom-[10%] rotate-[6deg]" },
+  { label: "conteúdo", src: "/portfolio/media/fonseca-camera.jpeg", position: "left-1/2 top-[5%] rotate-[3deg]" },
 ];
 
 function FloatingMediaCard({ label, src, position }: (typeof mediaCards)[number]) {
@@ -16,14 +16,7 @@ function FloatingMediaCard({ label, src, position }: (typeof mediaCards)[number]
       className={`floating-media-card pointer-events-none absolute hidden aspect-[4/5] w-24 overflow-hidden rounded-xl border border-white/20 bg-white/[.06] shadow-2xl backdrop-blur-sm sm:block md:w-32 lg:w-40 ${position}`}
       aria-hidden="true"
     >
-      {hasImage ? (
-        <img
-          src={src}
-          alt=""
-          className="h-full w-full object-cover opacity-75 mix-blend-screen"
-          onError={() => setHasImage(false)}
-        />
-      ) : null}
+      {src.endsWith(".mp4") ? <video src={src} autoPlay muted loop playsInline className="h-full w-full object-cover opacity-75 mix-blend-screen" aria-hidden="true" /> : hasImage ? <img src={src} alt="" loading="lazy" className="h-full w-full object-cover opacity-75 mix-blend-screen" onError={() => setHasImage(false)} /> : null}
       {!hasImage ? (
         <span className="absolute inset-0 flex items-center justify-center text-xs font-medium uppercase tracking-[.28em] text-white/60">
           {label}

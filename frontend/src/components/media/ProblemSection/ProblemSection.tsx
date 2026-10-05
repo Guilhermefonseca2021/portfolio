@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import MotionReveal from "../MotionReveal";
 import FloatingMediaCards from "../Hero/FloatingMediaCards";
+import MotionReveal from "../MotionReveal";
 
 export default function ProblemSection() {
   const problems = [
@@ -82,7 +82,7 @@ export default function ProblemSection() {
             <br />
             de conteúdo.
             <br />
-            <span className="text-primary">É falta de estratégia.</span>
+            <span className="impact-gradient">É falta de estratégia.</span>
           </h2>
 
           <p

@@ -8,21 +8,29 @@ export interface ServiceItem {
 const services: ServiceItem[] = [
   {
     id: 1,
-    title: "Social Media",
-    description: "Conteúdo estratégico para atrair clientes.",
-    features: ["Posts", "Reels", "Planejamento"],
+    title: "Estratégia",
+    description: "Direção clara para o que sua marca quer comunicar e vender.",
+    features: ["Diagnóstico", "Posicionamento", "Planejamento"],
   },
   {
     id: 2,
-    title: "Captação",
-    description: "Gravações profissionais para sua marca.",
-    features: ["4K", "Drone", "Eventos"],
+    title: "Conteúdo",
+    description: "Peças pensadas para atrair atenção, confiança e demanda.",
+    features: ["Posts", "Reels", "Artes"],
   },
   {
     id: 3,
-    title: "Edição",
-    description: "Vídeos que geram impacto e retenção.",
-    features: ["Motion", "Color", "Shorts"],
+    title: "Gestão",
+    description:
+      "Organização de calendário, publicação e acompanhamento da presença digital.",
+    features: ["Calendário", "Publicação", "Acompanhamento"],
+  },
+  {
+    id: 4,
+    title: "Captação",
+    description:
+      "Produção visual para dar vida à marca em movimento e em contexto.",
+    features: ["Eventos", "Bastidores", "Produção"],
   },
 ];
 

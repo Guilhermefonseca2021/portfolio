@@ -1,8 +1,9 @@
 interface Props {
   services: string[];
+  selectedPlans: string[];
 
   openModal: () => void;
-
+  onTogglePlan: (plan: string) => void;
   onSubmit: (data: ContactFormData) => void;
 
   submitting?: boolean;
@@ -10,7 +11,9 @@ interface Props {
 
 export default function ContactForm({
   services,
+  selectedPlans,
   openModal,
+  onTogglePlan,
   onSubmit,
   submitting,
 }: Props) {
@@ -21,28 +24,21 @@ export default function ContactForm({
 
     onSubmit({
       name: String(form.get("name") ?? ""),
-
       email: String(form.get("email") ?? ""),
-
       whatsapp: "",
-
       company: "",
-
       instagram: "",
-
       services,
-
+      selectedPlans,
       objective: "",
-
       companySize: "",
-
       budget: "",
-
       deadline: "",
-
       message: String(form.get("message") ?? ""),
     });
   }
+
+  const totalSelected = services.length + selectedPlans.length;
 
   return (
     <form
@@ -57,6 +53,28 @@ export default function ContactForm({
       md:p-8
       "
     >
+      {selectedPlans.length > 0 && (
+        <div className="mb-5">
+          <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.22em] text-white/45">
+            Plano no formulário
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {selectedPlans.map((plan) => (
+              <button
+                key={plan}
+                type="button"
+                onClick={() => onTogglePlan(plan)}
+                className="inline-flex items-center gap-2 rounded-full border border-primary/40 bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary transition hover:border-primary hover:bg-primary/15"
+                aria-label={`Remover plano ${plan}`}
+              >
+                <span>{plan}</span>
+                <span className="text-base leading-none">×</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div
         className="
         grid
@@ -91,8 +109,8 @@ export default function ContactForm({
         "
       >
         <span>
-          {services.length
-            ? `${services.length} serviços selecionados`
+          {totalSelected > 0
+            ? `${totalSelected} item${totalSelected > 1 ? "s" : ""} no formulário`
             : "Selecionar serviços"}
         </span>
 

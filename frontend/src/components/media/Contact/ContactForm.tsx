@@ -44,12 +44,12 @@ export default function ContactForm({
     <form
       onSubmit={submit}
       className="
-      mt-12
+      mt-0
       rounded-3xl
       border
       border-white/10
       bg-white/[0.04]
-      p-6
+      p-4
       md:p-8
       "
     >
@@ -78,7 +78,7 @@ export default function ContactForm({
       <div
         className="
         grid
-        gap-4
+        gap-3
         md:grid-cols-2
         "
       >
@@ -91,7 +91,7 @@ export default function ContactForm({
         type="button"
         onClick={openModal}
         className="
-        mt-5
+        mt-4
         flex
         h-12
         w-full
@@ -127,9 +127,9 @@ export default function ContactForm({
         name="message"
         placeholder="Conte sobre seu projeto (opcional)"
         className="
-        mt-5
+        mt-4
         block
-        min-h-[150px]
+        min-h-[120px]
         w-full
         resize-none
         rounded-[18px]
@@ -151,7 +151,7 @@ export default function ContactForm({
         type="submit"
         disabled={submitting}
         className="
-        mt-5
+        mt-4
         h-12
         w-full
 brand-button rounded-[18px]

@@ -118,6 +118,15 @@ a {
   text-wrap: balance;
 }
 
+.social-parallax-word {
+  font-family: "Space Grotesk", "Inter", ui-sans-serif, system-ui, sans-serif;
+  font-style: italic;
+  font-weight: 700;
+  line-height: 0.72;
+  letter-spacing: -0.095em;
+  -webkit-text-stroke: 1px rgba(139, 61, 255, 0.22);
+}
+
 .social-display strong,
 .social-display .text-primary {
   letter-spacing: -0.055em;
@@ -237,6 +246,16 @@ a {
 
 .clients-scroll {
   will-change: transform;
+}
+
+@keyframes story-progress {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 100%;
+  }
 }
 
 @keyframes media-card-float {

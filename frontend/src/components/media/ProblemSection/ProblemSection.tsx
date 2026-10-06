@@ -8,19 +8,19 @@ export default function ProblemSection() {
     {
       title: "Postar não é estratégia",
       description:
-        "Publicar sem direção não constrói uma marca forte. Cada conteúdo precisa ter um objetivo claro.",
+        "Sem direção, cada publicação perde força.",
     },
 
     {
       title: "Seguidores não significam vendas",
       description:
-        "Uma audiência sem posicionamento não gera conexão, confiança ou oportunidades reais.",
+        "Audiência sem posicionamento não gera confiança.",
     },
 
     {
       title: "Sua marca precisa ser lembrada",
       description:
-        "Marcas fortes não apenas aparecem. Elas criam presença, autoridade e reconhecimento.",
+        "Presença consistente cria reconhecimento e valor.",
     },
   ];
 
@@ -31,7 +31,7 @@ export default function ProblemSection() {
       relative
       overflow-hidden
       bg-[#0b1220]
-      py-12
+      py-8
       md:py-16
       "
     >
@@ -47,7 +47,7 @@ export default function ProblemSection() {
         z-10
         mx-auto
         max-w-7xl
-        px-8
+        px-6
         "
       >
         <MotionReveal
@@ -55,55 +55,24 @@ export default function ProblemSection() {
           max-w-3xl
           "
         >
-          <span
-            className="
-            text-sm
-            font-semibold
-            uppercase
-            tracking-[5px]
-            text-primary
-            "
-          >
+          <span className="text-xs font-semibold uppercase tracking-[0.2em] text-primary sm:text-sm sm:tracking-[5px]">
             Estratégia
           </span>
 
-          <h2
-            className="
-          mt-4
-          text-3xl
-            font-bold
-            leading-tight
-            tracking-tight
-            text-white
-            sm:text-4xl
-            lg:text-5xl
-            "
-          >
-            O problema não é falta
-            <br />
-            de conteúdo.
-            <br />
-            <span className="impact-gradient">É falta de estratégia.</span>
+          <h2 className="mt-3 max-w-3xl text-[1.9rem] font-bold leading-[1.08] tracking-[-0.045em] text-white sm:mt-4 sm:text-4xl lg:text-5xl">
+            O problema não é falta de conteúdo.{" "}
+            <span className="impact-gradient font-black">É estratégia.</span>
           </h2>
 
-          <p
-            className="
-            mt-6
-            max-w-xl
-            text-lg
-            leading-8
-            text-white/70
-            "
-          >
-            Muitas marcas aparecem todos os dias, mas poucas criam uma
-            comunicação capaz de gerar percepção, autoridade e valor.
+          <p className="mt-4 max-w-2xl text-base leading-7 text-white/70 sm:mt-6 sm:text-lg sm:leading-8">
+            Aparecer não basta. Sua comunicação precisa gerar confiança e valor.
           </p>
         </MotionReveal>
 
         <div
           className="
           relative
-          mt-12
+          mt-8
           max-w-2xl
           "
         >
@@ -122,7 +91,7 @@ export default function ProblemSection() {
 
           <div
             className="
-            space-y-10
+            space-y-6 sm:space-y-10
             "
           >
             {problems.map((item) => (
@@ -185,8 +154,8 @@ export default function ProblemSection() {
 
                   <p
                     className="
-                      mt-2
-                      max-w-lg
+                      mt-1.5
+                      max-w-2xl
                       leading-7
                       text-white/60
                       "
@@ -201,7 +170,7 @@ export default function ProblemSection() {
 
         <a
           href="#contact"
-          className="brand-button mt-10 inline-flex items-center gap-2 rounded-[18px] bg-primary px-5 py-3 text-sm font-bold text-white transition hover:bg-primary/90"
+          className="brand-button mt-7 inline-flex items-center gap-2 rounded-[18px] bg-primary px-5 py-3 text-sm font-bold text-white transition hover:bg-primary/90 sm:mt-10"
         >
           Quero uma estratégia para minha marca
           <FiArrowUpRight aria-hidden="true" />

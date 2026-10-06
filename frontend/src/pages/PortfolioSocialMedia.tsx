@@ -1,5 +1,6 @@
 import Captures from "../components/media/Captures/Captures";
 import Clients from "../components/media/Clients/Clients";
+import ClientStories from "../components/media/ClientStories";
 import Contact from "../components/media/Contact/Contact";
 import Header from "../components/media/Header/Header";
 import Hero from "../components/media/Hero/Hero";
@@ -13,7 +14,7 @@ export default function PortfolioSocialMedia() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#0b1220] text-white">
       <PageSeo
-        title="Social media estratégico para marcas | Fonseca Digital"
+        title="Fonseca Social Media | Estratégia e conteúdo para marcas"
         description="Estratégia, conteúdo e performance para marcas que querem crescer nas redes sociais com clareza, consistência e resultado."
         path="/socialmedia"
         keywords="social media, estratégia de conteúdo, branding, marketing digital, performance"
@@ -31,6 +32,8 @@ export default function PortfolioSocialMedia() {
           <Hero />
 
           <Clients />
+
+          <ClientStories />
 
           <div className="relative space-y-0">
             <ProblemSection />

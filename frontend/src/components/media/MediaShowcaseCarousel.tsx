@@ -131,8 +131,14 @@ export default function MediaShowcaseCarousel({
     "(prefers-reduced-motion: reduce)",
   ).matches;
   const total = items.length;
-  const maxCardWidth = Math.min(330, Math.max(220, viewportWidth * 0.27));
-  const carouselHeight = Math.min(500, Math.max(390, viewportWidth * 0.44));
+  const maxCardWidth = Math.min(
+    330,
+    Math.max(viewportWidth < 640 ? 190 : 220, viewportWidth * 0.27),
+  );
+  const carouselHeight = Math.min(
+    500,
+    Math.max(viewportWidth < 640 ? 290 : 390, viewportWidth * 0.44),
+  );
   const maxCardHeight = Math.min(460, carouselHeight - 24);
 
   useEffect(() => {
@@ -218,7 +224,7 @@ export default function MediaShowcaseCarousel({
     <section
       id="captacoes"
       aria-label="Portfólio de clientes e bastidores"
-      className={`relative overflow-hidden bg-[#0b1220] py-14 sm:py-20 ${className}`}
+      className={`relative overflow-hidden bg-[#0b1220] py-8 sm:py-20 ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocus={() => setIsFocused(true)}
@@ -232,16 +238,16 @@ export default function MediaShowcaseCarousel({
       onTouchEnd={handleTouchEnd}
     >
       <div className="mx-auto max-w-7xl px-6 sm:px-8">
-        <MotionReveal className="mb-7 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <MotionReveal className="mb-5 flex flex-col gap-3 sm:mb-7 sm:flex-row sm:items-end sm:justify-between sm:gap-5">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.24em] text-primary">
               {sectionLabel}
             </p>
-            <h2 className="social-display mt-3 max-w-3xl text-3xl font-bold leading-tight text-white sm:text-5xl">
+            <h2 className="social-display mt-2 max-w-3xl text-[1.7rem] font-bold leading-[1.1] tracking-[-0.045em] text-white sm:mt-3 sm:text-5xl">
               Imagem, estratégia{" "}
               <span className="text-primary">e movimento.</span>
             </h2>
-            <p className="mt-4 max-w-xl text-base leading-7 text-white/65">
+            <p className="mt-2 max-w-xl text-sm leading-6 text-white/65 sm:mt-4 sm:text-base sm:leading-7">
               Clientes e bastidores, da captação ao conteúdo final.
             </p>
           </div>
@@ -268,7 +274,7 @@ export default function MediaShowcaseCarousel({
 
         <div
           className="relative mx-auto flex w-full items-center justify-center overflow-hidden"
-          style={{ height: "clamp(390px, 44vw, 500px)", perspective: "1400px" }}
+          style={{ height: `clamp(${viewportWidth < 640 ? 290 : 390}px, 44vw, 500px)`, perspective: "1400px" }}
           role="region"
           aria-roledescription="carrossel"
           aria-label="Mídias de clientes e bastidores"
@@ -407,7 +413,7 @@ export default function MediaShowcaseCarousel({
           ))}
         </div>
 
-        <div className="mt-8 flex justify-center">
+        <div className="mt-5 flex justify-center sm:mt-8">
           <a
             href="#contact"
             className="brand-button inline-flex items-center gap-2 rounded-[18px] bg-primary px-5 py-3 text-sm font-bold text-white transition hover:bg-primary/90"

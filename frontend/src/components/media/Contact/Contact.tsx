@@ -161,7 +161,7 @@ export default function Contact() {
         z-10
         mx-auto
         max-w-7xl
-        px-8
+        px-6
         "
       >
         <MotionReveal
@@ -171,10 +171,10 @@ export default function Contact() {
         >
           <span
             className="
-            text-xs
+            text-[10px]
             font-semibold
             uppercase
-            tracking-[6px]
+            tracking-[0.2em]
             text-primary
             "
           >
@@ -183,13 +183,13 @@ export default function Contact() {
 
           <h2
             className="
-            mt-5
-            text-3xl
+            mt-3
+            text-[1.7rem]
             font-bold
             leading-tight
             tracking-tight
             text-white
-            sm:text-4xl
+            sm:mt-5 sm:text-4xl
             lg:text-5xl
             "
           >
@@ -199,19 +199,18 @@ export default function Contact() {
 
           <p
             className="
-            mt-6
+            mt-3
             max-w-xl
-            text-lg
-            leading-8
+            text-base
+            leading-6
             text-white/70
             "
           >
-            Conte sua ideia e receba uma estratégia personalizada para
-            transformar sua marca.
+            Conte sua ideia. Vamos encontrar a direção certa para sua marca.
           </p>
         </MotionReveal>
 
-        <MotionReveal delay={0.12}>
+        <MotionReveal className="mt-6 sm:mt-0" delay={0.12}>
           <ContactForm
             services={services}
             selectedPlans={selectedPlans}

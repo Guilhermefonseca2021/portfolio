@@ -21,7 +21,7 @@ export default function Services() {
           z-10
           mx-auto
           max-w-7xl
-          px-8
+          px-6
         "
       >
         <MotionReveal>
@@ -30,19 +30,19 @@ export default function Services() {
             max-w-3xl
           "
           >
-            <span className="text-xs font-semibold uppercase tracking-[5px] text-primary">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary sm:text-xs sm:tracking-[5px]">
               O que fazemos
             </span>
 
             <h2
               className="
-              mt-5
-              text-3xl
+              mt-3
+              text-[1.7rem]
               font-bold
-              leading-[1.1]
+              leading-[1.08]
               tracking-tight
               text-white
-              sm:text-4xl
+              sm:mt-5 sm:text-4xl
               lg:text-5xl
             "
             >
@@ -52,26 +52,24 @@ export default function Services() {
 
             <p
               className="
-              mt-6
+              mt-3
               max-w-2xl
-              text-lg
-              leading-8
+              text-base
+              leading-6
               text-white/70
             "
             >
-              Não produzimos apenas conteúdo. Desenvolvemos estratégias que
-              fortalecem sua presença, aumentam autoridade e aproximam sua marca
-              das pessoas certas.
+              Estratégia e conteúdo para fortalecer sua marca e chegar às
+              pessoas certas.
             </p>
           </div>
         </MotionReveal>
 
         <div
           className="
-            mt-10
+            mt-6
             grid
-            gap-6
-            md:grid-cols-2 md:gap-x-12
+            grid-cols-2 gap-3 sm:grid-cols-1 md:grid-cols-2 md:gap-x-12 md:gap-y-4
           "
         >
           {services.map((service, index) => (
@@ -81,7 +79,7 @@ export default function Services() {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col gap-3 border-t border-white/10 pt-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-4 flex flex-col gap-3 border-t border-white/10 pt-4 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:pt-6">
           <p className="text-sm text-white/60">
             Já sabe o que precisa? Vamos definir o melhor escopo.
           </p>

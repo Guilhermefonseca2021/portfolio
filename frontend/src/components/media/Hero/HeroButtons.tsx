@@ -3,7 +3,7 @@ import MotionReveal from "../MotionReveal";
 export default function HeroButtons() {
   return (
     <MotionReveal
-      className="mt-8 flex w-full flex-col gap-3 sm:mt-10 sm:w-auto sm:flex-row sm:gap-4"
+      className="mt-5 flex w-full flex-col gap-2.5 sm:mt-10 sm:w-auto sm:flex-row sm:gap-4"
       delay={0.12}
     >
       <a

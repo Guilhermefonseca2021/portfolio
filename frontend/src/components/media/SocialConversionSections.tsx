@@ -1,65 +1,25 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
-  FiArrowUpRight,
-  FiCheck,
-  FiCompass,
-  FiLayers,
-  FiShield,
-} from "react-icons/fi";
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import { FiArrowUpRight } from "react-icons/fi";
 import MotionReveal from "./MotionReveal";
 
-const pillars = [
-  [
-    FiCompass,
-    "Posicionamento",
-    "Clareza sobre o que sua marca representa e para quem fala.",
-  ],
-  [
-    FiLayers,
-    "Sistema visual",
-    "Direção que mantém o conteúdo reconhecível em diferentes formatos.",
-  ],
-  [
-    FiShield,
-    "Acompanhamento",
-    "Um processo transparente para revisar, aprender e evoluir.",
-  ],
-] as const;
-
-const steps = [
-  "Diagnóstico",
-  "Estratégia",
-  "Design",
-  "Planejamento",
-  "Produção",
-  "Publicação",
-  "Dados e análise",
-  "Evolução",
-];
-const included = [
-  "Planejamento editorial",
-  "Calendário de conteúdo",
-  "Criação de artes e vídeos",
-  "Legendas e direcionamento",
-  "Publicação organizada",
-  "Relatórios e ajustes",
-];
 const faqs = [
   [
-    "Vocês criam as artes e os vídeos?",
-    "Sim. O escopo é definido no diagnóstico e pode incluir peças estáticas, vídeos e direcionamento visual.",
+    "Que tipo de marca vocês atendem?",
+    "Trabalhamos com marcas que querem construir uma presença digital reconhecível e própria.",
   ],
   [
-    "Preciso fornecer as imagens?",
-    "Você pode enviar materiais da marca, mas também orientamos a produção e organização dos recursos necessários.",
+    "Como funciona o primeiro contato?",
+    "Conte um pouco sobre sua marca e o momento do negócio. A conversa inicial ajuda a entender se faz sentido trabalharmos juntos.",
   ],
   [
-    "Vocês publicam o conteúdo?",
-    "Sim, quando essa etapa fizer parte do escopo contratado. Tudo é alinhado no planejamento.",
-  ],
-  [
-    "Como começo?",
-    "Preencha o formulário de contato ao final da página. A Fonseca entende o cenário e prepara uma proposta personalizada.",
+    "Como começamos?",
+    "Envie uma mensagem pelo formulário ao final da página para iniciar a conversa.",
   ],
 ];
 
@@ -73,114 +33,139 @@ function SectionLabel({ children }: { children: string }) {
 
 export default function SocialConversionSections() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const shouldReduceMotion = useReducedMotion();
+  const parallaxSectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: parallaxSectionRef,
+    offset: ["start end", "end start"],
+  });
+  const backgroundY = useTransform(
+    scrollYProgress,
+    [0.28, 0.72],
+    [0, shouldReduceMotion ? 0 : -760],
+  );
+  const graphicOpacity = useTransform(
+    scrollYProgress,
+    shouldReduceMotion ? [0, 1] : [0.25, 0.36, 0.7, 0.82],
+    shouldReduceMotion ? [1, 1] : [0, 1, 1, 0],
+  );
+  const foregroundOpacity = useTransform(
+    scrollYProgress,
+    shouldReduceMotion ? [0, 1] : [0.25, 0.36, 0.7, 0.82],
+    shouldReduceMotion ? [1, 1] : [0, 1, 1, 0],
+  );
+  const foregroundY = useTransform(
+    scrollYProgress,
+    [0.25, 0.42, 0.68, 0.8],
+    [
+      shouldReduceMotion ? 0 : 35,
+      shouldReduceMotion ? 0 : -105,
+      shouldReduceMotion ? 0 : -105,
+      shouldReduceMotion ? 0 : -150,
+    ],
+  );
+  const portraitY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [0, shouldReduceMotion ? 0 : -125],
+  );
+
   return (
     <>
-      <section className="relative overflow-hidden border-y border-white/10 bg-[#0d1729] py-14 sm:py-20">
-        <div className="mx-auto max-w-7xl px-6 sm:px-8">
-          <div className="mb-10 grid gap-5 md:grid-cols-2">
-            <div className="relative min-h-56 overflow-hidden rounded-2xl border border-white/10 bg-[#101d33]">
-              <img
-                src="/portfolio/media/fonseca-retrato.jpg"
-                alt="Retrato do profissional da Fonseca Social Media"
-                loading="lazy"
-                className="parallax-media absolute inset-0 h-full w-full object-cover object-[center_28%]"
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-[#0b1220] via-transparent to-transparent" />
-              <span className="absolute bottom-5 left-5 text-xs font-semibold uppercase tracking-[.22em] text-white/75">
-                Estratégia com rosto e presença
-              </span>
+      <section
+        ref={parallaxSectionRef}
+        aria-label="Social media"
+        className="relative isolate min-h-[540px] overflow-hidden border-y border-white/10 bg-[#0b1220] sm:min-h-[760px]"
+      >
+        <div className="pointer-events-none absolute inset-x-0 top-[18%] h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
+        <div className="pointer-events-none absolute left-[8%] top-[28%] size-1 rounded-full bg-primary/80" />
+        <div className="pointer-events-none absolute left-[8%] top-[28%] h-20 w-px bg-gradient-to-b from-primary/50 to-transparent" />
+
+        <motion.div
+          style={{ y: backgroundY, opacity: graphicOpacity }}
+          className="pointer-events-none absolute inset-x-0 top-[73%] z-10 whitespace-nowrap"
+          aria-hidden="true"
+        >
+          <h2 className="social-parallax-word ml-[-7vw] text-[clamp(5rem,21vw,20rem)] text-white/[0.12]">
+            socialmedia
+          </h2>
+        </motion.div>
+
+        <motion.div
+          style={{ y: portraitY }}
+          className="pointer-events-none absolute inset-x-0 top-[27%] z-20 flex h-[76%] w-full items-end justify-center sm:inset-x-auto sm:right-[2%] sm:top-[2%] sm:h-[105%] sm:w-[64%] lg:right-[4%] lg:w-[54%]"
+        >
+          <motion.div
+            initial={
+              shouldReduceMotion
+                ? false
+                : { opacity: 0, clipPath: "inset(8% 0 0 0)" }
+            }
+            whileInView={
+              shouldReduceMotion
+                ? undefined
+                : { opacity: 1, clipPath: "inset(0% 0 0 0)" }
+            }
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{
+              duration: 1,
+              delay: 0.08,
+              ease: [0.16, 1, 0.3, 1],
+            }}
+            className="flex h-full w-full items-end justify-center"
+          >
+            <img
+              src="/portfolio/media/socialmedia-portrait.png"
+              alt="Profissional da Fonseca com câmera e estabilizador"
+              loading="lazy"
+              className="h-full max-w-full object-contain object-bottom"
+            />
+          </motion.div>
+        </motion.div>
+
+        <motion.div
+          style={{ y: foregroundY, opacity: foregroundOpacity }}
+          className="relative z-30 mx-auto flex min-h-[540px] max-w-[1600px] items-center px-6 sm:min-h-[760px] sm:px-10 lg:px-16"
+        >
+          <div className="relative z-10 w-full pb-48 pt-20 sm:pb-72 sm:pt-28 lg:pb-0">
+            <div className="mb-8 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-white/55">
+              <span className="text-primary">01</span>
+              <span className="h-px w-10 bg-white/25" />
+              <span>Fonseca · Social media</span>
             </div>
-            <div className="relative min-h-56 overflow-hidden rounded-2xl border border-white/10 bg-[#101d33]">
-              <img
-                src="/portfolio/media/honda-social.jpg"
-                alt="Profissional criando conteúdo em uma concessionária"
-                loading="lazy"
-                className="parallax-media absolute inset-0 h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-linear-to-t from-[#0b1220] via-transparent to-transparent" />
-              <span className="absolute bottom-5 left-5 text-xs font-semibold uppercase tracking-[.22em] text-white/75">
-                Conteúdo que acontece no mundo real
-              </span>
-            </div>
-          </div>
 
-          <MotionReveal className="mt-12 max-w-3xl border-t border-white/10 pt-10">
-            <SectionLabel>Estratégia + design + dados</SectionLabel>
-            <h2 className="social-display mt-4 text-3xl font-bold text-white sm:text-5xl">
-              Mídias sociais pensadas como{" "}
-              <span className="text-primary">produto de marca.</span>
-            </h2>
-            <p className="mt-4 max-w-2xl text-base leading-7 text-white/65">
-              Uma jornada contínua que conecta o posicionamento da marca à
-              criação, publicação e evolução do conteúdo.
-            </p>
-          </MotionReveal>
-
-          <div className="mt-9 grid gap-x-8 gap-y-7 sm:grid-cols-3">
-            {pillars.map(([Icon, title, description], index) => (
-              <MotionReveal key={title} delay={index * 0.06}>
-                <article className="h-full border-l border-primary/40 pl-4">
-                  <Icon className="size-5 text-primary" aria-hidden="true" />
-                  <h3 className="mt-3 font-semibold text-white">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-white/55">
-                    {description}
-                  </p>
-                </article>
-              </MotionReveal>
-            ))}
+            <MotionReveal className="max-w-[22rem] sm:max-w-xl" delay={0.16}>
+              <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-white/55 sm:mb-4 sm:text-xs">
+                Presença sem intenção passa despercebida.
+              </p>
+              <h3 className="max-w-lg text-[clamp(2.25rem,5vw,4.25rem)] font-semibold leading-[0.98] tracking-[-0.055em] text-white">
+                Faça sua marca{" "}
+                <span className="text-primary">ser lembrada.</span>
+              </h3>
+            </MotionReveal>
           </div>
-
-          <div className="mt-10 border-t border-white/10 pt-8">
-            <ol className="grid grid-cols-2 gap-x-4 gap-y-5 sm:grid-cols-4 lg:grid-cols-8">
-              {steps.map((step, index) => (
-                <li key={step} className="flex items-start gap-2">
-                  <span className="text-xs font-bold text-primary">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-sm font-medium text-white/85">
-                    {step}
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          <div className="mt-8 grid gap-x-6 gap-y-1 border-t border-white/10 pt-5 sm:grid-cols-2 lg:grid-cols-3">
-            {included.map((item) => (
-              <div
-                key={item}
-                className="flex items-center gap-3 border-b border-white/10 py-3 text-sm text-white/75"
-              >
-                <FiCheck
-                  className="size-4 shrink-0 text-primary"
-                  aria-hidden="true"
-                />
-                {item}
-              </div>
-            ))}
-          </div>
-        </div>
+        </motion.div>
       </section>
-      <section className="border-t border-white/10 bg-[#0d1729] py-20 sm:py-28">
-        <div className="mx-auto grid max-w-7xl gap-12 px-6 sm:px-8 lg:grid-cols-[.8fr_1.2fr]">
+      <section className="border-t border-white/10 bg-[#0d1729] py-12 sm:py-28">
+        <div className="mx-auto grid max-w-7xl gap-6 px-6 sm:gap-12 sm:px-8 lg:grid-cols-[.8fr_1.2fr]">
           <MotionReveal>
             <SectionLabel>Dúvidas frequentes</SectionLabel>
-            <h2 className="social-display mt-5 text-3xl font-bold tracking-[-0.04em] text-white sm:text-5xl">
+            <h2 className="social-display mt-3 text-[1.7rem] font-bold leading-[1.1] tracking-[-0.045em] text-white sm:mt-5 sm:text-5xl">
               Antes de começar,{" "}
               <span className="text-primary">vamos deixar claro.</span>
             </h2>
           </MotionReveal>
-          <div className="space-y-3">
+          <div className="space-y-2 sm:space-y-3">
             {faqs.map(([question, answer], index) => (
               <div
                 key={question}
-                className="rounded-2xl border border-white/10 bg-white/[.035]"
+                className="rounded-xl border border-white/10 bg-white/[.035] sm:rounded-2xl"
               >
                 <button
                   type="button"
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
                   aria-expanded={openFaq === index}
-                  className="flex w-full items-center justify-between gap-6 p-5 text-left font-semibold text-white"
+                  className="flex w-full items-center justify-between gap-4 p-4 text-left text-sm font-semibold text-white sm:gap-6 sm:p-5 sm:text-base"
                 >
                   <span>{question}</span>
                   <span className="text-2xl font-light text-primary">
@@ -188,18 +173,18 @@ export default function SocialConversionSections() {
                   </span>
                 </button>
                 {openFaq === index && (
-                  <p className="px-5 pb-5 leading-7 text-white/60">{answer}</p>
+                  <p className="px-4 pb-4 text-sm leading-6 text-white/60 sm:px-5 sm:pb-5 sm:text-base sm:leading-7">{answer}</p>
                 )}
               </div>
             ))}
           </div>
         </div>
       </section>
-      <section className="relative overflow-hidden bg-primary py-16 text-primaryText sm:py-20">
-        <div className="mx-auto flex max-w-7xl flex-col gap-8 px-6 sm:px-8 md:flex-row md:items-end md:justify-between">
+      <section className="relative overflow-hidden bg-primary py-10 text-primaryText sm:py-20">
+        <div className="mx-auto flex max-w-7xl flex-col gap-5 px-6 sm:gap-8 sm:px-8 md:flex-row md:items-end md:justify-between">
           <div>
             <SectionLabel>Pronto para avançar?</SectionLabel>
-            <h2 className="mt-4 max-w-2xl text-3xl font-bold tracking-tight sm:text-5xl">
+            <h2 className="mt-3 max-w-2xl text-[1.7rem] font-bold leading-[1.1] tracking-[-0.04em] sm:mt-4 sm:text-5xl">
               Sua marca já está nas redes. Agora dê estratégia a ela.
             </h2>
           </div>

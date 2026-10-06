@@ -11,14 +11,14 @@ const services: ServiceItem[] = [
     id: 1,
     title: "Estratégia",
     formService: "Consultoria Digital",
-    description: "Direção clara para o que sua marca quer comunicar e vender.",
-    features: ["Diagnóstico", "Posicionamento", "Planejamento"],
+    description: "Direção para comunicar e vender.",
+    features: ["Direção criativa", "Posicionamento", "Identidade"],
   },
   {
     id: 2,
     title: "Conteúdo",
     formService: "Criação de Conteúdo",
-    description: "Peças pensadas para atrair atenção, confiança e demanda.",
+    description: "Conteúdo que atrai, conecta e gera demanda.",
     features: ["Posts", "Reels", "Artes"],
   },
   {
@@ -26,15 +26,15 @@ const services: ServiceItem[] = [
     title: "Gestão",
     formService: "Gestão de Redes Sociais",
     description:
-      "Organização de calendário, publicação e acompanhamento da presença digital.",
-    features: ["Calendário", "Publicação", "Acompanhamento"],
+      "Presença digital alinhada aos objetivos da marca.",
+    features: ["Consistência", "Presença digital", "Crescimento"],
   },
   {
     id: 4,
     title: "Captação",
     formService: "Captação de Conteúdo",
     description:
-      "Produção visual para dar vida à marca em movimento e em contexto.",
+      "Produção visual para marcas em movimento.",
     features: ["Eventos", "Bastidores", "Produção"],
   },
 ];

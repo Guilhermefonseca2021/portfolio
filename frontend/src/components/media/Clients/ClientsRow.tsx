@@ -109,7 +109,7 @@ export default function ClientsRow() {
   }
 
   return (
-    <div className="relative overflow-hidden py-8 sm:py-10">
+    <div className="relative overflow-hidden py-5 sm:py-10">
       <div
         ref={trackRef}
         className={`clients-scroll flex w-max touch-pan-y select-none items-center gap-8 sm:gap-12 lg:gap-20 ${isDragging ? "cursor-grabbing" : "cursor-grab"}`}

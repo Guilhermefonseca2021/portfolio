@@ -1,27 +1,49 @@
 import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
-import { FiInstagram } from "react-icons/fi";
+import { FiChevronLeft, FiChevronRight, FiInstagram } from "react-icons/fi";
 
 const stories = [
   {
-    id: "DVEAwXhDTDD",
-    type: "p",
-    label: "História de cliente",
+    id: "bmw",
+    label: "Projeto BMW",
+    image: "/portfolio/stories/story-bmw.jpeg",
+    alt: "Apresentação de um BMW na concessionária",
   },
   {
-    id: "DQKO0Y-DUca",
-    type: "p",
-    label: "História de cliente",
+    id: "honda-consultoria",
+    label: "Projeto Honda",
+    image: "/portfolio/stories/story-honda-consultoria.jpeg",
+    alt: "Equipe de produção em uma concessionária Honda",
   },
   {
-    id: "DO1BXEPDSYo",
-    type: "reel",
-    label: "Indicação",
+    id: "honda-entrevista",
+    label: "Bastidores Honda",
+    image: "/portfolio/stories/story-honda-interview.jpeg",
+    alt: "Entrevista durante a produção de conteúdo para a Honda",
   },
   {
-    id: "DZbA47Ox2kH",
-    type: "reel",
-    label: "Resultado",
+    id: "honda-lancamento",
+    label: "Lançamento Honda",
+    image: "/portfolio/stories/story-honda-launch.jpeg",
+    alt: "Apresentação de um veículo Honda em um evento",
+  },
+  {
+    id: "bella-bijoux",
+    label: "Bella Bijoux",
+    image: "/portfolio/stories/story-bella-bijoux.jpeg",
+    alt: "Joias da marca Bella Bijoux",
+  },
+  {
+    id: "feedback",
+    label: "Feedback de cliente",
+    image: "/portfolio/stories/story-client-feedback.jpeg",
+    alt: "Cliente compartilhando um feedback sobre o trabalho",
+  },
+  {
+    id: "star-burgers",
+    label: "Star Burgers",
+    image: "/portfolio/stories/story-star-burgers.jpeg",
+    alt: "Cliente experimentando um hambúrguer da Star Burgers",
   },
 ] as const;
 
@@ -40,6 +62,13 @@ export default function ClientStories() {
   const shouldScrollToIndexRef = useRef(false);
   const programmaticScrollTimeoutRef = useRef<number | null>(null);
   const prefersReducedMotion = useReducedMotion();
+
+  const navigateStory = (direction: -1 | 1) => {
+    shouldScrollToIndexRef.current = true;
+    setActiveIndex(
+      (index) => (index + direction + stories.length) % stories.length,
+    );
+  };
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -135,6 +164,8 @@ export default function ClientStories() {
       }}
       onTouchStart={() => setIsPaused(true)}
       onTouchEnd={() => setIsPaused(false)}
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
     >
       <div className="mx-auto max-w-7xl px-6 sm:px-8">
         <div className="mb-6 flex items-end justify-between gap-4 sm:mb-9">
@@ -214,10 +245,7 @@ export default function ClientStories() {
               if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
               event.preventDefault();
               const direction = event.key === "ArrowRight" ? 1 : -1;
-              shouldScrollToIndexRef.current = true;
-              setActiveIndex(
-                (index) => (index + direction + stories.length) % stories.length,
-              );
+              navigateStory(direction);
             }}
           >
             {stories.map((story, index) => {
@@ -266,7 +294,6 @@ export default function ClientStories() {
                         </span>
                       ))}
                     </div>
-
                     <div className="flex items-center gap-2.5 px-2 pb-2 pt-1">
                       <span className="grid size-8 place-items-center rounded-full bg-gradient-to-br from-primary via-violet-500 to-sky-400 p-[1.5px]">
                         <span className="grid size-full place-items-center rounded-full bg-[#101522]">
@@ -291,14 +318,11 @@ export default function ClientStories() {
                     </div>
 
                     <div className="h-[440px] overflow-hidden rounded-[1.1rem] bg-[#111827] sm:h-[460px]">
-                      <iframe
-                        src={`https://www.instagram.com/${story.type}/${story.id}/embed/?hidecaption=true`}
-                        title={`${story.label} no Instagram, ${index + 1} de ${stories.length}`}
+                      <img
+                        src={story.image}
+                        alt={story.alt}
                         loading="lazy"
-                        tabIndex={-1}
-                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture"
-                        allowFullScreen
-                        className={`pointer-events-none relative -top-12 h-[600px] w-full border-0 sm:h-[620px] ${
+                        className={`h-full w-full object-cover transition-opacity ${
                           isActive ? "opacity-100" : "opacity-85"
                         }`}
                       />
@@ -310,10 +334,26 @@ export default function ClientStories() {
           </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-center">
+        <div className="mt-4 flex items-center justify-center gap-3">
+          <button
+            type="button"
+            aria-label="Story anterior"
+            onClick={() => navigateStory(-1)}
+            className="grid size-8 shrink-0 place-items-center rounded-full border border-white/15 bg-white/[.06] text-white transition hover:bg-white/10"
+          >
+            <FiChevronLeft aria-hidden="true" />
+          </button>
           <p className="text-[10px] font-medium uppercase tracking-[0.16em] text-white/40">
-            Role ou deslize para explorar
+            Role, arraste ou use as setas
           </p>
+          <button
+            type="button"
+            aria-label="Próximo story"
+            onClick={() => navigateStory(1)}
+            className="grid size-8 shrink-0 place-items-center rounded-full border border-white/15 bg-white/[.06] text-white transition hover:bg-white/10"
+          >
+            <FiChevronRight aria-hidden="true" />
+          </button>
         </div>
       </div>
     </section>

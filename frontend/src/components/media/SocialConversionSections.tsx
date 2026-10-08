@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   motion,
   useReducedMotion,
@@ -35,6 +35,7 @@ export default function SocialConversionSections() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const shouldReduceMotion = useReducedMotion();
   const parallaxSectionRef = useRef<HTMLElement>(null);
+  const particlesCanvasRef = useRef<HTMLCanvasElement>(null);
   const { scrollYProgress } = useScroll({
     target: parallaxSectionRef,
     offset: ["start end", "end start"],
@@ -42,12 +43,12 @@ export default function SocialConversionSections() {
   const backgroundY = useTransform(
     scrollYProgress,
     [0.28, 0.72],
-    [0, shouldReduceMotion ? 0 : -760],
+    [0, shouldReduceMotion ? 0 : -115],
   );
   const graphicOpacity = useTransform(
     scrollYProgress,
     shouldReduceMotion ? [0, 1] : [0.25, 0.36, 0.7, 0.82],
-    shouldReduceMotion ? [1, 1] : [0, 1, 1, 0],
+    shouldReduceMotion ? [0.45, 0.45] : [0, 0.45, 0.45, 0],
   );
   const foregroundOpacity = useTransform(
     scrollYProgress,
@@ -58,17 +59,172 @@ export default function SocialConversionSections() {
     scrollYProgress,
     [0.25, 0.42, 0.68, 0.8],
     [
-      shouldReduceMotion ? 0 : 35,
-      shouldReduceMotion ? 0 : -105,
-      shouldReduceMotion ? 0 : -105,
+      shouldReduceMotion ? 0 : 20,
+      shouldReduceMotion ? 0 : -125,
       shouldReduceMotion ? 0 : -150,
+      shouldReduceMotion ? 0 : -185,
     ],
   );
   const portraitY = useTransform(
     scrollYProgress,
-    [0, 1],
-    [0, shouldReduceMotion ? 0 : -125],
+    [0, 0.4, 0.72, 1],
+    [
+      shouldReduceMotion ? 0 : 24,
+      shouldReduceMotion ? 0 : -20,
+      shouldReduceMotion ? 0 : -112,
+      shouldReduceMotion ? 0 : -205,
+    ],
   );
+  useEffect(() => {
+    const section = parallaxSectionRef.current;
+    const canvas = particlesCanvasRef.current;
+    const context = canvas?.getContext("2d");
+    if (!section || !canvas || !context) return;
+
+    type Particle = {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      radius: number;
+      alpha: number;
+    };
+
+    let particles: Particle[] = [];
+    let width = 0;
+    let height = 0;
+    let animationFrame = 0;
+    let lastFrameTime = 0;
+    let isInView = false;
+    let pointerX = 0;
+    let pointerY = 0;
+    let isPointerInside = false;
+
+    const resize = () => {
+      const bounds = section.getBoundingClientRect();
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+      width = bounds.width;
+      height = bounds.height;
+      canvas.width = Math.round(width * pixelRatio);
+      canvas.height = Math.round(height * pixelRatio);
+      context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+
+      const particleCount = Math.min(
+        100,
+        Math.max(36, Math.round((width * height) / 9_000)),
+      );
+      particles = Array.from({ length: particleCount }, () => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.12,
+        vy: (Math.random() - 0.5) * 0.12,
+        radius: 0.7 + Math.random() * 1.2,
+        alpha: 0.18 + Math.random() * 0.3,
+      }));
+
+      if (shouldReduceMotion) draw();
+    };
+
+    const draw = (animate = false) => {
+      context.clearRect(0, 0, width, height);
+
+      particles.forEach((particle, index) => {
+        if (animate) {
+          particle.x += particle.vx;
+          particle.y += particle.vy;
+
+          if (isPointerInside) {
+            const dx = particle.x - pointerX;
+            const dy = particle.y - pointerY;
+            const distance = Math.hypot(dx, dy);
+            if (distance < 150 && distance > 0) {
+              const influence = (1 - distance / 150) * 0.025;
+              particle.x += dx * influence;
+              particle.y += dy * influence;
+            }
+          }
+
+          if (particle.x < 0) particle.x = width;
+          if (particle.x > width) particle.x = 0;
+          if (particle.y < 0) particle.y = height;
+          if (particle.y > height) particle.y = 0;
+        }
+
+        for (let nextIndex = index + 1; nextIndex < particles.length; nextIndex++) {
+          const nextParticle = particles[nextIndex];
+          const distance = Math.hypot(
+            particle.x - nextParticle.x,
+            particle.y - nextParticle.y,
+          );
+          if (distance < 120) {
+            context.beginPath();
+            context.moveTo(particle.x, particle.y);
+            context.lineTo(nextParticle.x, nextParticle.y);
+            context.strokeStyle = `rgba(90, 150, 255, ${(1 - distance / 120) * 0.12})`;
+            context.lineWidth = 0.7;
+            context.stroke();
+          }
+        }
+
+        context.beginPath();
+        context.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2);
+        context.fillStyle = `rgba(150, 195, 255, ${particle.alpha})`;
+        context.fill();
+      });
+    };
+
+    const animate = (time: number) => {
+      if (!isInView || shouldReduceMotion) return;
+      if (time - lastFrameTime >= 1000 / 30) {
+        draw(true);
+        lastFrameTime = time;
+      }
+      animationFrame = window.requestAnimationFrame(animate);
+    };
+
+    const startAnimation = () => {
+      if (!isInView || shouldReduceMotion || animationFrame) return;
+      animationFrame = window.requestAnimationFrame(animate);
+    };
+
+    const intersectionObserver = new IntersectionObserver(([entry]) => {
+      isInView = entry.isIntersecting;
+      if (isInView) {
+        if (shouldReduceMotion) draw();
+        else startAnimation();
+      } else if (animationFrame) {
+        window.cancelAnimationFrame(animationFrame);
+        animationFrame = 0;
+      }
+    });
+    const resizeObserver = new ResizeObserver(resize);
+    const handlePointerMove = (event: PointerEvent) => {
+      const bounds = section.getBoundingClientRect();
+      pointerX = event.clientX - bounds.left;
+      pointerY = event.clientY - bounds.top;
+      isPointerInside = true;
+    };
+    const handlePointerLeave = () => {
+      isPointerInside = false;
+    };
+
+    intersectionObserver.observe(section);
+    resizeObserver.observe(section);
+    section.addEventListener("pointermove", handlePointerMove, {
+      passive: true,
+    });
+    section.addEventListener("pointerleave", handlePointerLeave, {
+      passive: true,
+    });
+
+    return () => {
+      intersectionObserver.disconnect();
+      resizeObserver.disconnect();
+      section.removeEventListener("pointermove", handlePointerMove);
+      section.removeEventListener("pointerleave", handlePointerLeave);
+      if (animationFrame) window.cancelAnimationFrame(animationFrame);
+    };
+  }, [shouldReduceMotion]);
 
   return (
     <>
@@ -77,36 +233,51 @@ export default function SocialConversionSections() {
         aria-label="Social media"
         className="relative isolate min-h-[540px] overflow-hidden border-y border-white/10 bg-[#0b1220] sm:min-h-[760px]"
       >
+        <canvas
+          ref={particlesCanvasRef}
+          className="pointer-events-none absolute inset-0 z-0 h-full w-full"
+          aria-hidden="true"
+        />
         <div className="pointer-events-none absolute inset-x-0 top-[18%] h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
         <div className="pointer-events-none absolute left-[8%] top-[28%] size-1 rounded-full bg-primary/80" />
         <div className="pointer-events-none absolute left-[8%] top-[28%] h-20 w-px bg-gradient-to-b from-primary/50 to-transparent" />
 
         <motion.div
           style={{ y: backgroundY, opacity: graphicOpacity }}
-          className="pointer-events-none absolute inset-x-0 top-[73%] z-10 whitespace-nowrap"
+          className="pointer-events-none absolute inset-x-0 top-[72%] z-10 whitespace-nowrap"
           aria-hidden="true"
         >
-          <h2 className="social-parallax-word ml-[-7vw] text-[clamp(5rem,21vw,20rem)] text-white/[0.12]">
+          <h2 className="social-parallax-word ml-[2vw] text-[clamp(4rem,16vw,15rem)] text-white/[0.07] [-webkit-text-stroke:1px_rgba(139,61,255,0.1)]">
             socialmedia
           </h2>
         </motion.div>
 
         <motion.div
           style={{ y: portraitY }}
-          className="pointer-events-none absolute inset-x-0 top-[27%] z-20 flex h-[76%] w-full items-end justify-center sm:inset-x-auto sm:right-[2%] sm:top-[2%] sm:h-[105%] sm:w-[64%] lg:right-[4%] lg:w-[54%]"
+          className="pointer-events-none absolute inset-x-0 top-[35%] z-20 flex h-[76%] w-full items-end justify-center sm:inset-x-auto sm:right-[2%] sm:top-[2%] sm:h-[105%] sm:w-[64%] lg:right-[4%] lg:w-[54%]"
         >
           <motion.div
             initial={
               shouldReduceMotion
                 ? false
-                : { opacity: 0, clipPath: "inset(8% 0 0 0)" }
+                : {
+                    opacity: 0,
+                    y: 32,
+                    filter: "blur(14px)",
+                    clipPath: "inset(8% 0 0 0)",
+                  }
             }
             whileInView={
               shouldReduceMotion
                 ? undefined
-                : { opacity: 1, clipPath: "inset(0% 0 0 0)" }
+                : {
+                    opacity: 1,
+                    y: 0,
+                    filter: "blur(0px)",
+                    clipPath: "inset(0% 0 0 0)",
+                  }
             }
-            viewport={{ once: true, amount: 0.25 }}
+            viewport={{ once: true, amount: 0.12 }}
             transition={{
               duration: 1,
               delay: 0.08,
@@ -118,7 +289,7 @@ export default function SocialConversionSections() {
               src="/portfolio/media/socialmedia-portrait.png"
               alt="Profissional da Fonseca com câmera e estabilizador"
               loading="lazy"
-              className="h-full max-w-full object-contain object-bottom"
+              className="h-full max-w-full object-contain object-bottom [mask-image:linear-gradient(to_top,transparent,black_30%)] [-webkit-mask-image:linear-gradient(to_top,transparent,black_30%)]"
             />
           </motion.div>
         </motion.div>

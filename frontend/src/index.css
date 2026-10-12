@@ -217,6 +217,24 @@ a {
   filter: drop-shadow(0 0 16px rgba(0, 113, 227, 0.58));
 }
 
+.dev-theme {
+  --dev-surface: #0d1729;
+  --dev-card: #101d33;
+  --dev-copy: rgba(255, 255, 255, 0.68);
+  background: #0b1220;
+}
+
+.dev-theme .bg-bg { background-color: #0b1220 !important; }
+.dev-theme .text-secondaryText { color: #fff !important; }
+.dev-theme .text-secondaryText\/70 { color: var(--dev-copy) !important; }
+.dev-theme .text-secondaryText\/60 { color: rgba(255, 255, 255, 0.6) !important; }
+.dev-theme .bg-white { background-color: var(--dev-card) !important; }
+.dev-theme .border-black\/\[\.08\] { border-color: rgba(255, 255, 255, 0.1) !important; }
+.dev-theme .bg-white\/80 { background-color: rgba(13, 23, 41, 0.88) !important; }
+.dev-theme .hover\:bg-bgAccent:hover { background-color: rgba(255, 255, 255, 0.08) !important; }
+.dev-theme section { position: relative; }
+.dev-theme section > div { position: relative; z-index: 1; }
+
 .brand-button {
   color: #fff;
   font-family: "Inter", "Helvetica Neue", Arial, sans-serif;

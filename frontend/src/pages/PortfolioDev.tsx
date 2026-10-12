@@ -9,7 +9,7 @@ import PageSeo from "../components/seo/PageSeo";
 
 export default function PortfolioDev() {
   return (
-    <div className="min-h-screen overflow-hidden bg-bg text-secondaryText">
+    <div className="dev-theme min-h-screen overflow-hidden bg-[#0b1220] text-white">
       <PageSeo
         title="Desenvolvimento web sob medida | Fonseca Digital"
         description="Portfólio de desenvolvimento web, produtos digitais e automações construídos para transformar operações e negócios."

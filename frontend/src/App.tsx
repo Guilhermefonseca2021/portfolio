@@ -16,6 +16,7 @@ import Home from "./pages/Home";
 import Leads from "./pages/Leads/Leads";
 import PortfolioDev from "./pages/PortfolioDev";
 import PortfolioSocialMedia from "./pages/PortfolioSocialMedia";
+import Modelos from "./pages/Modelos";
 import Reports from "./pages/Reports/Reports";
 import Settings from "./pages/Settings/Settings";
 import TermsAndService from "./pages/TermosAndServicos";
@@ -49,6 +50,10 @@ export default function App() {
           <Route path="/plataforma" element={<Home />} />
 
           <Route path="/dev" element={<PortfolioDev />} />
+
+          <Route path="/modelos" element={<Navigate to="/fabrica-de-modelos" replace />} />
+
+          <Route path="/fabrica-de-modelos" element={<Modelos />} />
 
           <Route path="/socialmedia" element={<Navigate to="/" replace />} />
 

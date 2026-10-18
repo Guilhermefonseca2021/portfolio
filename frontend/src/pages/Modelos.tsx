@@ -1,4 +1,5 @@
 import { useState, type CSSProperties } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   FiArrowDownRight,
   FiArrowUpRight,
@@ -118,6 +119,24 @@ const traditionalProduction = [
 
 export default function Modelos() {
   const [comparison, setComparison] = useState(50);
+  const prefersReducedMotion = useReducedMotion();
+  const revealProps = {
+    initial: prefersReducedMotion ? false : { opacity: 0 },
+    whileInView: prefersReducedMotion ? undefined : { opacity: 1 },
+    viewport: { once: true, amount: 0.18 },
+    transition: {
+      duration: prefersReducedMotion ? 0 : 0.65,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  };
+  const heroRevealProps = {
+    initial: prefersReducedMotion ? false : { opacity: 0, y: 18 },
+    animate: { opacity: 1, y: 0 },
+    transition: {
+      duration: prefersReducedMotion ? 0 : 0.75,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  };
 
   return (
     <main className="model-page">
@@ -146,7 +165,7 @@ export default function Modelos() {
       </header>
 
       <section className="model-hero" aria-labelledby="model-hero-title">
-        <div className="model-hero-copy">
+        <motion.div className="model-hero-copy" {...heroRevealProps}>
           <p className="model-kicker">
             <span className="model-live-dot" />
             ESTÚDIO CRIATIVO + INTELIGÊNCIA ARTIFICIAL
@@ -173,7 +192,7 @@ export default function Modelos() {
             <span>COM</span>
             <span>INTENÇÃO</span>
           </div>
-        </div>
+        </motion.div>
 
         <div className="model-hero-visual">
           <div className="model-video-frame">
@@ -221,7 +240,7 @@ export default function Modelos() {
         className="model-section model-comparison-section"
         aria-labelledby="comparison-title"
       >
-        <div className="model-section-heading">
+        <motion.div className="model-section-heading" {...revealProps}>
           <p className="model-kicker">01 / ANTES E DEPOIS</p>
           <h2 id="comparison-title" className="model-display">
             Uma imagem.
@@ -232,7 +251,7 @@ export default function Modelos() {
             Arraste a linha para comparar a foto original com a mesma imagem
             recebendo um color grade de demonstração.
           </p>
-        </div>
+        </motion.div>
 
         <div className="model-compare-wrap">
           <div className="model-compare-label">
@@ -293,7 +312,7 @@ export default function Modelos() {
         className="model-section model-method-section"
         aria-labelledby="method-title"
       >
-        <div className="model-method-intro">
+        <motion.div className="model-method-intro" {...revealProps}>
           <p className="model-kicker">02 / POR QUE FUNCIONA</p>
           <h2 id="method-title" className="model-display">
             Não é mágica.
@@ -312,22 +331,27 @@ export default function Modelos() {
               A IA busca referências antes de responder.
             </span>
           </div>
-        </div>
+        </motion.div>
 
         <div className="model-steps">
           {steps.map((step) => (
-            <article className="model-step" key={step.number}>
+            <motion.article
+              className="model-step"
+              key={step.number}
+              {...revealProps}
+              transition={{ ...revealProps.transition, delay: Number(step.number) * 0.06 }}
+            >
               <span className="model-step-number">{step.number}</span>
               <div>
                 <h3>{step.title}</h3>
                 <p>{step.description}</p>
               </div>
               <FiArrowUpRight aria-hidden="true" />
-            </article>
+            </motion.article>
           ))}
         </div>
 
-        <div className="model-prompt-card">
+        <motion.div className="model-prompt-card" {...revealProps}>
           <div className="model-prompt-header">
             <span><i /> BASE DE CONHECIMENTO</span>
             <span>PDF · PRESETS · REFERÊNCIAS</span>
@@ -344,7 +368,7 @@ export default function Modelos() {
             <span>CONTEXTO ENCONTRADO</span>
             <span className="model-prompt-match">98% MATCH</span>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section
@@ -352,7 +376,7 @@ export default function Modelos() {
         className="model-section model-presets-section"
         aria-labelledby="presets-title"
       >
-        <div className="model-presets-heading">
+        <motion.div className="model-presets-heading" {...revealProps}>
           <div>
             <p className="model-kicker">03 / SEU FLUXO CRIATIVO</p>
             <h2 id="presets-title" className="model-display">
@@ -365,16 +389,21 @@ export default function Modelos() {
             Os gatilhos acionam instruções e referências específicas. Menos
             retrabalho explicando; mais consistência no resultado.
           </p>
-        </div>
+        </motion.div>
         <div className="model-preset-grid">
-          {presets.map((preset) => (
-            <article className="model-preset-card" key={preset.command}>
+          {presets.map((preset, index) => (
+            <motion.article
+              className="model-preset-card"
+              key={preset.command}
+              {...revealProps}
+              transition={{ ...revealProps.transition, delay: index * 0.08 }}
+            >
               <span className="model-preset-prompt">PROMPT / GATILHO</span>
               <code>{preset.command}</code>
               <h3>{preset.title}</h3>
               <p>{preset.description}</p>
               <FiArrowUpRight aria-hidden="true" />
-            </article>
+            </motion.article>
           ))}
         </div>
         <p className="model-preset-footnote">
@@ -388,7 +417,7 @@ export default function Modelos() {
         className="model-section model-ai-gallery-section"
         aria-labelledby="ai-gallery-title"
       >
-        <div className="model-ai-gallery-heading">
+        <motion.div className="model-ai-gallery-heading" {...revealProps}>
           <div>
             <p className="model-kicker">04 / EXEMPLOS CRIADOS COM IA</p>
             <h2 id="ai-gallery-title" className="model-display">
@@ -401,7 +430,7 @@ export default function Modelos() {
             Imagens de pratos criadas com inteligência artificial para mostrar
             como um conceito pode virar conteúdo visual.
           </p>
-        </div>
+        </motion.div>
         <div className="model-ai-gallery">
           {aiImageExamples.map((image, index) => (
             <figure
@@ -426,7 +455,7 @@ export default function Modelos() {
         className="model-section model-studio-section"
         aria-labelledby="studio-title"
       >
-        <div className="model-studio-heading">
+        <motion.div className="model-studio-heading" {...revealProps}>
           <p className="model-kicker">05 / ESTÚDIO INVISÍVEL</p>
           <h2 id="studio-title" className="model-display">
             Primeiro, você cria a foto.
@@ -437,7 +466,7 @@ export default function Modelos() {
             Fotos criadas com o Estúdio Invisível. Um produto que continua
             evoluindo — e agora também transforma imagens em vídeos.
           </p>
-        </div>
+        </motion.div>
 
         <div className="model-studio-showcase">
           <article className="model-film-card model-film-card-featured">
@@ -473,7 +502,7 @@ export default function Modelos() {
         </div>
 
         <div className="model-evolution">
-          <div className="model-evolution-copy">
+          <motion.div className="model-evolution-copy" {...revealProps}>
             <span className="model-evolution-mark" aria-hidden="true">+</span>
             <div>
               <span className="model-film-label">FEITO PARA CONTINUAR CRESCENDO</span>
@@ -482,7 +511,7 @@ export default function Modelos() {
                 O Estúdio Invisível continua evoluindo junto com quem usa.
               </p>
             </div>
-          </div>
+          </motion.div>
           <ul className="model-evolution-list">
             <li><FiCheck aria-hidden="true" /> Atualizações e novidades</li>
             <li><FiCheck aria-hidden="true" /> Troca entre clientes</li>
@@ -495,7 +524,7 @@ export default function Modelos() {
         className="model-section model-cost-section"
         aria-labelledby="cost-title"
       >
-        <div className="model-cost-copy">
+        <motion.div className="model-cost-copy" {...revealProps}>
           <p className="model-kicker">06 / O VALOR DA PRODUÇÃO</p>
           <h2 id="cost-title" className="model-display">
             Quanto custaria produzir tudo isso do jeito tradicional?
@@ -514,13 +543,13 @@ export default function Modelos() {
             *Estimativa de referência. O custo varia de acordo com o escopo e
             a produção.
           </span>
-        </div>
-        <div className="model-cost-number" aria-label="Dois mil reais">
+        </motion.div>
+        <motion.div className="model-cost-number" aria-label="Dois mil reais" {...revealProps}>
           <span>UMA PRODUÇÃO COMPLETA PODE CHEGAR A</span>
           <strong>R$ 2.000<sup>*</sup></strong>
           <i aria-hidden="true" />
           <span>FOTOGRAFIA · VÍDEO · PÓS-PRODUÇÃO</span>
-        </div>
+        </motion.div>
       </section>
 
       <section
@@ -528,16 +557,16 @@ export default function Modelos() {
         className="model-section model-pricing-section"
         aria-labelledby="pricing-title"
       >
-        <div className="model-pricing-heading">
+        <motion.div className="model-pricing-heading" {...revealProps}>
           <p className="model-kicker">07 / ESCOLHA O SEU ESTÚDIO</p>
           <h2 id="pricing-title" className="model-display">
             Fotos ou <span>Fotos + Vídeos.</span>
           </h2>
           <p>Um pagamento único. Seu próximo passo criativo começa aqui.</p>
-        </div>
+        </motion.div>
 
         <div className="model-pricing-grid">
-          <article className="model-price-card">
+          <motion.article className="model-price-card" {...revealProps}>
             <div className="model-price-card-heading">
               <span className="model-film-label">ESTÚDIO INVISÍVEL</span>
               <h3>Fotos</h3>
@@ -558,9 +587,13 @@ export default function Modelos() {
             <a className="model-button model-button-secondary" href="/#contact">
               Quero o Estúdio Fotos <FiArrowUpRight aria-hidden="true" />
             </a>
-          </article>
+          </motion.article>
 
-          <article className="model-price-card model-price-card-featured">
+          <motion.article
+            className="model-price-card model-price-card-featured"
+            {...revealProps}
+            transition={{ ...revealProps.transition, delay: 0.08 }}
+          >
             <span className="model-price-badge">MELHOR CUSTO-BENEFÍCIO</span>
             <div className="model-price-card-heading">
               <span className="model-film-label">ESTÚDIO INVISÍVEL</span>
@@ -582,54 +615,54 @@ export default function Modelos() {
             <a className="model-button model-button-primary" href="/#contact">
               Quero Fotos + Vídeos <FiArrowUpRight aria-hidden="true" />
             </a>
-          </article>
+          </motion.article>
         </div>
       </section>
 
       <section className="model-section model-faq-section" aria-labelledby="faq-title">
-        <div className="model-faq-heading">
+        <motion.div className="model-faq-heading" {...revealProps}>
           <p className="model-kicker">08 / PERGUNTAS FREQUENTES</p>
           <h2 id="faq-title" className="model-display">
             Sem mistério.
           </h2>
-        </div>
+        </motion.div>
         <div className="model-faq-list">
-          <details>
+          <motion.details {...revealProps}>
             <summary>Preciso treinar um modelo de IA do zero?</summary>
             <p>
               Não. A proposta é configurar instruções e uma base de
               conhecimento consultável por RAG. A IA recupera seus critérios e
               referências na hora de responder — sem treinar um modelo do zero.
             </p>
-          </details>
-          <details>
+          </motion.details>
+          <motion.details {...revealProps} transition={{ ...revealProps.transition, delay: 0.06 }}>
             <summary>Funciona com ChatGPT e Claude?</summary>
             <p>
               Sim. Os materiais e comandos são organizados para uso com o
               assistente escolhido, respeitando os recursos disponíveis em cada
               plataforma.
             </p>
-          </details>
-          <details>
+          </motion.details>
+          <motion.details {...revealProps} transition={{ ...revealProps.transition, delay: 0.12 }}>
             <summary>Posso usar minhas próprias fotos e referências?</summary>
             <p>
               Sim. Suas imagens servem como referências para definir direção
               visual, e os documentos podem reunir presets, critérios de edição
               e exemplos do resultado que você busca.
             </p>
-          </details>
+          </motion.details>
         </div>
       </section>
 
       <footer id="contato" className="model-footer">
-        <div>
+        <motion.div {...revealProps}>
           <p className="model-kicker">SEU PRÓXIMO PROMPT PODE TER IDENTIDADE.</p>
           <h2 className="model-display">
             Vamos criar
             <br />
             <span>o seu sistema.</span>
           </h2>
-        </div>
+        </motion.div>
         <a className="model-button model-button-primary" href="/#contact">
           Fale com a gente <FiArrowUpRight aria-hidden="true" />
         </a>

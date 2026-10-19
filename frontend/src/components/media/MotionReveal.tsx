@@ -20,15 +20,15 @@ export default function MotionReveal({
       initial={
         shouldReduceMotion
           ? false
-          : { opacity: 0, y: 48, scale: 0.96, filter: "blur(4px)" }
+          : { opacity: 0, y: 72, scale: 0.93, filter: "blur(7px)" }
       }
       whileInView={
         shouldReduceMotion
           ? undefined
           : { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }
       }
-      viewport={{ once: true, amount: 0.14 }}
-      transition={{ duration: 0.82, delay, ease: [0.16, 1, 0.3, 1] }}
+      viewport={{ once: true, amount: 0.18 }}
+      transition={{ duration: 1, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
     </motion.div>

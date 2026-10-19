@@ -1,8 +1,11 @@
 const servicesOptions: string[] = [
-
   "Gestão de Redes Sociais",
 
   "Edição de Vídeos",
+
+  "Criação de Conteúdo",
+
+  "Captação de Conteúdo",
 
   "Fotografia Profissional",
 
@@ -21,8 +24,6 @@ const servicesOptions: string[] = [
   "Sistemas Personalizados",
 
   "Consultoria Digital",
-
 ];
-
 
 export default servicesOptions;

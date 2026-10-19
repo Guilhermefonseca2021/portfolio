@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import fonsecaApi from "../../../services/fonsecaApi";
 import { notifyToast } from "../../ui/GlobalToast";
 
@@ -9,12 +9,89 @@ import ServicesModal from "./ServicesModal";
 export default function Contact() {
   const [modal, setModal] = useState(false);
   const [services, setServices] = useState<string[]>([]);
+  const [selectedPlans, setSelectedPlans] = useState<string[]>([]);
+
+  useEffect(() => {
+    const handlePlanSelected = (event: Event) => {
+      const customEvent = event as CustomEvent<{ plan?: string }>;
+      const planName = customEvent.detail?.plan;
+
+      if (!planName) {
+        return;
+      }
+
+      setSelectedPlans((prev) =>
+        prev.includes(planName) ? prev : [...prev, planName],
+      );
+
+      const contactSection = document.getElementById("contact");
+      contactSection?.scrollIntoView({ behavior: "smooth", block: "start" });
+
+      notifyToast(
+        `Plano "${planName}" já está no formulário. Você pode remover ou trocar antes de enviar.`,
+        "success",
+      );
+    };
+
+    window.addEventListener(
+      "social-plan:selected",
+      handlePlanSelected as EventListener,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "social-plan:selected",
+        handlePlanSelected as EventListener,
+      );
+    };
+  }, []);
+
+  useEffect(() => {
+    const handleServiceSelected = (event: Event) => {
+      const customEvent = event as CustomEvent<{ service?: string }>;
+      const serviceName = customEvent.detail?.service;
+
+      if (!serviceName) return;
+
+      setServices((prev) =>
+        prev.includes(serviceName) ? prev : [...prev, serviceName],
+      );
+
+      document
+        .getElementById("contact")
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
+      notifyToast(
+        `Serviço "${serviceName}" adicionado ao formulário. Você pode selecionar outros também.`,
+        "success",
+      );
+    };
+
+    window.addEventListener(
+      "social-service:selected",
+      handleServiceSelected as EventListener,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "social-service:selected",
+        handleServiceSelected as EventListener,
+      );
+    };
+  }, []);
 
   function toggleService(service: string) {
     setServices((prev) =>
       prev.includes(service)
         ? prev.filter((item) => item !== service)
         : [...prev, service],
+    );
+  }
+
+  function togglePlan(plan: string) {
+    setSelectedPlans((prev) =>
+      prev.includes(plan)
+        ? prev.filter((item) => item !== plan)
+        : [...prev, plan],
     );
   }
 
@@ -27,6 +104,8 @@ export default function Contact() {
       data.whatsapp.trim() && `WhatsApp: ${data.whatsapp.trim()}`,
       data.company.trim() && `Empresa: ${data.company.trim()}`,
       data.instagram.trim() && `Instagram: ${data.instagram.trim()}`,
+      data.selectedPlans.length > 0 &&
+        `Planos: ${data.selectedPlans.join(", ")}`,
       data.services.length > 0 && `Serviços: ${data.services.join(", ")}`,
       data.objective.trim() && `Objetivo: ${data.objective.trim()}`,
       data.companySize.trim() && `Porte da empresa: ${data.companySize.trim()}`,
@@ -41,7 +120,16 @@ export default function Contact() {
     window.open(whatsappLink, "_blank", "noopener,noreferrer");
 
     try {
-      await fonsecaApi.leads.create(data);
+      const { selectedPlans: planSelections, ...leadData } = data;
+      const mergedServices = [
+        ...new Set([...planSelections, ...leadData.services]),
+      ];
+
+      await fonsecaApi.leads.create({
+        ...leadData,
+        services: mergedServices,
+      });
+
       notifyToast(
         "Pedido enviado para orçamento com sucesso! Entraremos em contato.",
         "success",
@@ -73,7 +161,7 @@ export default function Contact() {
         z-10
         mx-auto
         max-w-7xl
-        px-8
+        px-6
         "
       >
         <MotionReveal
@@ -83,10 +171,10 @@ export default function Contact() {
         >
           <span
             className="
-            text-xs
+            text-[10px]
             font-semibold
             uppercase
-            tracking-[6px]
+            tracking-[0.2em]
             text-primary
             "
           >
@@ -95,13 +183,13 @@ export default function Contact() {
 
           <h2
             className="
-            mt-5
-            text-3xl
+            mt-3
+            text-[1.7rem]
             font-bold
             leading-tight
             tracking-tight
             text-white
-            sm:text-4xl
+            sm:mt-5 sm:text-4xl
             lg:text-5xl
             "
           >
@@ -111,21 +199,22 @@ export default function Contact() {
 
           <p
             className="
-            mt-6
+            mt-3
             max-w-xl
-            text-lg
-            leading-8
+            text-base
+            leading-6
             text-white/70
             "
           >
-            Conte sua ideia e receba uma estratégia personalizada para
-            transformar sua marca.
+            Conte sua ideia. Vamos encontrar a direção certa para sua marca.
           </p>
         </MotionReveal>
 
-        <MotionReveal delay={0.12}>
+        <MotionReveal className="mt-6 sm:mt-0" delay={0.12}>
           <ContactForm
             services={services}
+            selectedPlans={selectedPlans}
+            onTogglePlan={togglePlan}
             openModal={() => setModal(true)}
             onSubmit={handleSubmit}
           />

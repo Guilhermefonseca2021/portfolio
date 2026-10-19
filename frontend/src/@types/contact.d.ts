@@ -6,6 +6,7 @@ interface ContactFormData {
   instagram: string;
 
   services: string[];
+  selectedPlans: string[];
 
   objective: string;
   companySize: string;

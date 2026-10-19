@@ -1,9 +1,12 @@
-import { useState, type CSSProperties } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { useRef, useState, type CSSProperties } from "react";
 import {
+  FiArrowDown,
   FiArrowDownRight,
   FiArrowUpRight,
   FiCheck,
+  FiChevronLeft,
+  FiChevronRight,
   FiMove,
   FiPlay,
 } from "react-icons/fi";
@@ -37,21 +40,21 @@ const steps = [
   },
 ];
 
-const presets = [
+const onboardingSteps = [
   {
-    command: "/preset-1",
-    title: "Color grade",
-    description: "Tons, contraste e acabamento com a identidade da sua marca.",
+    number: "01",
+    title: "ASSISTA",
+    description: "Entenda o método em uma aula rápida.",
   },
   {
-    command: "/preset-2",
-    title: "Edição editorial",
-    description: "Uma direção pronta para retratos, campanhas e conteúdo.",
+    number: "02",
+    title: "INSTALE",
+    description: "Adicione o Estúdio Invisível à tela do seu celular.",
   },
   {
-    command: "/models",
-    title: "Modelos e formatos",
-    description: "Referências e instruções para capas, feeds e novas imagens.",
+    number: "03",
+    title: "CRIE",
+    description: "Abra o app, escolha uma foto, copie e use.",
   },
 ];
 
@@ -106,6 +109,61 @@ const aiImageExamples = [
   },
 ];
 
+const showcaseCards = [
+  {
+    image: "/portfolio/media/fonseca-retrato.jpg",
+    alt: "Retrato editorial do fotógrafo",
+    label: "DEPOIS DO PROMPT",
+    title: "Retrato editorial",
+    className: "model-showcase-card-portrait",
+  },
+  {
+    image: "/portfolio/media/fonseca-camera.jpeg",
+    alt: "Fotógrafo trabalhando com a câmera",
+    label: "ANTES / DEPOIS 02",
+    title: "Produção em movimento",
+    className: "model-showcase-card-motion",
+  },
+  {
+    image: "/portfolio/media/fonseca-trabalho.jpeg",
+    alt: "Bastidores de uma produção criativa",
+    label: "ANTES / DEPOIS 03",
+    title: "Bastidores que contam",
+    className: "model-showcase-card-behind",
+  },
+];
+
+const colorGradeExamples = [
+  {
+    src: "/images/estudio-invisivel/parmegiana.jpeg",
+    alt: "Prato de parmegiana antes e depois de receber color grade",
+    title: "Luz quente, textura viva",
+    category: "FOOD / COLOR GRADE",
+    gradient: "linear-gradient(135deg, #ec693b, #f5b544 48%, #8b322b)",
+  },
+  {
+    src: "/images/estudio-invisivel/brownie.png",
+    alt: "Brownie antes e depois de receber color grade",
+    title: "Editorial de sobremesa",
+    category: "FOOD / EDITORIAL",
+    gradient: "linear-gradient(135deg, #79412f, #d38454 52%, #f0bd78)",
+  },
+  {
+    src: "/images/estudio-invisivel/caesar.png",
+    alt: "Salada Caesar antes e depois de receber color grade",
+    title: "Frescor em primeiro plano",
+    category: "FOOD / NATURAL",
+    gradient: "linear-gradient(135deg, #386f55, #aec76d 52%, #e7cf82)",
+  },
+  {
+    src: "/images/estudio-invisivel/pudim.png",
+    alt: "Pudim antes e depois de receber color grade",
+    title: "Clássico com assinatura",
+    category: "FOOD / ASSINATURA",
+    gradient: "linear-gradient(135deg, #682e24, #ce7740 50%, #f2c56f)",
+  },
+];
+
 const traditionalProduction = [
   "Fotógrafo",
   "Captação",
@@ -118,8 +176,16 @@ const traditionalProduction = [
 ];
 
 export default function Modelos() {
-  const [comparison, setComparison] = useState(50);
+  const [activeHeroSlide, setActiveHeroSlide] = useState(0);
+  const comparisonCarouselRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
+
+  const moveComparisonCarousel = (direction: -1 | 1) => {
+    comparisonCarouselRef.current?.scrollBy({
+      left: direction * comparisonCarouselRef.current.clientWidth * 0.78,
+      behavior: prefersReducedMotion ? "instant" : "smooth",
+    });
+  };
   const revealProps = {
     initial: prefersReducedMotion ? false : { opacity: 0 },
     whileInView: prefersReducedMotion ? undefined : { opacity: 1 },
@@ -149,8 +215,10 @@ export default function Modelos() {
 
       <header className="model-nav">
         <a className="model-brand" href="/" aria-label="Fonseca — início">
-          <span className="model-brand-mark">F.</span>
-          <span>FÁBRICA <span className="model-brand-muted">/ MODELOS</span></span>
+          <span className="model-brand-mark">M</span>
+          <span>
+            Método <span className="model-brand-muted">/ AI Studio</span>
+          </span>
         </a>
         <nav aria-label="Navegação principal">
           <a href="#comparacao">Demonstração</a>
@@ -168,60 +236,119 @@ export default function Modelos() {
         <motion.div className="model-hero-copy" {...heroRevealProps}>
           <p className="model-kicker">
             <span className="model-live-dot" />
-            ESTÚDIO CRIATIVO + INTELIGÊNCIA ARTIFICIAL
+            Método AI Estúdio + INTELIGÊNCIA ARTIFICIAL
           </p>
           <h1 id="model-hero-title" className="model-display">
-            A IA cria.
+            Essa sessão de fotos
             <br />
-            <span>Seu estilo</span>
+            <span>nunca aconteceu</span>
             <br />
-            assina.
           </h1>
           <p className="model-hero-description">
             Presets, comandos e referências para transformar a sua identidade
-            visual em imagens com intenção — sem começar do zero a cada prompt.
+            visual em imagens com intenção <br />✓ Sem fotógrafo <br />✓ Sem
+            horas perdidas <br />✓ Sem *cara* de IA
           </p>
           <div className="model-hero-actions">
             <a className="model-button model-button-primary" href="#comparacao">
               Ver a transformação <FiArrowDownRight aria-hidden="true" />
             </a>
-            <span className="model-hero-note">Feito para ChatGPT ou Claude</span>
+            <span className="model-hero-note">
+              Feito para ChatGPT ou Claude
+            </span>
           </div>
-          <div className="model-hero-stamp" aria-hidden="true">
-            <span>ESTILO</span>
-            <span>COM</span>
-            <span>INTENÇÃO</span>
-          </div>
+          <a className="model-hero-scroll" href="#metodo">
+            <span>VEJA COMO FUNCIONA</span>
+            <FiArrowDown aria-hidden="true" />
+          </a>
         </motion.div>
 
         <div className="model-hero-visual">
-          <div className="model-video-frame">
-            <video autoPlay loop muted playsInline preload="auto" poster="/portfolio/media/fonseca-retrato.jpg">
-              <source src="/videos/hero.webm" type="video/webm" />
-              Seu navegador não suporta vídeo incorporado.
-            </video>
-            <div className="model-video-shade" />
-            <div className="model-video-caption">
-              <span className="model-video-status">
-                <span className="model-live-dot" />
-                DIREÇÃO EM MOVIMENTO
-              </span>
-              <span>IMAGEM É LINGUAGEM.</span>
+          <div
+            className="model-hero-image-carousel"
+            role="region"
+            aria-label="Galeria de imagens da Fábrica de Modelos"
+            aria-roledescription="carrossel"
+          >
+            <div className="model-hero-image-strip">
+              {[0, 1, 2].map((offset) => {
+                const image =
+                  aiImageExamples[
+                    (activeHeroSlide + offset) % aiImageExamples.length
+                  ];
+
+                return (
+                  <img
+                    key={image.src}
+                    src={image.src}
+                    alt={image.alt}
+                    loading={offset === 0 ? "eager" : "lazy"}
+                  />
+                );
+              })}
             </div>
-            <a
-              className="model-video-index"
-              href="https://www.youtube.com/watch?v=aqz-KE-bpKQ"
-              target="_blank"
-              rel="noreferrer"
-            >
-              VÍDEO EXEMPLO NO YOUTUBE ↗
-            </a>
+            <div className="model-hero-image-controls">
+              <button
+                type="button"
+                aria-label="Imagens anteriores"
+                onClick={() =>
+                  setActiveHeroSlide(
+                    (activeHeroSlide - 1 + aiImageExamples.length) %
+                      aiImageExamples.length,
+                  )
+                }
+              >
+                <FiChevronLeft aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                aria-label="Próximas imagens"
+                onClick={() =>
+                  setActiveHeroSlide(
+                    (activeHeroSlide + 1) % aiImageExamples.length,
+                  )
+                }
+              >
+                <FiChevronRight aria-hidden="true" />
+              </button>
+            </div>
           </div>
-          <p className="model-visual-footnote">
-            REFERÊNCIA VISUAL <span>—</span> A SUA IDENTIDADE, NÃO UM FILTRO
-            GENÉRICO
-          </p>
         </div>
+      </section>
+
+      <section
+        className="model-showcase-section"
+        aria-labelledby="showcase-title"
+      >
+        <div className="model-showcase-heading">
+          <p className="model-kicker">
+            Uma foto simples. Uma nova apresentação.
+          </p>
+          <h2 id="showcase-title">
+            <br />
+            Essas sessões também não aconteceram. Aprenda uma vez. Use sempre.
+          </h2>
+        </div>
+        <div className="model-showcase-grid">
+          {showcaseCards.map((card, index) => (
+            <article
+              className={`model-showcase-card ${card.className}`}
+              key={card.image}
+            >
+              <img src={card.image} alt={card.alt} loading="lazy" />
+              <div className="model-showcase-card-copy">
+                <span>{card.label}</span>
+                <h3>{card.title}</h3>
+                <span className="model-showcase-card-index">
+                  0{index + 1} <FiArrowUpRight aria-hidden="true" />
+                </span>
+              </div>
+            </article>
+          ))}
+        </div>
+        <p className="model-showcase-note">
+          Você não precisa fazer um curso longo.
+        </p>
       </section>
 
       <div className="model-marquee" aria-label="Imagem. Referência. Intenção.">
@@ -243,67 +370,78 @@ export default function Modelos() {
         <motion.div className="model-section-heading" {...revealProps}>
           <p className="model-kicker">01 / ANTES E DEPOIS</p>
           <h2 id="comparison-title" className="model-display">
-            Uma imagem.
+            Aprenda uma vez.
             <br />
-            <span>Outra intenção.</span>
+            <span>Use sempre que precisar.</span>
           </h2>
           <p>
-            Arraste a linha para comparar a foto original com a mesma imagem
-            recebendo um color grade de demonstração.
+            Depois disso, quando precisar criar uma nova foto, é só abrir o
+            aplicativo, escolher o estilo que quer, copiar o prompt e usar com a
+            foto do seu produto.
           </p>
         </motion.div>
 
         <div className="model-compare-wrap">
-          <div className="model-compare-label">
-            <span>DESLIZE PARA COMPARAR</span>
-            <FiMove aria-hidden="true" />
+          <div className="model-compare-toolbar">
+            <div className="model-compare-label">
+              <span>ANTES / DEPOIS · COLOR GRADE EM GRADIENTE</span>
+              <FiMove aria-hidden="true" />
+            </div>
+            <div className="model-compare-controls">
+              <button
+                type="button"
+                aria-label="Exemplos anteriores"
+                onClick={() => moveComparisonCarousel(-1)}
+              >
+                <FiChevronLeft aria-hidden="true" />
+              </button>
+              <button
+                type="button"
+                aria-label="Próximos exemplos"
+                onClick={() => moveComparisonCarousel(1)}
+              >
+                <FiChevronRight aria-hidden="true" />
+              </button>
+            </div>
           </div>
           <div
-            className="model-compare"
-            style={{ "--compare-position": `${comparison}%` } as CSSProperties}
+            className="model-compare-carousel"
+            ref={comparisonCarouselRef}
+            tabIndex={0}
+            aria-label="Carrossel de exemplos antes e depois"
           >
-            <img
-              className="model-compare-image model-compare-before"
-              src="/portfolio/media/fonseca-retrato.jpg"
-              alt="Retrato original sem o preset de cor"
-              draggable="false"
-            />
-            <div className="model-compare-after">
-              <img
-                className="model-compare-image"
-                src="/portfolio/media/fonseca-retrato.jpg"
-                alt=""
-                aria-hidden="true"
-                draggable="false"
-              />
-            </div>
-            <span className="model-compare-tag model-compare-tag-before">
-              ORIGINAL <span>·</span> SEM PRESET
-            </span>
-            <span className="model-compare-tag model-compare-tag-after">
-              COLOR GRADE <span>·</span> COM PRESET
-            </span>
-            <div className="model-compare-divider" aria-hidden="true">
-              <span className="model-compare-knob">
-                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="m14.5 5-7 7 7 7M9.5 5l7 7-7 7" />
-                </svg>
-              </span>
-            </div>
-            <input
-              className="model-compare-slider"
-              type="range"
-              min="5"
-              max="95"
-              value={comparison}
-              onChange={(event) => setComparison(Number(event.target.value))}
-              aria-label="Arraste para comparar a imagem original com a imagem com preset"
-            />
+            {colorGradeExamples.map((example) => (
+              <article className="model-grade-card" key={example.src}>
+                <div className="model-grade-card-heading">
+                  <span>{example.category}</span>
+                  <h3>{example.title}</h3>
+                </div>
+                <div
+                  className="model-grade-pair"
+                  style={
+                    { "--grade-gradient": example.gradient } as CSSProperties
+                  }
+                >
+                  <figure className="model-grade-frame model-grade-before">
+                    <figcaption>ANTES</figcaption>
+                    <img src={example.src} alt={example.alt} loading="lazy" />
+                  </figure>
+                  <figure className="model-grade-frame model-grade-after">
+                    <figcaption>DEPOIS</figcaption>
+                    <img
+                      src={example.src}
+                      alt=""
+                      aria-hidden="true"
+                      loading="lazy"
+                    />
+                  </figure>
+                </div>
+                <p>
+                  MESMA REFERÊNCIA <span>·</span> NOVA DIREÇÃO DE COR
+                </p>
+              </article>
+            ))}
           </div>
-          <p className="model-compare-caption">
-            DEMONSTRAÇÃO DE COLOR GRADING <span>—</span> A MESMA FOTO, DUAS
-            DIREÇÕES VISUAIS
-          </p>
         </div>
       </section>
 
@@ -320,15 +458,16 @@ export default function Modelos() {
             <span>É contexto.</span>
           </h2>
           <p>
-            RAG é a ponte entre o que você pede e o que a IA precisa saber.
-            Em vez de depender só de uma instrução genérica, ela consulta uma
-            base de conhecimento preparada para o seu jeito de criar.
+            RAG é a ponte entre o que você pede e o que a IA precisa saber. Em
+            vez de depender só de uma instrução genérica, ela consulta nossa
+            base, treinamos ela para ficar preparada para o melhor jeito de
+            criar.
           </p>
           <div className="model-rag-note">
             <span className="model-rag-note-symbol">RAG</span>
             <span>
-              <strong>Geração aumentada por recuperação.</strong>
-              A IA busca referências antes de responder.
+              <strong>Geração aumentada por recuperação.</strong>A IA busca
+              nossas referências antes de responder.
             </span>
           </div>
         </motion.div>
@@ -339,7 +478,10 @@ export default function Modelos() {
               className="model-step"
               key={step.number}
               {...revealProps}
-              transition={{ ...revealProps.transition, delay: Number(step.number) * 0.06 }}
+              transition={{
+                ...revealProps.transition,
+                delay: Number(step.number) * 0.06,
+              }}
             >
               <span className="model-step-number">{step.number}</span>
               <div>
@@ -350,66 +492,116 @@ export default function Modelos() {
             </motion.article>
           ))}
         </div>
-
-        <motion.div className="model-prompt-card" {...revealProps}>
-          <div className="model-prompt-header">
-            <span><i /> BASE DE CONHECIMENTO</span>
-            <span>PDF · PRESETS · REFERÊNCIAS</span>
-          </div>
-          <p className="model-prompt-question">/presets-colors-dias</p>
-          <div className="model-prompt-rule">
-            <span>REGRA RECUPERADA</span>
-            <p>
-              “Preserve tons de pele naturais. Use sombras profundas, luz
-              lateral suave e uma paleta fria com pontos quentes controlados.”
-            </p>
-          </div>
-          <div className="model-prompt-footer">
-            <span>CONTEXTO ENCONTRADO</span>
-            <span className="model-prompt-match">98% MATCH</span>
-          </div>
-        </motion.div>
       </section>
 
-      <section
-        id="presets"
-        className="model-section model-presets-section"
-        aria-labelledby="presets-title"
+      <motion.section
+        className="model-prompt-gallery-section"
+        aria-label="Possibilidades para criar imagens com direção"
+        {...revealProps}
       >
-        <motion.div className="model-presets-heading" {...revealProps}>
-          <div>
-            <p className="model-kicker">03 / SEU FLUXO CRIATIVO</p>
-            <h2 id="presets-title" className="model-display">
-              Um comando.
-              <br />
-              <span>Uma direção.</span>
-            </h2>
+        <div className="model-prompt-gallery">
+          <div className="model-prompt-gallery-copy">
+            <span className="model-film-label">
+              UMA FOTO, OUTRAS POSSIBILIDADES
+            </span>
+            <h3>Primeiro, a imagem ganha direção.</h3>
+            <p>
+              Experimente cenas, luzes e enquadramentos sem perder de vista o
+              produto que torna a sua marca única.
+            </p>
+            <a href="#imagens-ia">
+              Ver exemplos <FiArrowUpRight aria-hidden="true" />
+            </a>
           </div>
-          <p>
-            Os gatilhos acionam instruções e referências específicas. Menos
-            retrabalho explicando; mais consistência no resultado.
+          <div
+            className="model-prompt-mosaic"
+            aria-label="Exemplos de imagens de produto"
+          >
+            <img
+              src="/images/estudio-invisivel/brownie.png"
+              alt="Brownie com sorvete em uma composição de produto"
+            />
+            <img
+              src="/images/estudio-invisivel/caesar.png"
+              alt="Salada Caesar em uma composição editorial"
+            />
+            <img
+              src="/images/estudio-invisivel/parmegiana.jpeg"
+              alt="Parmegiana preparada para apresentação de restaurante"
+            />
+            <img
+              src="/images/estudio-invisivel/salmao.jpeg"
+              alt="Prato de salmão com acompanhamentos"
+            />
+          </div>
+        </div>
+      </motion.section>
+
+      <section
+        id="primeiros-passos"
+        className="model-section model-onboarding-section"
+        aria-labelledby="onboarding-title"
+      >
+        <motion.div className="model-onboarding-copy" {...revealProps}>
+          <p className="model-kicker">03 / APRENDA UMA VEZ. USE SEMPRE.</p>
+          <h2 id="onboarding-title" className="model-display">
+            Você não precisa fazer um curso longo.
+          </h2>
+          <p className="model-onboarding-description">
+            Assista a uma aula rápida, entenda como funciona e instale o Estúdio
+            Invisível no seu celular.
+          </p>
+          <p className="model-onboarding-description">
+            Depois, quando quiser criar uma nova foto, abra o aplicativo,
+            escolha o estilo, copie o prompt e use com a foto do seu produto.
+          </p>
+          <p className="model-onboarding-mantra">
+            Aprenda uma vez.
+            <br />
+            <span>Use sempre que precisar.</span>
           </p>
         </motion.div>
-        <div className="model-preset-grid">
-          {presets.map((preset, index) => (
+
+        <div className="model-onboarding-steps">
+          {onboardingSteps.map((step, index) => (
             <motion.article
-              className="model-preset-card"
-              key={preset.command}
+              className="model-onboarding-step"
+              key={step.number}
               {...revealProps}
               transition={{ ...revealProps.transition, delay: index * 0.08 }}
             >
-              <span className="model-preset-prompt">PROMPT / GATILHO</span>
-              <code>{preset.command}</code>
-              <h3>{preset.title}</h3>
-              <p>{preset.description}</p>
+              <span>{step.number}</span>
+              <div>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </div>
               <FiArrowUpRight aria-hidden="true" />
             </motion.article>
           ))}
         </div>
-        <p className="model-preset-footnote">
-          Os comandos e a base de conhecimento são personalizados para o seu
-          fluxo. Exemplos ilustrativos.
-        </p>
+
+        <motion.aside className="model-onboarding-community" {...revealProps}>
+          <div className="model-onboarding-collage">
+            <img
+              src="/images/estudio-invisivel/parmegiana.jpeg"
+              alt="Exemplo de criação de conteúdo para restaurante"
+            />
+            <img
+              src="/images/estudio-invisivel/brownie.png"
+              alt="Exemplo de fotografia de sobremesa"
+            />
+            <img
+              src="/images/estudio-invisivel/salmao.jpeg"
+              alt="Exemplo de fotografia de prato principal"
+            />
+          </div>
+          <div className="model-onboarding-community-copy">
+            <span>O PRÓXIMO PASSO VOCÊ NÃO PRECISA DESCOBRIR SOZINHO</span>
+            <strong>
+              Novidades, troca entre clientes e novos testes para acompanhar.
+            </strong>
+          </div>
+        </motion.aside>
       </section>
 
       <section
@@ -419,7 +611,6 @@ export default function Modelos() {
       >
         <motion.div className="model-ai-gallery-heading" {...revealProps}>
           <div>
-            <p className="model-kicker">04 / EXEMPLOS CRIADOS COM IA</p>
             <h2 id="ai-gallery-title" className="model-display">
               Ideias que
               <br />
@@ -489,7 +680,9 @@ export default function Modelos() {
                 <FiPlay aria-hidden="true" /> DEMONSTRAÇÃO · 00:20
               </span>
               <div className="model-film-copy">
-                <span className="model-film-label">DO CONCEITO AO RESULTADO</span>
+                <span className="model-film-label">
+                  DO CONCEITO AO RESULTADO
+                </span>
                 <h3>Uma imagem. Novas possibilidades.</h3>
                 <p>
                   Crie a foto com direção visual e dê o próximo passo com
@@ -498,24 +691,31 @@ export default function Modelos() {
               </div>
             </div>
           </article>
-
         </div>
 
         <div className="model-evolution">
           <motion.div className="model-evolution-copy" {...revealProps}>
-            <span className="model-evolution-mark" aria-hidden="true">+</span>
+            <span className="model-evolution-mark" aria-hidden="true">
+              +
+            </span>
             <div>
-              <span className="model-film-label">FEITO PARA CONTINUAR CRESCENDO</span>
+              <span className="model-film-label">
+                FEITO PARA CONTINUAR CRESCENDO
+              </span>
               <h3>Você não recebe apenas o que existe hoje.</h3>
-              <p>
-                O Estúdio Invisível continua evoluindo junto com quem usa.
-              </p>
+              <p>O Estúdio Invisível continua evoluindo junto com quem usa.</p>
             </div>
           </motion.div>
           <ul className="model-evolution-list">
-            <li><FiCheck aria-hidden="true" /> Atualizações e novidades</li>
-            <li><FiCheck aria-hidden="true" /> Troca entre clientes</li>
-            <li><FiCheck aria-hidden="true" /> Novos testes e prompts</li>
+            <li>
+              <FiCheck aria-hidden="true" /> Atualizações e novidades
+            </li>
+            <li>
+              <FiCheck aria-hidden="true" /> Troca entre clientes
+            </li>
+            <li>
+              <FiCheck aria-hidden="true" /> Novos testes e prompts
+            </li>
           </ul>
         </div>
       </section>
@@ -530,23 +730,32 @@ export default function Modelos() {
             Quanto custaria produzir tudo isso do jeito tradicional?
           </h2>
           <p>
-            Fotógrafo, captação, iluminação, produção, tratamento, vídeo,
-            edição e tempo. Uma produção mais completa pode representar
-            centenas ou até milhares de reais.*
+            Fotógrafo, captação, iluminação, produção, tratamento, vídeo, edição
+            e tempo. Uma produção mais completa pode representar centenas ou até
+            milhares de reais.*
           </p>
-          <ul className="model-cost-list" aria-label="Etapas de uma produção tradicional">
+          <ul
+            className="model-cost-list"
+            aria-label="Etapas de uma produção tradicional"
+          >
             {traditionalProduction.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
           <span className="model-cost-footnote">
-            *Estimativa de referência. O custo varia de acordo com o escopo e
-            a produção.
+            *Estimativa de referência. O custo varia de acordo com o escopo e a
+            produção.
           </span>
         </motion.div>
-        <motion.div className="model-cost-number" aria-label="Dois mil reais" {...revealProps}>
+        <motion.div
+          className="model-cost-number"
+          aria-label="Dois mil reais"
+          {...revealProps}
+        >
           <span>UMA PRODUÇÃO COMPLETA PODE CHEGAR A</span>
-          <strong>R$ 2.000<sup>*</sup></strong>
+          <strong>
+            R$ 1.500<sup>*</sup>
+          </strong>
           <i aria-hidden="true" />
           <span>FOTOGRAFIA · VÍDEO · PÓS-PRODUÇÃO</span>
         </motion.div>
@@ -619,7 +828,10 @@ export default function Modelos() {
         </div>
       </section>
 
-      <section className="model-section model-faq-section" aria-labelledby="faq-title">
+      <section
+        className="model-section model-faq-section"
+        aria-labelledby="faq-title"
+      >
         <motion.div className="model-faq-heading" {...revealProps}>
           <p className="model-kicker">08 / PERGUNTAS FREQUENTES</p>
           <h2 id="faq-title" className="model-display">
@@ -630,12 +842,15 @@ export default function Modelos() {
           <motion.details {...revealProps}>
             <summary>Preciso treinar um modelo de IA do zero?</summary>
             <p>
-              Não. A proposta é configurar instruções e uma base de
-              conhecimento consultável por RAG. A IA recupera seus critérios e
-              referências na hora de responder — sem treinar um modelo do zero.
+              Não. A proposta é configurar instruções e uma base de conhecimento
+              consultável por RAG. A IA recupera seus critérios e referências na
+              hora de responder — sem treinar um modelo do zero.
             </p>
           </motion.details>
-          <motion.details {...revealProps} transition={{ ...revealProps.transition, delay: 0.06 }}>
+          <motion.details
+            {...revealProps}
+            transition={{ ...revealProps.transition, delay: 0.06 }}
+          >
             <summary>Funciona com ChatGPT e Claude?</summary>
             <p>
               Sim. Os materiais e comandos são organizados para uso com o
@@ -643,7 +858,10 @@ export default function Modelos() {
               plataforma.
             </p>
           </motion.details>
-          <motion.details {...revealProps} transition={{ ...revealProps.transition, delay: 0.12 }}>
+          <motion.details
+            {...revealProps}
+            transition={{ ...revealProps.transition, delay: 0.12 }}
+          >
             <summary>Posso usar minhas próprias fotos e referências?</summary>
             <p>
               Sim. Suas imagens servem como referências para definir direção
@@ -656,11 +874,13 @@ export default function Modelos() {
 
       <footer id="contato" className="model-footer">
         <motion.div {...revealProps}>
-          <p className="model-kicker">SEU PRÓXIMO PROMPT PODE TER IDENTIDADE.</p>
+          <p className="model-kicker">
+            E você pode aprender a criar os dois para o seu negócio.
+          </p>
           <h2 className="model-display">
-            Vamos criar
+            Essa foto não teve sessão.
             <br />
-            <span>o seu sistema.</span>
+            <span>Esse vídeo não teve gravação.</span>
           </h2>
         </motion.div>
         <a className="model-button model-button-primary" href="/#contact">
@@ -669,9 +889,11 @@ export default function Modelos() {
         <div className="model-footer-bottom">
           <a className="model-brand" href="/" aria-label="Fonseca — início">
             <span className="model-brand-mark">F.</span>
-            <span>FÁBRICA <span className="model-brand-muted">/ MODELOS</span></span>
+            <span>
+              METODO AI<span className="model-brand-muted"> STUDIO</span>
+            </span>
           </a>
-          <span>IMAGENS COM INTENÇÃO. PROCESSOS COM IDENTIDADE.</span>
+          <span>Uma foto. Várias produções. Nenhuma sessão nova.</span>
           <a href="#model-hero-title">VOLTAR AO TOPO ↑</a>
         </div>
       </footer>

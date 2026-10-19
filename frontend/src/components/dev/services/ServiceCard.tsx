@@ -8,7 +8,7 @@ type Props = {
 export default function ServiceCard({ service }: Props) {
   return (
     <article
-      className="
+      className="spotlight-card
         rounded-3xl
         border
         border-white/10

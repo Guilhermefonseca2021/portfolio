@@ -16,7 +16,7 @@ export default function ProjectCard({
     return(
 
         <article
-            className="
+            className="spotlight-card
                 overflow-hidden
                 rounded-3xl
                 border
@@ -101,8 +101,9 @@ export default function ProjectCard({
                     target="_blank"
 
                     className="
+                        brand-button
                         inline-flex
-                        rounded-xl
+                        rounded-[18px]
                         bg-primary
                         px-6
                         py-3

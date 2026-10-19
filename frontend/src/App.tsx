@@ -16,6 +16,7 @@ import Home from "./pages/Home";
 import Leads from "./pages/Leads/Leads";
 import PortfolioDev from "./pages/PortfolioDev";
 import PortfolioSocialMedia from "./pages/PortfolioSocialMedia";
+import FactoryModels from "./pages/FactoryModels";
 import Modelos from "./pages/Modelos";
 import Reports from "./pages/Reports/Reports";
 import Settings from "./pages/Settings/Settings";
@@ -51,9 +52,9 @@ export default function App() {
 
           <Route path="/dev" element={<PortfolioDev />} />
 
-          <Route path="/modelos" element={<Navigate to="/fabrica-de-modelos" replace />} />
+          <Route path="/modelos" element={<Modelos />} />
 
-          <Route path="/fabrica-de-modelos" element={<Modelos />} />
+          <Route path="/fabrica-de-modelos" element={<FactoryModels />} />
 
           <Route path="/socialmedia" element={<Navigate to="/" replace />} />
 

@@ -8,27 +8,28 @@ import Register from "./components/auth/Register/Register";
 import AuthLayout from "./pages/_Layouts/AuthLayout";
 import DashboardLayout from "./pages/_Layouts/DashboardLayout";
 import Automations from "./pages/Automations/Automations";
+import CheckoutCancel from "./pages/Checkout/CheckoutCancel";
+import CheckoutSuccess from "./pages/Checkout/CheckoutSuccess";
 import Clients from "./pages/Clients/Clients";
 import CRM from "./pages/CRM/CRM";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Finance from "./pages/Financeiro/Finance";
+import FoodLab from "./pages/FoodLab";
 import Home from "./pages/Home";
 import Leads from "./pages/Leads/Leads";
+import Modelos from "./pages/Modelos";
 import PortfolioDev from "./pages/PortfolioDev";
 import PortfolioSocialMedia from "./pages/PortfolioSocialMedia";
-import Modelos from "./pages/Modelos";
 import Reports from "./pages/Reports/Reports";
-import Settings from "./pages/Settings/Settings";
-import TermsAndService from "./pages/TermosAndServicos";
-import Whatsapp from "./pages/whatsapp/whatsapp";
 import Images from "./pages/Services/Images";
 import PublicImage from "./pages/Services/PublicImage";
-import Profile from "./pages/Settings/Profile";
-import UpdateProfile from "./pages/Settings/UpdateProfile";
-import Plans from "./pages/Settings/Plans";
 import Contracts from "./pages/Settings/Contracts";
-import CheckoutSuccess from "./pages/Checkout/CheckoutSuccess";
-import CheckoutCancel from "./pages/Checkout/CheckoutCancel";
+import Plans from "./pages/Settings/Plans";
+import Profile from "./pages/Settings/Profile";
+import Settings from "./pages/Settings/Settings";
+import UpdateProfile from "./pages/Settings/UpdateProfile";
+import TermsAndService from "./pages/TermosAndServicos";
+import Whatsapp from "./pages/whatsapp/whatsapp";
 
 function ProtectedRoute({ children }: { children: React.ReactElement }) {
   if (!isAuthenticated()) {
@@ -51,9 +52,13 @@ export default function App() {
 
           <Route path="/dev" element={<PortfolioDev />} />
 
-          <Route path="/modelos" element={<Navigate to="/fabrica-de-modelos" replace />} />
+          <Route
+            path="/modelos"
+            element={<Navigate to="/fabrica-de-modelos" replace />}
+          />
 
-          <Route path="/fabrica-de-modelos" element={<Modelos />} />
+          <Route path="/metodo-ai-studio" element={<Modelos />} />
+          <Route path="/foodlab-studio" element={<FoodLab />} />
 
           <Route path="/socialmedia" element={<Navigate to="/" replace />} />
 

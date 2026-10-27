@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useMemo, useState } from "react";
 
 type PromptItem = {
@@ -206,6 +207,21 @@ export default function FoodLabStudioPage() {
   const [format, setFormat] = useState("4:5 — Feed Instagram");
   const [toast, setToast] = useState("");
 
+  useEffect(() => {
+    const pixelId = "2153674188571719";
+    if ((window as any).fbq) return;
+    const s = document.createElement("script");
+    s.async = true;
+    s.src = "https://connect.facebook.net/en_US/fbevents.js";
+    document.head.appendChild(s);
+    (window as any).fbq = function (...args: any[]) {
+      ((window as any).fbq.q = (window as any).fbq.q || []).push(args);
+    };
+    (window as any)._fbq = (window as any).fbq;
+    (window as any).fbq("init", pixelId);
+    (window as any).fbq("track", "PageView", { route: window.location.pathname, name: "FoodLab" });
+  }, []);
+
   const categories = useMemo(
     () => [
       "Todos",
@@ -315,8 +331,8 @@ export default function FoodLabStudioPage() {
               fotos que você já tem, sem perder o que torna seu produto único.
             </p>
             <div className="fl-actions">
-              <a className="fl-primary" href="#biblioteca">
-                Explorar a biblioteca ↘
+              <a className="fl-primary" href="https://pay.kiwify.com.br/pDueN25?utm_id=97760_v0_s00_e0_tv4" target="_blank" rel="noopener noreferrer">
+                Comprar agora ↗
               </a>
               <a className="fl-secondary" href="#comparacao">
                 Ver a transformação
@@ -652,7 +668,9 @@ export default function FoodLabStudioPage() {
               </div>
               <a
                 className="fl-secondary"
-                href="#contato"
+                href="https://pay.kiwify.com.br/pDueN25?utm_id=97760_v0_s00_e0_tv4"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{ justifyContent: "center", marginTop: 18 }}
               >
                 Quero o Estúdio Fotos ↗
@@ -670,12 +688,14 @@ export default function FoodLabStudioPage() {
                 ))}
               </ul>
               <div className="fl-price">
-                <strong>R$ 59</strong>
+                <strong>R$ Em-breve</strong>
                 <span>Pagamento único</span>
               </div>
               <a
                 className="fl-primary"
-                href="#contato"
+                href="https://pay.kiwify.com.br/pDueN25?utm_id=97760_v0_s00_e0_tv4"
+                target="_blank"
+                rel="noopener noreferrer"
                 style={{ justifyContent: "center", marginTop: 18 }}
               >
                 Quero Fotos + Vídeos ↗
